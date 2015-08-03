@@ -362,8 +362,7 @@ var interval = 20
 //
 
 window.onload = function WindowLoad(event){
-	localStorageT();
-	//load();
+	load();
 	timeout();
 };
 
@@ -378,25 +377,9 @@ function timeout(){
 var savegame = JSON.parse(localStorage.getItem("save"));
 
 function load(){
-	console.log(savegame.length);
+	console.log(savegame);
 	for (i = 0; i < savegame.length; i++){
 		console.log(savegame[i]);
-	}
-};
-
-function localStorageT(){
-    var test = 'test';
-    try {
-        localStorage.setItem(test, test);
-        localStorage.removeItem(test);
-        return true;
-    } catch(e) {
-        return false;
-    }
-	if(localStorageT() === true){
-		console.log("available");
-	}else{
-		console.log("unavailable");
 	}
 };
 
