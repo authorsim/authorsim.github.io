@@ -362,6 +362,7 @@ var interval = 20
 //
 
 window.onload = function WindowLoad(event){
+	localStorage.setItem("save",JSON.stringify(save));
 	load();
 	timeout();
 };
