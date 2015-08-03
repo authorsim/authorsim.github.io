@@ -362,8 +362,8 @@ var interval = 20
 //
 
 window.onload = function WindowLoad(event){
-	localStorage.setItem("save",JSON.stringify(save));
-	load();
+	localStorageT();
+	//load();
 	timeout();
 };
 
@@ -383,6 +383,23 @@ function load(){
 		console.log(savegame[i]);
 	}
 };
+
+function localStorageT(){
+    var test = 'test';
+    try {
+        localStorage.setItem(test, test);
+        localStorage.removeItem(test);
+        return true;
+    } catch(e) {
+        return false;
+    }
+}
+
+if(localStorageT() === true){
+    console.log("available");
+}else{
+    console.log("unavailable");
+}
 
 //
 // The loop
