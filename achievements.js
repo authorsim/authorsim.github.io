@@ -9,7 +9,7 @@ document.getElementById("buyMaxSeries").addEventListener("click", seriesAch);
 
 // Check for achievements related to Words
 function wordAch(){
-	if (save.words.Total >= 15) {
+	if (save.words.Lifetime >= 15) {
 		$("#sentenceSection").fadeIn();
 	};
 };
@@ -19,28 +19,28 @@ function sentenceAch(){
 	if (save.sentences.Lifetime >= 2 && buyUpgrade1 == true) {
 		$("#buyUpgrade1").fadeIn();
 	};
-	if (save.sentences.Total >= 17) {
+	if (save.sentences.Lifetime >= 17) {
 		$("#pageSection").fadeIn();
 	};
 };
 
 // Check for achievements related to Pages
 function pageAch(){
-	if (save.pages.Total >= 20) {
+	if (save.pages.Lifetime >= 20) {
 		$("#chapterSection").fadeIn();
 	};
 };
 
 // Check for achievements related to Chapters
 function chapterAch(){
-	if (save.chapters.Total >= 25) {
+	if (save.chapters.Lifetime >= 25) {
 		$("#bookSection").fadeIn();
 	};
 };
 
 // Check for achievements related to Books
 function bookAch(){
-	if (save.books.Total >= 3) {
+	if (save.books.Lifetime >= 3) {
 		$("#seriesSection").fadeIn();
 	};
 };

@@ -25,14 +25,6 @@ var writingWords = {Now:false, Progress: 0};
 var writingSentences = {Now:false, Progress: 0};
 var writingPages = {Now:false, Progress: 0};
 
-// Hide the initial popup to purchase a monkey
-
-$("#firstMonkeyButton").click(function(){
-	$("#firstMonkey").fadeOut();
-	activeStaffMonkey();
-});
-
-
 // Functions to purchase staff
 
 function buyMonkey(){
@@ -45,7 +37,7 @@ function buyMonkey(){
 		document.getElementsByClassName("monkeys.Available")[0].innerHTML = save.monkeys.Available
 		document.getElementsByClassName("letters.PerSecond")[0].innerHTML = prettify(save.letters.PerSecond,",",0)
 		document.getElementsByClassName("letters.PerSecond")[1].innerHTML = prettify(save.letters.PerSecond,",",0)
-		if (save.monkeys.Available == 0){
+		if (save.monkeys.Available === 0){
 			document.getElementById("buyMonkey").className += " disabled";
 		};
 	};
@@ -388,6 +380,29 @@ function load(){
 	save.writingWords = savegame.writingWords;
 	save.writingSentences = savegame.writingSentences;
 	save.writingPages = savegame.writingPages;
+	
+	drawWindow();
+	wordAch();
+	sentenceAch();
+	pageAch();
+	chapterAch();
+	bookAch();
+	seriesAch();
+	
+	document.getElementById("activeStaff").innerHTML = save.monkeys.Total + " Monkeys"
+	document.getElementsByClassName("monkeys.Total")[0].innerHTML = save.monkeys.Total
+	document.getElementsByClassName("monkeys.Available")[0].innerHTML = save.monkeys.Available
+	document.getElementsByClassName("letters.Total")[0].innerHTML = prettify(save.letters.Total,",",0)
+	document.getElementsByClassName("letters.Total")[1].innerHTML = prettify(save.letters.Total,",",0)
+	document.getElementsByClassName("letters.PerSecond")[0].innerHTML = prettify(save.letters.PerSecond,",",0)
+	document.getElementsByClassName("letters.PerSecond")[1].innerHTML = prettify(save.letters.PerSecond,",",0)
+	document.getElementsByClassName("words.Total")[0].innerHTML = save.words.Total
+	document.getElementsByClassName("sentences.Total")[0].innerHTML = save.sentences.Total
+	document.getElementsByClassName("pages.Total")[0].innerHTML = save.pages.Total
+	document.getElementsByClassName("chapters.Total")[0].innerHTML = save.chapters.Total
+	document.getElementsByClassName("books.Total")[0].innerHTML = save.books.Total
+	document.getElementsByClassName("series.Total")[0].innerHTML = save.series.Total
+	
 };
 
 //
