@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Incremental</title>
+
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+	<!-- Personal CSS-->
+	<link href="style.css" rel="stylesheet">
+  </head>
+  <body>
+<div class="container">
+	<div class="row"><br>
+    <div class="alert alert-success alert-dismissible fade in" role="alert" id="firstMonkey">
+		<h3>Get your first monkey!</h3>
+		<p>Earning monkeys gives you letters every second. This first monkey will give you 1 letter per second (LpS).</p>
+		<p>
+			<button type="button" class="btn btn-default" onclick="buyMonkey()" id="firstMonkeyButton">Get your monkey!</button>
+		</p>
+	</div>
+	
+	<div class="modal fade" id="testModal" role="dialog">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-body">
+				 <center><h3>Unlocked 'Write Words'!</h3></center>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	</div>
+	
+	<div class="row">
+	<center><h1>Author Simulator</h1>
+	<p>version 0.0.1</p></center>
+	</div>
+
+	<ul class="nav nav-tabs" role="tablist">
+		<li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">
+			<span class="letters.Total">100</span> Letters
+		</a></li>
+		<li role="presentation"><a href="#merch" aria-controls="merch" role="tab" data-toggle="tab">Market</a></li>
+		<li role="presentation"><a href="#staff" aria-controls="staff" role="tab" data-toggle="tab">
+			<span id="activeStaff">0 Monkeys</span>
+		</a></li>
+		<li role="presentation"><a href="#achievements" aria-controls="achievements" role="tab" data-toggle="tab">Achievements</a></li>
+		<li role="presentation" class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">More <span class="caret"></span></a>
+			<ul class="dropdown-menu">
+				<li><a href="#statistics" onclick="drawStatistics()" aria-controls="statistics" role="tab" data-toggle="tab">Statistics</a></li>
+			</ul>
+		</li>
+	</ul>
+	
+	<div class="tab-content">
+		<!-- First panel, with units -->
+		<div role="tabpanel" class="tab-pane active fade in" id="home">
+			
+			<div class="row">
+				<div class="col-md-3">
+					<h3>Letters : <span class="letters.Total">100</span><br>
+					<small>LpS : <span class="letters.PerSecond">0</span></small></h3>
+				</div>
+				<div class="col-md-2"><h3><center>
+					<div class="progress">
+						<div class="progress-bar progress-bar-info" id="writingLettersProgress" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+					</div>
+					<button onclick="startWriting(0)" class="btn btn-lg btn-info" id="startWritingLetters">Write Letters</button>
+				</center></h3></div>
+				<div class="col-md-5"><h4>
+					<button class="btn btn-sm btn-default" id="buyUpgrade1" onclick="buyUpgrade(1)" style="display:none;" data-toggle="tooltip" data-placement="top" title="Lets you write individual words.    Cost: 5 Sentences">Write Words</button>
+				</h4></div>
+				<div class="col-md-2"><center><h3>
+					<button onclick="maxClick()" class="btn btn-lg btn-success" id="buyMax">Buy Max</button>
+				</h3></center></div>
+			</div>
+			<div class="row">
+				<div class="col-md-2">
+					<h3><button onclick="testClick()" class="btn btn-lg btn-alert">Test Button</button></h3>
+				</div>
+			</div>
+			<br>
+			<div class="row">
+				<div class="col-md-4">
+					<h4>Total Words : <span class="words.Total">0</span></h4>
+					<div class="row">
+						<div class="col-md-6 text-left">Words cost <b><span class="words.Cost">6</span></b> letters.</div>
+						<div class="col-md-6 text-right" style="display:none;" id="wordsPerSecondDiv"><span id="wordsPerSecond"></span>/s</div>
+					</div><br>
+					<div class="progress" style="display:none;" id="wordsProgressDiv">
+						<div class="progress-bar progress-bar-info" id="writingWordsProgress" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+					</div>
+					<button onclick="startWriting(1)" class="btn btn-info" style="display:none;" id="startWritingWords">
+						Write words (<span id="writingWords.Timer">1.5</span>s)
+					</button>
+					<button onclick="wordClick(2)" class="btn btn-default" id="buyMaxWords"> Buy <span id="maxWords">-</span> words</button>
+				</div>
+			
+				<div class="col-md-4" style="display:none;" id="sentenceSection">
+					<h4>Total Sentences : <span class="sentences.Total">0</span></h4>
+					<div class="row">
+						<div class="col-md-6 text-left">Sentences cost <b><span class="sentences.Cost">15</span></b> words.</div>
+						<div class="col-md-6 text-right" style="display:none;" id="sentencesPerSecondDiv"><span id="sentencesPerSecond"></span>/s</div>
+					</div><br>					
+					<div class="progress" id="sentencesProgressDiv" style="display:none;">
+						<div class="progress-bar progress-bar-info" id="writingSentencesProgress" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+					</div>
+					<button onclick="startWriting(2)" class="btn btn-info" style="display:none;" id="startWritingSentences">
+						Write sentences (<span id="writingSentences.Timer">20</span>s)
+					</button>
+					<button onclick="sentenceClick(2)" class="btn btn-default" id="buyMaxSentences"> Buy <span id="maxSentences">-</span> sentences</button>
+				</div>
+			
+				<div class="col-md-4" style="display:none;" id="pageSection">
+					<h4>Total Pages : <span class="pages.Total">0</span></h4>
+					<div class="row">
+						<div class="col-md-6 text-left">Pages cost <b><span class="pages.Cost">17</span></b> sentences.</div>
+						<div class="col-md-6 text-right" style="display:none;" id="pagesPerSecondDiv"><span id="pagesPerSecond"></span>/s</div>
+					</div><br>	
+					<div class="progress" id="pagesProgressDiv" style="display:none;">
+						<div class="progress-bar progress-bar-info" id="writingPagesProgress" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+					</div>
+					<button onclick="startWriting(3)" class="btn btn-info" style="display:none;" id="startWritingPages">
+						Write pages (<span id="writingPages.Timer">300</span>s)
+					</button>
+					<button onclick="pageClick(2)" class="btn btn-default" id="buyMaxPages"> Buy <span id="maxPages">-</span> pages</button>
+				</div>
+			</div>
+			<br>
+			<div class="row">
+				<div class="col-md-4" style="display:none" id="chapterSection">
+					<h4>Total Chapters : <span class="chapters.Total">0</span></h4>
+					<p>Chapters cost <b><span class="words.Cost">20</span></b> pages.</p>
+					<button onclick="chapterClick(1)" class="btn btn-default" id="buyOneChapter">Buy 1 chapter</button>
+					<button onclick="chapterClick(2)" class="btn btn-default" id="buyMaxChapters"> Buy <span id="maxChapters">-</span> chapters</button>
+				</div>
+			
+				<div class="col-md-4" style="display:none;" id="bookSection">
+					<h4>Total Books : <span class="books.Total">0</span></h4>
+					<p>Books cost <b><span class="books.Cost">25</span></b> chapters.</p>
+					<button onclick="bookClick(1)" class="btn btn-default" id="buyOneBook">Buy 1 book</button>
+					<button onclick="bookClick(2)" class="btn btn-default" id="buyMaxBooks"> Buy <span id="maxBooks">-</span> books</button>
+				</div>
+			
+				<div class="col-md-4" style="display:none;" id="seriesSection">
+					<h4>Total Series : <span class="series.Total">0</span></h4>
+					<p>Series cost <b><span class="series.Cost">3</span></b> books.</p>
+					<button onclick="seriesClick(1)" class="btn btn-default" id="buyOneSeries">Buy 1 series</button>
+					<button onclick="seriesClick(2)" class="btn btn-default" id="buyMaxSeries"> Buy <span id="maxSeries">-</span> series</button>
+				</div>
+			</div>
+		</div>
+
+		<!-- Second panel, sale stuff -->
+		<div role="tabpanel" class="tab-pane fade" id="merch">...</div>		
+
+		<!-- Third panel, with staff -->
+		<div role="tabpanel" class="tab-pane fade" id="staff"><br>
+			<div class="col-md-4">
+				<h4>Total Monkeys : <span class="monkeys.Total">0</span></h4>
+				<p>You have <b><span class="monkeys.Available">1</span></b> available monkeys</p>
+				<p>Producing <b><span class="letters.PerSecond">0</span></b> letters per second</p>
+				<button onclick="buyMonkey()" class="btn btn-default" id="buyMonkey">Buy a Monkey</button>
+			</div>
+		</div>
+
+		<!-- Fourth panel, with achievements -->
+		<div role="tabpanel" class="tab-pane fade" id="achievements">Coming....later.</div>
+		
+		<!-- Fifth panel, with statistics -->
+		<div role="tabpanel" class="tab-pane fade" id="statistics">
+			<table class="table table-striped">
+				<tr>
+					<th>Unit</th>
+					<th>Lifetime Total</th>
+				</tr>
+				<tr>
+					<td>Letters</td>
+					<td><span id="lettersLifetimeStat">0</span></td>
+				</tr>
+				<tr>
+					<td>Words</td>
+					<td><span id="wordsLifetimeStat">0</span></td>
+				</tr>
+				<tr>
+					<td>Sentences</td>
+					<td><span id="sentencesLifetimeStat">0</span></td>
+				</tr>
+				<tr>
+					<td>Pages</td>
+					<td><span id="pagesLifetimeStat">0</span></td>
+				</tr>
+				<tr>
+					<td>Chapters</td>
+					<td><span id="chaptersLifetimeStat">0</span></td>
+				</tr>
+				<tr>
+					<td>Books</td>
+					<td><span id="booksLifetimeStat">0</span></td>
+				</tr>
+				<tr>
+					<td>Series</td>
+					<td><span id="seriesLifetimeStat">0</span></td>
+				</tr>
+			</table>		
+		</div>
+	</div>
+</div>
+	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+	<!-- Include game logic -->
+	<script src="main.js"></script>
+	<script src="achievements.js"></script>
+	<script src="upgrades.js"></script>
+  </body>
+</html>
