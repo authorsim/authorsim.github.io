@@ -393,13 +393,12 @@ function localStorageT(){
     } catch(e) {
         return false;
     }
-}
-
-if(localStorageT() === true){
-    console.log("available");
-}else{
-    console.log("unavailable");
-}
+	if(localStorageT() === true){
+		console.log("available");
+	}else{
+		console.log("unavailable");
+	}
+};
 
 //
 // The loop
