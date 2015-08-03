@@ -376,19 +376,18 @@ function timeout(){
 
 function load(){
 	var savegame = JSON.parse(localStorage.getItem("save"));
-	save.monkeys: savegame.monkeys;
-	save.letters: savegame.letters;
-	save.words: savegame.words;
-	save.sentences: savegame.sentences;
-	save.pages: savegame.pages;
-	save.chapters: savegame.chapters;
-	save.books: savegame.books;
-	save.series: savegae.series;
-	save.writingLetters: savegame.writingLetters;
-	save.writingWords: savegame.writingWords;
-	save.writingSentences: savegame.writingSentences;
-	save.writingPages: savegame.writingPages;
-	}
+	save.monkeys = savegame.monkeys;
+	save.letters = savegame.letters;
+	save.words = savegame.words;
+	save.sentences = savegame.sentences;
+	save.pages = savegame.pages;
+	save.chapters = savegame.chapters;
+	save.books = savegame.books;
+	save.series = savegame.series;
+	save.writingLetters = savegame.writingLetters;
+	save.writingWords = savegame.writingWords;
+	save.writingSentences = savegame.writingSentences;
+	save.writingPages = savegame.writingPages;
 };
 
 //
