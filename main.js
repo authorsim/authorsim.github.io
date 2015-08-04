@@ -17,7 +17,8 @@ var save = {
 	writingLetters: {Timer: 0.6},
 	writingWords: {Timer: 1.5},
 	writingSentences: {Timer: 20},
-	writingPages: {Timer: 300}
+	writingPages: {Timer: 300},
+	upgrade: {writewords: false, 2: false, 3: false, 4:false}
 };
 
 var writingLetters = {Now: false, Progress: 0};
@@ -41,13 +42,6 @@ function buyMonkey(){
 			document.getElementById("buyMonkey").className += " disabled";
 		};
 	};
-};
-
-
-// Make certain staff active
-
-function activeStaffMonkey(){
-	document.getElementById("activeStaff").innerHTML = save.monkeys.Total + " Monkeys"
 };
 
 //                                  //
@@ -367,6 +361,7 @@ function timeout(){
 };
 
 function load(){
+	if (localStorage.getItem("save") !== null){
 	var savegame = JSON.parse(localStorage.getItem("save"));
 	save.monkeys = savegame.monkeys;
 	save.letters = savegame.letters;
@@ -380,6 +375,7 @@ function load(){
 	save.writingWords = savegame.writingWords;
 	save.writingSentences = savegame.writingSentences;
 	save.writingPages = savegame.writingPages;
+	save.upgrade = savegame.upgrade;
 	
 	drawWindow();
 	wordAch();
@@ -389,7 +385,6 @@ function load(){
 	bookAch();
 	seriesAch();
 	
-	document.getElementById("activeStaff").innerHTML = save.monkeys.Total + " Monkeys"
 	document.getElementsByClassName("monkeys.Total")[0].innerHTML = save.monkeys.Total
 	document.getElementsByClassName("monkeys.Available")[0].innerHTML = save.monkeys.Available
 	document.getElementsByClassName("letters.Total")[0].innerHTML = prettify(save.letters.Total,",",0)
@@ -401,8 +396,12 @@ function load(){
 	document.getElementsByClassName("pages.Total")[0].innerHTML = save.pages.Total
 	document.getElementsByClassName("chapters.Total")[0].innerHTML = save.chapters.Total
 	document.getElementsByClassName("books.Total")[0].innerHTML = save.books.Total
-	document.getElementsByClassName("series.Total")[0].innerHTML = save.series.Total
-	
+	document.getElementsByClassName("series.Total")[0].innerHTML = save.series.Total	
+	}
+};
+
+function delSave(){
+	localStorage.removeItem("save");
 };
 
 //

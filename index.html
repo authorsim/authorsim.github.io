@@ -14,37 +14,22 @@
   </head>
   <body>
 <div class="container">
-	<div class="row"><br>
-    	
-	<div class="modal fade" id="testModal" role="dialog">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-body">
-				 <center><h3>Unlocked 'Write Words'!</h3></center>
-				</div>
-			</div>
-		</div>
-	</div>
-	
-	</div>
-	
-	<div class="row">
+<div class="row">
 	<center><h1>Author Simulator</h1>
-	<p>version 0.0.1</p></center>
+	<p>version 0.0.2</p></center>
 	</div>
 
 	<ul class="nav nav-tabs" role="tablist">
 		<li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">
 			<span class="letters.Total">100</span> Letters
 		</a></li>
+		<li role="presentation"><a href="#staff" aria-controls="staff" role="tab" data-toggle="tab">Staff</a></li>
 		<li role="presentation"><a href="#merch" aria-controls="merch" role="tab" data-toggle="tab">Market</a></li>
-		<li role="presentation"><a href="#staff" aria-controls="staff" role="tab" data-toggle="tab">
-			<span id="activeStaff">0 Monkeys</span>
-		</a></li>
 		<li role="presentation"><a href="#achievements" aria-controls="achievements" role="tab" data-toggle="tab">Achievements</a></li>
 		<li role="presentation" class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">More <span class="caret"></span></a>
 			<ul class="dropdown-menu">
 				<li><a href="#statistics" onclick="drawStatistics()" aria-controls="statistics" role="tab" data-toggle="tab">Statistics</a></li>
+				<li><a href="#options" aria-controls="options" role="tab" data-toggle="tab">Options</a></li>
 			</ul>
 		</li>
 	</ul>
@@ -65,7 +50,7 @@
 					<button onclick="startWriting(0)" class="btn btn-lg btn-info" id="startWritingLetters">Write Letters</button>
 				</center></h3></div>
 				<div class="col-md-5"><h4>
-					<button class="btn btn-sm btn-default" id="buyUpgrade1" onclick="buyUpgrade(1)" style="display:none;" data-toggle="tooltip" data-placement="top" title="Lets you write individual words.    Cost: 5 Sentences">Write Words</button>
+					<button class="btn btn-sm btn-default" id="upgrade1" onclick="buyUpgrade(1)" style="display:none;" data-toggle="tooltip" data-placement="top" title="Lets you write individual words.    Cost: 5 Sentences">Write Words</button>
 				</h4></div>
 				<div class="col-md-2"><center><h3>
 					<button onclick="maxClick()" class="btn btn-lg btn-success" id="buyMax">Buy Max</button>
@@ -73,7 +58,7 @@
 			</div>
 			<div class="row">
 				<div class="col-md-2">
-					<h3><button onclick="testClick()" class="btn btn-lg btn-alert">Test Button</button></h3>
+					<h3><button onclick="achieveAlert(1)" class="btn btn-lg btn-alert">Test Achieve</button></h3>
 				</div>
 			</div>
 			<br>
@@ -201,8 +186,25 @@
 				</tr>
 			</table>		
 		</div>
+		
+		<!-- Sixth panel, with options -->
+		<div role="tabpanel" class="tab-pane fade" id="options">
+				<h3><button onclick="delSave()" class="btn btn-lg btn-danger">Delete Save</button></h3>
+		</div>
+		
+	</div>
+	<div class="row">
+	<div class="col-md-12">
+		<div id="achieve" class="alert alert-dismissible alert-info fade" role="alert">
+			<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			<span class="achieveicon glyphicon glyphicon-ok"></span>
+			<center><h3 id="achieveTitle">Whoa!</h3>
+			<p id="achieveDesc">Looks like you earned an achievement!</p></center><br>
+		</div>
+	</div>
 	</div>
 </div>
+
 	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->

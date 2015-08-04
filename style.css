@@ -1,4 +1,24 @@
-.progress-bar{
+.progress-bar {
     transition: width 0.01s;
     -webkit-transition: width 0.01s;
+}
+
+.achieve {
+	text-align: center;
+	z-index: 1050;
+}
+
+.glyphicon-ok {
+	font-size: 60px;
+}
+
+.achieveicon {
+	position: absolute;
+	left: 25px;
+	top: 30px;
+}
+
+.gamestate {
+	position: absolute;
+	right: 25px;
 }
