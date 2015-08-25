@@ -22,3 +22,7 @@
 	position: absolute;
 	right: 25px;
 }
+
+.bg-staff {
+	outline: 1px solid #eee;
+}

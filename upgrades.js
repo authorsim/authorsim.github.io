@@ -6,7 +6,7 @@ function buyUpgrade(num){
 			$("#upgrade1").fadeOut();
 			$("#wordsProgressDiv").fadeIn();
 			$("#startWritingWords").fadeIn();
-			save.upgrade.writewords = false
+			save.upgrade.writewords = true
 		};
 	};
 };

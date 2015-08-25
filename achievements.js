@@ -30,7 +30,7 @@ function wordAch(){
 // Check for achievements related to Sentences
 function sentenceAch(){
 	if (save.sentences.Lifetime >= 2 && save.upgrade.writewords === false) {
-		$("#buyUpgrade1").fadeIn();
+		$("#upgrade1").fadeIn();
 	};
 	if (save.sentences.Lifetime >= 17) {
 		$("#pageSection").fadeIn();
