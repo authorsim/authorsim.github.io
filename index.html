@@ -13,6 +13,14 @@
 	<link href="style.css" rel="stylesheet">
   </head>
   <body>
+  
+  <!-- Confirmation Window -->
+	<div class="confirmpopopacity"></div>
+	<div class="confirmpop pop">
+		<p id="confirmpopMessage">Are you sure you want to do that?</p>
+		<p><button class="btn btn-lg btn-success confirm">Yes</button> <button class="btn btn-lg btn-danger deny">No</button></p>
+	</div>
+  
 <div class="container">
 <div class="row">
 	<center><h1>Author Simulator</h1>
@@ -24,7 +32,6 @@
 			<span class="letters.Total">100</span> Letters
 		</a></li>
 		<li role="presentation"><a href="#staff" aria-controls="staff" role="tab" data-toggle="tab">Staff</a></li>
-		<li role="presentation"><a href="#merch" aria-controls="merch" role="tab" data-toggle="tab">Market</a></li>
 		<li role="presentation"><a href="#achievements" aria-controls="achievements" role="tab" data-toggle="tab">Achievements</a></li>
 		<li role="presentation" class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">More <span class="caret"></span></a>
 			<ul class="dropdown-menu">
@@ -133,9 +140,6 @@
 			</div>
 		</div>
 
-		<!-- Second panel, sale stuff -->
-		<div role="tabpanel" class="tab-pane fade" id="merch">...</div>		
-
 		<!-- Third panel, with staff -->
 		<div role="tabpanel" class="tab-pane fade" id="staff"><br>
 			<div class="row">
@@ -158,16 +162,16 @@
 				<div class="col-md-4"><div id="staffSlot1" class="bg-staff" style="display:none;">
 					<div class="row">
 						<div class="col-md-9"><h4 id="staffName1">Staff Name (change)</h4></div>
-						<div class="col-md-3"><h4><button onclick="fireStaff()" class="btn btn-danger">Fire</button></h4></div>
+						<div class="col-md-3"><h4><button id="fireStaff1" class="btn btn-danger">Fire</button></h4></div>
 					</div>
 					<b>Education:</b> <span id="staffEducation1">Middle School Girl</span><br>
 					<b>Efficiency Multiplier:</b> <span id="staffEff1">5%</span><br>
 					<p><b>Working On:</b>
-						<button onclick="staffWorking(words)" type="button" class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="top" title="Words">W</button>
-						<button onclick="staffWorking(sentences)" type="button" class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="top" title="Sentences">S</button>
-						<button onclick="staffWorking(pages)" type="button" class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="top" title="Pages">P</button>
-						<button onclick="staffWorking(chapters)" type="button" class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="top" title="Chapters">C</button>
-						<button onclick="staffWorking(books)" type="button" class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="top" title="Books">B</button></p>
+						<button id="words1" type="button" class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="top" title="Words">W</button>
+						<button id="sentences1" type="button" class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="top" title="Sentences">S</button>
+						<button id="pages1" type="button" class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="top" title="Pages">P</button>
+						<button id="chapters1" type="button" class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="top" title="Chapters">C</button>
+						<button id="books1" type="button" class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="top" title="Books">B</button></p>
 					<div class="row">
 						<div class="col-md-3"><b>Level:</b> <span id="staffLevel1">1</span></div>
 						<div class="col-md-9">
@@ -182,7 +186,7 @@
 				<div class="col-md-4"><div id="staffSlot2" class="bg-staff" style="display:none;">
 					<div class="row">
 						<div class="col-md-9"><h4 id="staffName2">Staff Name (change)</h4></div>
-						<div class="col-md-3"><h4><button onclick="fireStaff()" class="btn btn-danger">Fire</button></h4></div>
+						<div class="col-md-3"><h4><button id="fireStaff2" class="btn btn-danger">Fire</button></h4></div>
 					</div>
 					<b>Education:</b> <span id="staffEducation2">Middle School Girl</span><br>
 					<b>Efficiency Multiplier:</b> <span id="staffEff2">5%</span><br>
@@ -206,7 +210,7 @@
 				<div class="col-md-4"><div id="staffSlot3" class="bg-staff" style="display:none;">
 					<div class="row">
 						<div class="col-md-9"><h4 id="staffName3">Staff Name (change)</h4></div>
-						<div class="col-md-3"><h4><button onclick="fireStaff()" class="btn btn-danger">Fire</button></h4></div>
+						<div class="col-md-3"><h4><button id="fireStaff3" class="btn btn-danger">Fire</button></h4></div>
 					</div>
 					<b>Education:</b> <span id="staffEducation3">Middle School Girl</span><br>
 					<b>Efficiency Multiplier:</b> <span id="staffEff3">5%</span><br>
@@ -232,7 +236,7 @@
 				<div class="col-md-4"><div id="staffSlot4" class="bg-staff" style="display:none;">
 					<div class="row">
 						<div class="col-md-9"><h4 id="staffName4">Staff Name (change)</h4></div>
-						<div class="col-md-3"><h4><button onclick="fireStaff()" class="btn btn-danger">Fire</button></h4></div>
+						<div class="col-md-3"><h4><button id="fireStaff4" class="btn btn-danger">Fire</button></h4></div>
 					</div>
 					<b>Education:</b> <span id="staffEducation4">Middle School Girl</span><br>
 					<b>Efficiency Multiplier:</b> <span id="staffEff4">5%</span><br>
@@ -256,7 +260,7 @@
 				<div class="col-md-4"><div id="staffSlot5" class="bg-staff" style="display:none;">
 					<div class="row">
 						<div class="col-md-9"><h4 id="staffName5">Staff Name (change)</h4></div>
-						<div class="col-md-3"><h4><button onclick="fireStaff()" class="btn btn-danger">Fire</button></h4></div>
+						<div class="col-md-3"><h4><button id="fireStaff5" class="btn btn-danger">Fire</button></h4></div>
 					</div>
 					<b>Education:</b> <span id="staffEducation5">Middle School Girl</span><br>
 					<b>Efficiency Multiplier:</b> <span id="staffEff5">5%</span><br>
@@ -280,7 +284,7 @@
 				<div class="col-md-4"><div id="staffSlot6" class="bg-staff" style="display:none;">
 					<div class="row">
 						<div class="col-md-9"><h4 id="staffName6">Staff Name (change)</h4></div>
-						<div class="col-md-3"><h4><button onclick="fireStaff()" class="btn btn-danger">Fire</button></h4></div>
+						<div class="col-md-3"><h4><button id="fireStaff6" class="btn btn-danger">Fire</button></h4></div>
 					</div>
 					<b>Education:</b> <span id="staffEducation6">Middle School Girl</span><br>
 					<b>Efficiency Multiplier:</b> <span id="staffEff6">5%</span><br>
@@ -306,7 +310,7 @@
 				<div class="col-md-4"><div id="staffSlot7" class="bg-staff" style="display:none;">
 					<div class="row">
 						<div class="col-md-9"><h4 id="staffName7">Staff Name (change)</h4></div>
-						<div class="col-md-3"><h4><button onclick="fireStaff()" class="btn btn-danger">Fire</button></h4></div>
+						<div class="col-md-3"><h4><button id="fireStaff7" class="btn btn-danger">Fire</button></h4></div>
 					</div>
 					<b>Education:</b> <span id="staffEducation7">Middle School Girl</span><br>
 					<b>Efficiency Multiplier:</b> <span id="staffEff7">5%</span><br>
@@ -330,7 +334,7 @@
 				<div class="col-md-4"><div id="staffSlot8" class="bg-staff" style="display:none;">
 					<div class="row">
 						<div class="col-md-9"><h4 id="staffName8">Staff Name (change)</h4></div>
-						<div class="col-md-3"><h4><button onclick="fireStaff()" class="btn btn-danger">Fire</button></h4></div>
+						<div class="col-md-3"><h4><button id="fireStaff8" class="btn btn-danger">Fire</button></h4></div>
 					</div>
 					<b>Education:</b> <span id="staffEducation8">Middle School Girl</span><br>
 					<b>Efficiency Multiplier:</b> <span id="staffEff8">5%</span><br>
@@ -354,7 +358,7 @@
 				<div class="col-md-4"><div id="staffSlot9" class="bg-staff" style="display:none;">
 					<div class="row">
 						<div class="col-md-9"><h4 id="staffName9">Staff Name (change)</h4></div>
-						<div class="col-md-3"><h4><button onclick="fireStaff()" class="btn btn-danger">Fire</button></h4></div>
+						<div class="col-md-3"><h4><button id="fireStaff9" class="btn btn-danger">Fire</button></h4></div>
 					</div>
 					<b>Education:</b> <span id="staffEducation9">Middle School Girl</span><br>
 					<b>Efficiency Multiplier:</b> <span id="staffEff9">5%</span><br>
@@ -425,6 +429,8 @@
 		</div>
 		
 	</div>
+	
+	<!-- Achievements -->
 	<div class="row">
 	<div class="col-md-12">
 		<div id="achieve" class="alert alert-dismissible alert-info fade" role="alert">
@@ -443,6 +449,7 @@
     <script src="js/bootstrap.min.js"></script>
 	<!-- Include game logic -->
 	<script src="main.js"></script>
+	<script src="staff.js"></script>
 	<script src="achievements.js"></script>
 	<script src="upgrades.js"></script>
   </body>

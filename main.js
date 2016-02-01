@@ -106,102 +106,6 @@ staff = { // Exp and Eff values for all levels of staff
 		}
 	}
 
-// Functions for staff
-
-function buyStaff(num){
-	save.office.Space += 1
-	if (save.office.Space > 0){
-		if (num === 1){ // Middle school girl
-			save.office.Space -= 1
-			document.getElementById("officeSpace").innerHTML = save.office.Space
-			save["staff"]["MSG" + save.office.Counter] = {
-				ID: save.office.Counter,
-				Name: "Miranda",
-				Type: 1,
-				WorkingOn: 0,
-				Level: 1,
-				Exp: 0,
-				NextExp: staff.MSG.Exp1,
-				Eff: staff.MSG.Eff1,
-				UChance: 0,
-			};
-			firstDrawStaff(save["staff"]["MSG" + save.office.Counter]);
-			save.office.Counter += 1
-		} else if (num === 2){ // Highschool dropout
-			
-		} else if (num === 3){ // Undergraduate
-			
-		} else if (num === 4){ // Graduate student
-			
-		} else if (num === 5){ // PhD
-			
-		}
-	};
-};
-
-function buyMonkey(){
-	if (save.monkeys.Available > 0){
-		save.monkeys.Available -= 1
-		save.monkeys.Total += 1
-		save.monkeys.Lifetime += 1
-		save.letters.PerSecond = save.monkeys.Total * save.monkeys.Multiplier
-		document.getElementsByClassName("monkeys.Total")[0].innerHTML = save.monkeys.Total
-		document.getElementsByClassName("monkeys.Available")[0].innerHTML = save.monkeys.Available
-		document.getElementsByClassName("letters.PerSecond")[0].innerHTML = prettify(save.letters.PerSecond,",",0)
-		document.getElementsByClassName("letters.PerSecond")[1].innerHTML = prettify(save.letters.PerSecond,",",0)
-		if (save.monkeys.Available === 0){
-			document.getElementById("buyMonkey").className += " disabled";
-		};
-	};
-};
-
-function firstDrawStaff(staff){
-	if ($('#staffSlot1').css('display') == 'none'){
-		firstDrawStaffMeat(staff, 1);
-	} else if ($('#staffSlot2').css('display') == 'none'){
-		firstDrawStaffMeat(staff, 2);
-	} else if ($('#staffSlot3').css('display') == 'none'){
-		firstDrawStaffMeat(staff, 3);
-	} else if ($('#staffSlot4').css('display') == 'none'){
-		firstDrawStaffMeat(staff, 4);
-	} else if ($('#staffSlot5').css('display') == 'none'){
-		firstDrawStaffMeat(staff, 5);
-	} else if ($('#staffSlot6').css('display') == 'none'){
-		firstDrawStaffMeat(staff, 6);
-	} else if ($('#staffSlot7').css('display') == 'none'){
-		firstDrawStaffMeat(staff, 7);
-	} else if ($('#staffSlot8').css('display') == 'none'){
-		firstDrawStaffMeat(staff, 8);
-	} else if ($('#staffSlot9').css('display') == 'none'){
-		firstDrawStaffMeat(staff, 9);
-	}
-};
-
-function firstDrawStaffMeat(staff, slot){
-	$("#staffSlot" + slot).css("display", "");
-	$("#staffName" + slot).text(staff.Name);
-		if (staff.Type == 1){
-			$("#staffEducation" + slot).text("Middle School Girl");
-		} else if (staff.Type == 2) {
-			$("#staffEducation" + slot).text("High School Dropout");
-		} else if (staff.Type == 3) {
-			$("#staffEducation" + slot).text("Undergraduate");
-		} else if (staff.Type == 4) {
-			$("#staffEducation" + slot).text("Graduate Student");
-		} else if (staff.Type == 5) {
-			$("#staffEducation" + slot).text("PhD");
-		}
-	$("#staffWriting" + slot).text("Nothing");
-	$("#staffEff" + slot).text((staff.Eff * 100) + "%");
-	$("#staffLevel" + slot).text(staff.Level);
-	$("#staffExpValue" + slot).text(staff.Exp);
-	$("#staffExpTotal" + slot).text(staff.NextExp);
-};
-
-function fireStaff(){
-	
-};
-
 //                                  //
 //   Functions to purchase units    //
 //                                  //
@@ -564,7 +468,18 @@ function load(){
 };
 
 function delSave(){
-	localStorage.removeItem("save");
+	$('#confirmpopMessage').text("Are you sure you want to delete your save?");
+	$('.pop').fadeIn();
+	$('.confirmpopopacity').fadeIn();
+	$('.confirm').off('click').click(function() {
+		localStorage.removeItem("save");
+		$('.pop').fadeOut();
+		$('.confirmpopopacity').fadeOut();
+	});
+	$('.deny').off('click').click(function() {
+		$('.pop').fadeOut();
+		$('.confirmpopopacity').fadeOut();
+	});
 };
 
 //

@@ -25,4 +25,33 @@
 
 .bg-staff {
 	outline: 1px solid #eee;
+	padding: 5px;
+}
+
+.confirmpop {
+  background-color: #f4f4f4;
+  border: 1px solid #d9d9d9;
+  border-radius: 20px;
+  display: none;
+  font-size: 18px;
+  height: 140px;
+  left: 50%;
+  margin-left: -200px;
+  margin-right: -70px;
+  padding: 20px;
+  position: fixed;
+  top: 30%;
+  text-align: center;
+  width: 400px;
+  z-index: 150;
+}
+
+.confirmpopopacity {
+	background-color: #000;
+	display: none;
+	position: absolute;
+	height: 100%;
+	opacity: 0.5;
+	width: 100%;
+	z-index: 149;
 }
