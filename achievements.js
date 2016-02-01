@@ -1,11 +1,3 @@
-// Event Listeners are COOL
-document.getElementById("buyMaxWords").addEventListener("click", wordAch);
-document.getElementById("buyMaxSentences").addEventListener("click", sentenceAch);
-document.getElementById("buyMaxPages").addEventListener("click", pageAch);
-document.getElementById("buyMaxChapters").addEventListener("click", chapterAch);
-document.getElementById("buyMaxBooks").addEventListener("click", bookAch);
-document.getElementById("buyMaxSeries").addEventListener("click", seriesAch);
-
 // Animation for fading in and then out an alert box
 
 function achieveAlert(id) {
@@ -20,6 +12,12 @@ function achieveAlert(id) {
 	}, 7000);
 };
 
+function letterAch(){
+	if (save.letters.Total >= 150 && save.upgrade.writewords === false) {
+		$("#upgrade1").fadeIn();
+	};
+};
+
 // Check for achievements related to Words
 function wordAch(){
 	if (save.words.Lifetime >= 15) {
@@ -29,9 +27,6 @@ function wordAch(){
 
 // Check for achievements related to Sentences
 function sentenceAch(){
-	if (save.sentences.Lifetime >= 2 && save.upgrade.writewords === false) {
-		$("#upgrade1").fadeIn();
-	};
 	if (save.sentences.Lifetime >= 17) {
 		$("#pageSection").fadeIn();
 	};

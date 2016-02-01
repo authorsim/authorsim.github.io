@@ -1,11 +1,9 @@
 function buyUpgrade(num){
 	if (num == 1){ // Write Words
-		if (save.sentences.Total >= 5 && save.upgrade.writewords === false){
-			save.sentences.Total -= 5
-			document.getElementsByClassName("sentences.Total")[0].innerHTML = save.sentences.Total
+		if (save.letters.Total >= 200 && save.upgrade.writewords === false){
+			save.letters.Total -= 200
 			$("#upgrade1").fadeOut();
-			$("#wordsProgressDiv").fadeIn();
-			$("#startWritingWords").fadeIn();
+			$("#writingWords").fadeIn();
 			save.upgrade.writewords = true
 		};
 	};
