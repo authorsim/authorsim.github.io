@@ -1,31 +1,35 @@
 function buyStaff(num){
 	save.office.Space += 1
-	if (save.office.Space > 0){
-		if (num === 1){ // Middle school girl
-			save.office.Space -= 1
-			document.getElementById("officeSpace").innerHTML = save.office.Space
-			save["staff"]["MSG" + save.office.Counter] = {
-				ID: save.office.Counter,
-				Name: "Miranda",
-				Type: 1,
-				WorkingOn: 0,
-				Level: 1,
-				Exp: 0,
-				NextExp: staff.MSG.Exp1,
-				Eff: staff.MSG.Eff1,
-				UChance: 0,
+	for (i = 1; i < 10; i++){ //Loop all open staff slots
+		if ($('#staffSlot' + [i]).css('display') == 'none'){ //If a staff slot is open
+			if (save.office.Space > 0){ //If you have space in your office for a staff member
+				if (num === 1){ // Middle school girl
+					save.office.Space -= 1
+					document.getElementById("officeSpace").innerHTML = save.office.Space
+					save["staff"][i] = {
+						Name: "Miranda",
+						Type: 1,
+						WorkingOn: 0,
+						Level: 1,
+						Exp: 0,
+						NextExp: staff.MSG.Exp1,
+						Eff: staff.MSG.Eff1,
+						UChance: 0,
+					};
+					drawStaff(save["staff"][i], [i]);
+					save.office.Counter += 1
+					break
+				} else if (num === 2){ // Highschool dropout
+			
+				} else if (num === 3){ // Undergraduate
+			
+				} else if (num === 4){ // Graduate student
+			
+				} else if (num === 5){ // PhD
+			
+				}
 			};
-			firstDrawStaff(save["staff"]["MSG" + save.office.Counter]);
-			save.office.Counter += 1
-		} else if (num === 2){ // Highschool dropout
-			
-		} else if (num === 3){ // Undergraduate
-			
-		} else if (num === 4){ // Graduate student
-			
-		} else if (num === 5){ // PhD
-			
-		}
+		};
 	};
 };
 
@@ -41,16 +45,7 @@ function buyMonkey(){
 	};
 };
 
-function firstDrawStaff(staff){
-	for (i = 1; i < 10; i++){
-		if ($('#staffSlot' + [i]).css('display') == 'none'){
-		firstDrawStaffMeat(staff, [i]);
-		break;
-		};
-	};
-};
-
-function firstDrawStaffMeat(staff, slot) {
+function drawStaff(staff, slot) {
 	$("#staffSlot" + slot).css("display", "");
 	$("#staffName" + slot).text(staff.Name);
 		if (staff.Type == 1){
@@ -69,6 +64,53 @@ function firstDrawStaffMeat(staff, slot) {
 	$("#staffExpValue" + slot).text(staff.Exp);
 	$("#staffExpTotal" + slot).text(staff.NextExp);
 };
+
+$('#words1').click(function(){
+	staffWriting("words", "1");
+});
+$('#sentences1').click(function(){
+	staffWriting("sentences", "1");
+});
+$('#pages1').click(function(){
+	staffWriting("pages", "1");
+});
+$('#chapters1').click(function(){
+	staffWriting("chapters", "1");
+});
+$('#books1').click(function(){
+	staffWriting("books", "1");
+});
+
+function disengageStaff() {
+	var units = ["letters", "words", "sentences", "pages", "chapters", "books"];
+	for (i = 1; i < 10; i++) { //Loops through all the staff slots
+		for (j = 1; j < units.length; j++) { // Loops all the units in the specified slot
+			if ($("#" + unit[j] + i).hasClass("active")) {
+				console.log("Unit deactivated.")
+			}
+		}
+	}
+}
+
+function staffWriting (type, slot) {
+	var units = ["letters", "words", "sentences", "pages", "chapters", "books"];
+	for (i = 1; i < 10; i++) { //Loops through all the staff slots
+		if (i == slot) { // Checks if the slot is the one being accessed
+			for (j = 1; j < units.length; j++) { // Loops all the units in the specified slot
+				if ($("#" + units[j] + i).hasClass("active")) { // Checks if the unit in the slot is active
+					$("#" + units[j] + i).removeClass("active btn-success"); //Deactivates the active unit
+					$("#" + units[j] + i).addClass("btn-primary");
+					$("#staffProgressBar" + i).removeClass("progress-bar-striped");
+					$("#staffProgressBar" + i).removeClass("active");	
+				}
+			}
+		}
+	}
+	$("#staffProgressBar" + i).addClass("progress-bar-striped");
+	$("#staffProgressBar" + i).addClass("active");	
+	$("#" + type + slot).removeClass("btn-primary");
+	$("#" + type + slot).addClass("active btn-success"); //Activates the requested unit
+}
 
 function fireStaff(slot) {
 	$('#confirmpopMessage').text("Are you sure you want to fire " + $('#staffName' + slot).text() + "?");

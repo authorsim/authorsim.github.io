@@ -129,7 +129,7 @@ function startWriting(unit) {
 	var units = ["Letters", "Words", "Sentences", "Pages"];
 	for (i = 0; i < units.length; i++) {
 		if ($("#startWriting" + units[i]).hasClass("disabled")) {
-			disengage();
+			disengageWriting();
 			if (units[i] == "Letters") { save.letters.PerSecond -= (1 / save.writingLetters.Timer) }
 			if (units[i] == "Words") { save.words.PerSecond -= (1 / save.writingWords.Timer); save.letters.Using -= save.words.Cost }
 			if (units[i] == "Sentences") { save.sentences.PerSecond -= (1 / save.writingSentences.Timer); save.words.Using -= save.sentences.Cost }
@@ -152,7 +152,7 @@ function startWriting(unit) {
 	$("#writing" + unit + "Progress").addClass("active");	
 };
 
-function disengage(){ // Resets the visual appearance of all the "write" tabs
+function disengageWriting(){ // Resets the visual appearance of all the "write" tabs
 	$("#startWritingLetters").removeClass("disabled");
 	$("#writingLettersProgress").removeClass("progress-bar-striped");
 	$("#writingLettersProgress").removeClass("active");
@@ -284,6 +284,26 @@ function writing(num){
 	};
 };
 
+function staffWriting(slot, unit, num) { //HAVE TO REDO THIS SO THAT I CAN CALL IT IN THE LOOP
+	var units = ["letters", "words", "sentences", "pages", "chapters", "books"];
+	for (i = 1; i < 10; i++) { //Loops through all the staff slots
+		for (j = 1; j < units.length; j++) { // Loops all the units in the specified slot
+			if ($("#staffProgressBar" + slot).hasClass("active")) {
+				if (save["Staff"][slot]["Total"] >= 17) {
+					writingPages.Progress += (100 / (save.writingPages.Timer * (1000 / interval)) * num)
+					$('#writingPagesProgress').css('width', writingPages.Progress + '%').attr('aria-valuenow', writingPages.Progress);
+					if (writingPages.Progress >= 100) {
+						save.sentences.Total -= 17
+						save.pages.Total += 1
+						save.pages.Lifetime += 1
+						writingPages.Progress -= 100
+					};		
+				};
+			};
+		};
+	};
+};
+
 
 var before = new Date();
 var interval = 20
@@ -307,7 +327,8 @@ function timeout(){
 
 // Fires before the page unloads
 window.onbeforeunload = function(event){
-    var units = ["Letters", "Words", "Sentences", "Pages"];
+    disengageStaff();
+	var units = ["Letters", "Words", "Sentences", "Pages"];
 	for (i = 0; i < units.length; i++) {
 		if ($("#startWriting" + units[i]).hasClass("disabled")) {
 			if (units[i] == "Letters") { save.letters.PerSecond -= (1 / save.writingLetters.Timer) }
@@ -387,7 +408,8 @@ function delSave(){
 	$('.confirmpopopacity').fadeIn();
 	$('.confirm').off('click').click(function() {
 		localStorage.removeItem("save");
-		disengage();
+		disengageWriting();
+		disengageStaff();
 		save = {
 			monkeys: {Total: 0, Available: 1, Multiplier: 1.0, Lifetime: 0},
 			letters: {Total: 1000.0, Unique: 0, PerSecond: 0.0, Using: 0, Lifetime: 0},
