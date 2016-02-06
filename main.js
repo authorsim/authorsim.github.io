@@ -284,20 +284,30 @@ function writing(num){
 	};
 };
 
-function staffWriting(slot, unit, num) { //HAVE TO REDO THIS SO THAT I CAN CALL IT IN THE LOOP
+function staffWriting(num) {
 	var units = ["letters", "words", "sentences", "pages", "chapters", "books"];
 	for (i = 1; i < 10; i++) { //Loops through all the staff slots
-		for (j = 1; j < units.length; j++) { // Loops all the units in the specified slot
-			if ($("#staffProgressBar" + slot).hasClass("active")) {
-				if (save["Staff"][slot]["Total"] >= 17) {
-					writingPages.Progress += (100 / (save.writingPages.Timer * (1000 / interval)) * num)
-					$('#writingPagesProgress').css('width', writingPages.Progress + '%').attr('aria-valuenow', writingPages.Progress);
-					if (writingPages.Progress >= 100) {
-						save.sentences.Total -= 17
-						save.pages.Total += 1
-						save.pages.Lifetime += 1
-						writingPages.Progress -= 100
-					};		
+		for (j = 0; j < units.length; j++) { // Loops all the units in the specified slot
+			if ($("#" + units[j] + i).hasClass("active")) { //Checks if a specific button is active on a staff member
+				console.log("Unit + 1 = " + units[j + 1]); //USE THIS TO AUTOMATE IT ALL INTO ONE FUNCTION
+				if (units[j] == "words") {
+					//if (save.letters.Total >= 6) {
+						//save["staff"][i]["Progress"] += (100 / (save["staff"][i]["Total"] * (1000 / interval)) * num) //WORK ON THIS
+						save["staff"][i]["Progress"] += 10
+						$('#staffProgressBar' + i).css('width', save["staff"][i]["Progress"] + '%').attr('aria-valuenow', save["staff"][i]["Progress"]);
+						if (save["staff"][i]["Progress"] >= 100) {
+							save.letters.Total -= (save.words.Cost - (save.words.Cost * save["staff"][i]["Eff"]))
+							save.words.Total += 1
+							save.words.Lifetime += 1
+							save["staff"][i]["Progress"] -= 100
+							save["staff"][i]["Exp"] += 1
+							$("#staffExpBar" + i).css('width', save["staff"][i]["Exp"] + '%').attr('aria-valuenow', save["staff"][i]["Exp"]);
+							$("#staffExpValue" + i).text(save["staff"][i]["Exp"]);
+							if (save["staff"][i]["Exp"] >= save["staff"][i]["NextExp"]) {
+								levelUp(i);
+							};
+						};
+					//};
 				};
 			};
 		};
@@ -450,6 +460,7 @@ window.setInterval(function(){
 	
 	incrementLetters(elapsedValue);
 	writing(elapsedValue);
+	staffWriting(elapsedValue);
 
 	before = now
 }, 1000 / interval);

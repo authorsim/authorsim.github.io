@@ -15,6 +15,7 @@ function buyStaff(num){
 						NextExp: staff.MSG.Exp1,
 						Eff: staff.MSG.Eff1,
 						UChance: 0,
+						Progress: 0,
 					};
 					drawStaff(save["staff"][i], [i]);
 					save.office.Counter += 1
@@ -66,50 +67,47 @@ function drawStaff(staff, slot) {
 };
 
 $('#words1').click(function(){
-	staffWriting("words", "1");
+	startStaffWriting("words", "1");
 });
 $('#sentences1').click(function(){
-	staffWriting("sentences", "1");
+	startStaffWriting("sentences", "1");
 });
 $('#pages1').click(function(){
-	staffWriting("pages", "1");
+	startStaffWriting("pages", "1");
 });
 $('#chapters1').click(function(){
-	staffWriting("chapters", "1");
+	startStaffWriting("chapters", "1");
 });
 $('#books1').click(function(){
-	staffWriting("books", "1");
+	startStaffWriting("books", "1");
 });
 
 function disengageStaff() {
 	var units = ["letters", "words", "sentences", "pages", "chapters", "books"];
 	for (i = 1; i < 10; i++) { //Loops through all the staff slots
 		for (j = 1; j < units.length; j++) { // Loops all the units in the specified slot
-			if ($("#" + unit[j] + i).hasClass("active")) {
-				console.log("Unit deactivated.")
+			if ($("#" + units[j] + i).hasClass("active")) {
 			}
 		}
 	}
 }
 
-function staffWriting (type, slot) {
+function startStaffWriting (type, slot) {
 	var units = ["letters", "words", "sentences", "pages", "chapters", "books"];
-	for (i = 1; i < 10; i++) { //Loops through all the staff slots
-		if (i == slot) { // Checks if the slot is the one being accessed
-			for (j = 1; j < units.length; j++) { // Loops all the units in the specified slot
-				if ($("#" + units[j] + i).hasClass("active")) { // Checks if the unit in the slot is active
-					$("#" + units[j] + i).removeClass("active btn-success"); //Deactivates the active unit
-					$("#" + units[j] + i).addClass("btn-primary");
-					$("#staffProgressBar" + i).removeClass("progress-bar-striped");
-					$("#staffProgressBar" + i).removeClass("active");	
-				}
-			}
+	for (j = 1; j < units.length; j++) { // Loops all the units in the specified slot
+		if ($("#" + units[j] + slot).hasClass("active")) { // Checks if the unit in the slot is active
+			$("#" + units[j] + slot).removeClass("active btn-success"); //Deactivates the active unit
+			$("#" + units[j] + slot).addClass("btn-primary");
+			$("#staffProgressBar" + slot).removeClass("progress-bar-striped");
+			$("#staffProgressBar" + slot).removeClass("active");
+			save["staff"][slot]["WorkingOn"] = 0
 		}
 	}
-	$("#staffProgressBar" + i).addClass("progress-bar-striped");
-	$("#staffProgressBar" + i).addClass("active");	
+	$("#staffProgressBar" + slot).addClass("progress-bar-striped");
+	$("#staffProgressBar" + slot).addClass("active");	
 	$("#" + type + slot).removeClass("btn-primary");
 	$("#" + type + slot).addClass("active btn-success"); //Activates the requested unit
+	save["staff"][slot]["WorkingOn"] = type
 }
 
 function fireStaff(slot) {
