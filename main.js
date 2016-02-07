@@ -7,17 +7,13 @@ $(function () {
 
 var save = {
 	monkeys: {Total: 0, Available: 1, Multiplier: 1.0, Lifetime: 0},
-	letters: {Total: 0.0, Unique: 0, PerSecond: 0.0, Using: 0, Lifetime: 0},
-	words: {Total:0, Unique: 0, PerSecond: 0.0, Using: 0, Multiplier:1, Cost:6, Lifetime:0},
-	sentences: {Total:0, Unique: 0, PerSecond: 0.0, Using: 0, Multiplier:1, Cost:15, Lifetime:0},
-	pages: {Total:0, Unique: 0, PerSecond: 0.0, Using: 0, Multiplier:1, Cost:17, Lifetime:0},
+	letters: {Total: 0.0, Unique: 0, PerSecond: 0.0, Using: 0, Lifetime: 0, Timer: 0.6},
+	words: {Total:0, Unique: 0, PerSecond: 0.0, Using: 0, Multiplier:1, Cost:6, Lifetime:0, Timer: 1.5},
+	sentences: {Total:0, Unique: 0, PerSecond: 0.0, Using: 0, Multiplier:1, Cost:15, Lifetime:0, Timer: 20},
+	pages: {Total:0, Unique: 0, PerSecond: 0.0, Using: 0, Multiplier:1, Cost:17, Lifetime:0, Timer: 300},
 	chapters: {Total:0, Unique: 0, PerSecond: 0.0, Using: 0, Multiplier:1, Cost:20, Lifetime:0},
 	books: {Total:0, Unique: 0, PerSecond: 0.0, Using: 0, Multiplier:1, Cost:25, Lifetime:0},
 	series: {Total:0, Unique: 0, PerSecond: 0.0, Using: 0, Multiplier:1, Cost:3, Lifetime:0},
-	writingLetters: {Timer: 0.6},
-	writingWords: {Timer: 1.5},
-	writingSentences: {Timer: 20},
-	writingPages: {Timer: 300},
 	upgrade: {writewords: false, 2: false, 3: false, 4:false},
 	office: {Space: 0, Counter: 1},
 	staff: {}
@@ -130,21 +126,21 @@ function startWriting(unit) {
 	for (i = 0; i < units.length; i++) {
 		if ($("#startWriting" + units[i]).hasClass("disabled")) {
 			disengageWriting();
-			if (units[i] == "Letters") { save.letters.PerSecond -= (1 / save.writingLetters.Timer) }
-			if (units[i] == "Words") { save.words.PerSecond -= (1 / save.writingWords.Timer); save.letters.Using -= save.words.Cost }
-			if (units[i] == "Sentences") { save.sentences.PerSecond -= (1 / save.writingSentences.Timer); save.words.Using -= save.sentences.Cost }
-			if (units[i] == "Pages") { save.pages.PerSecond -= (1 / save.writingPages.Timer) }
+			if (units[i] == "Letters") { save.letters.PerSecond -= (1 / save.letters.Timer) }
+			if (units[i] == "Words") { save.words.PerSecond -= (1 / save.words.Timer); save.letters.Using -= save.words.Cost }
+			if (units[i] == "Sentences") { save.sentences.PerSecond -= (1 / save.sentences.Timer); save.words.Using -= save.sentences.Cost }
+			if (units[i] == "Pages") { save.pages.PerSecond -= (1 / save.pages.Timer) }
 		}
 	}
 	if (unit == "Letters") {
-		save.letters.PerSecond += (1 / save.writingLetters.Timer)
+		save.letters.PerSecond += (1 / save.letters.Timer)
 	}
 	if (unit == "Words") {
-		save.words.PerSecond += (1 / save.writingWords.Timer)
+		save.words.PerSecond += (1 / save.words.Timer)
 		save.letters.Using += save.words.Cost
 	}
 	if (unit == "Sentences") {
-		save.sentences.PerSecond += (1 / save.writingSentences.Timer)
+		save.sentences.PerSecond += (1 / save.sentences.Timer)
 		save.words.Using += save.sentences.Cost
 	}
 	$("#startWriting" + unit).addClass("disabled");
@@ -235,7 +231,7 @@ function drawStatistics(){
 
 function writing(num){
 	if ($("#startWritingLetters").hasClass("disabled")) {
-		writingLetters.Progress += (100 / (save.writingLetters.Timer * (1000 / interval)) * num)
+		writingLetters.Progress += (100 / (save.letters.Timer * (1000 / interval)) * num)
 		$('#writingLettersProgress').css('width', writingLetters.Progress + '%').attr('aria-valuenow', writingLetters.Progress);
 		if (writingLetters.Progress >= 100) {
 			save.letters.Total += 1
@@ -246,7 +242,7 @@ function writing(num){
 	};
 	if ($("#startWritingWords").hasClass("disabled")) {
 		if (save.letters.Total >= 6) {
-			writingWords.Progress += (100 / (save.writingWords.Timer * (1000 / interval)) * num)
+			writingWords.Progress += (100 / (save.words.Timer * (1000 / interval)) * num)
 			$('#writingWordsProgress').css('width', writingWords.Progress + '%').attr('aria-valuenow', writingWords.Progress);
 			if (writingWords.Progress >= 100) {
 				save.letters.Total -= 6
@@ -259,7 +255,7 @@ function writing(num){
 	};
 	if ($("#startWritingSentences").hasClass("disabled")) {
 		if (save.words.Total >= 15) {
-			writingSentences.Progress += (100 / (save.writingSentences.Timer * (1000 / interval)) * num)
+			writingSentences.Progress += (100 / (save.sentences.Timer * (1000 / interval)) * num)
 			$('#writingSentencesProgress').css('width', writingSentences.Progress + '%').attr('aria-valuenow', writingSentences.Progress);
 			if (writingSentences.Progress >= 100) {
 				save.words.Total -= 15
@@ -272,7 +268,7 @@ function writing(num){
 	};
 	if ($("#startWritingPages").hasClass("disabled")) {
 		if (save.sentences.Total >= 17) {
-			writingPages.Progress += (100 / (save.writingPages.Timer * (1000 / interval)) * num)
+			writingPages.Progress += (100 / (save.pages.Timer * (1000 / interval)) * num)
 			$('#writingPagesProgress').css('width', writingPages.Progress + '%').attr('aria-valuenow', writingPages.Progress);
 			if (writingPages.Progress >= 100) {
 				save.sentences.Total -= 17
@@ -289,25 +285,21 @@ function staffWriting(num) {
 	for (i = 1; i < 10; i++) { //Loops through all the staff slots
 		for (j = 0; j < units.length; j++) { // Loops all the units in the specified slot
 			if ($("#" + units[j] + i).hasClass("active")) { //Checks if a specific button is active on a staff member
-				console.log("Unit + 1 = " + units[j + 1]); //USE THIS TO AUTOMATE IT ALL INTO ONE FUNCTION
-				if (units[j] == "words") {
-					//if (save.letters.Total >= 6) {
-						//save["staff"][i]["Progress"] += (100 / (save["staff"][i]["Total"] * (1000 / interval)) * num) //WORK ON THIS
-						save["staff"][i]["Progress"] += 10
-						$('#staffProgressBar' + i).css('width', save["staff"][i]["Progress"] + '%').attr('aria-valuenow', save["staff"][i]["Progress"]);
-						if (save["staff"][i]["Progress"] >= 100) {
-							save.letters.Total -= (save.words.Cost - (save.words.Cost * save["staff"][i]["Eff"]))
-							save.words.Total += 1
-							save.words.Lifetime += 1
-							save["staff"][i]["Progress"] -= 100
-							save["staff"][i]["Exp"] += 1
-							$("#staffExpBar" + i).css('width', save["staff"][i]["Exp"] + '%').attr('aria-valuenow', save["staff"][i]["Exp"]);
-							$("#staffExpValue" + i).text(save["staff"][i]["Exp"]);
-							if (save["staff"][i]["Exp"] >= save["staff"][i]["NextExp"]) {
-								levelUp(i);
-							};
+				if (save[units[j - 1]]["Total"] >= save[units[j]]["Cost"]) {
+					save["staff"][i]["Progress"] += 10
+					$('#staffProgressBar' + i).css('width', save["staff"][i]["Progress"] + '%').attr('aria-valuenow', save["staff"][i]["Progress"]);
+					if (save["staff"][i]["Progress"] >= 100) {
+						save[units[j - 1]]["Total"] -= (save[units[j]]["Cost"] - (save[units[j]]["Cost"] * save["staff"][i]["Eff"]))
+						save[units[j]]["Total"] += 1
+						save[units[j]]["Lifetime"] += 1
+						save["staff"][i]["Progress"] -= 100
+						save["staff"][i]["Exp"] += 1
+						$("#staffExpBar" + i).css('width', save["staff"][i]["Exp"] + '%').attr('aria-valuenow', save["staff"][i]["Exp"]);
+						$("#staffExpValue" + i).text(save["staff"][i]["Exp"]);
+						if (save["staff"][i]["Exp"] >= save["staff"][i]["NextExp"]) {
+							levelUp(i);
 						};
-					//};
+					};
 				};
 			};
 		};
@@ -341,10 +333,10 @@ window.onbeforeunload = function(event){
 	var units = ["Letters", "Words", "Sentences", "Pages"];
 	for (i = 0; i < units.length; i++) {
 		if ($("#startWriting" + units[i]).hasClass("disabled")) {
-			if (units[i] == "Letters") { save.letters.PerSecond -= (1 / save.writingLetters.Timer) }
-			if (units[i] == "Words") { save.words.PerSecond -= (1 / save.writingWords.Timer); save.letters.Using -= save.words.Cost }
-			if (units[i] == "Sentences") { save.sentences.PerSecond -= (1 / save.writingSentences.Timer); save.words.Using -= save.sentences.Cost }
-			if (units[i] == "Pages") { save.pages.PerSecond -= (1 / save.writingPages.Timer) }
+			if (units[i] == "Letters") { save.letters.PerSecond -= (1 / save.letters.Timer) }
+			if (units[i] == "Words") { save.words.PerSecond -= (1 / save.words.Timer); save.letters.Using -= save.words.Cost }
+			if (units[i] == "Sentences") { save.sentences.PerSecond -= (1 / save.sentences.Timer); save.words.Using -= save.sentences.Cost }
+			if (units[i] == "Pages") { save.pages.PerSecond -= (1 / save.pages.Timer) }
 		}
 	}
 	localStorage.setItem("save",JSON.stringify(save));
@@ -389,18 +381,18 @@ function drawGame(){
 	document.getElementsByClassName("letters.Using")[0].innerHTML = prettify(save.letters.Using,",",0)
 	document.getElementsByClassName("letters.PerSecond")[0].innerHTML = prettify(save.letters.PerSecond,",",2)
 	document.getElementsByClassName("letters.PerSecond")[1].innerHTML = prettify(save.letters.PerSecond,",",2)
-	document.getElementsByClassName("writingLetters.Timer")[0].innerHTML = prettify(save.writingLetters.Timer,",",2)
+	document.getElementsByClassName("writingLetters.Timer")[0].innerHTML = prettify(save.letters.Timer,",",2)
 	document.getElementsByClassName("words.Cost")[0].innerHTML = prettify(save.words.Cost,",",0)
 	document.getElementsByClassName("words.Total")[0].innerHTML = prettify(save.words.Total,",",0)
 	document.getElementsByClassName("words.Total")[1].innerHTML = prettify(save.words.Total,",",0)
 	document.getElementsByClassName("words.Using")[0].innerHTML = prettify(save.words.Using,",",2)
 	document.getElementsByClassName("words.PerSecond")[0].innerHTML = prettify(save.words.PerSecond,",",2)
-	document.getElementsByClassName("writingWords.Timer")[0].innerHTML = prettify(save.writingWords.Timer,",",2)
+	document.getElementsByClassName("writingWords.Timer")[0].innerHTML = prettify(save.words.Timer,",",2)
 	document.getElementsByClassName("sentences.Cost")[0].innerHTML = prettify(save.sentences.Cost,",",0)
 	document.getElementsByClassName("sentences.Total")[0].innerHTML = prettify(save.sentences.Total,",",0)
 	document.getElementsByClassName("sentences.Total")[1].innerHTML = prettify(save.sentences.Total,",",0)
 	document.getElementsByClassName("sentences.PerSecond")[0].innerHTML = prettify(save.sentences.PerSecond,",",2)
-	document.getElementsByClassName("writingSentences.Timer")[0].innerHTML = prettify(save.writingSentences.Timer,",",2)
+	document.getElementsByClassName("writingSentences.Timer")[0].innerHTML = prettify(save.sentences.Timer,",",2)
 	document.getElementsByClassName("pages.Total")[0].innerHTML = prettify(save.pages.Total,",",0)
 	document.getElementsByClassName("pages.Total")[1].innerHTML = prettify(save.pages.Total,",",0)
 	document.getElementsByClassName("pages.PerSecond")[0].innerHTML = prettify(save.pages.PerSecond,",",2)

@@ -101,6 +101,7 @@ function startStaffWriting (type, slot) {
 			$("#staffProgressBar" + slot).removeClass("progress-bar-striped");
 			$("#staffProgressBar" + slot).removeClass("active");
 			save["staff"][slot]["WorkingOn"] = 0
+			save[units[j]]["PerSecond"] -= (save[units[j]]["Timer"] * 2)
 		}
 	}
 	$("#staffProgressBar" + slot).addClass("progress-bar-striped");
@@ -108,6 +109,7 @@ function startStaffWriting (type, slot) {
 	$("#" + type + slot).removeClass("btn-primary");
 	$("#" + type + slot).addClass("active btn-success"); //Activates the requested unit
 	save["staff"][slot]["WorkingOn"] = type
+	save[type]["PerSecond"] += (save[type]["Timer"] * 2)
 }
 
 function fireStaff(slot) {
