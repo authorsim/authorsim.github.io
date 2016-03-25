@@ -1,3 +1,7 @@
+.btn {
+  margin-top: 3px;
+}
+
 .progress-bar {
     transition: width 0.01s;
     -webkit-transition: width 0.01s;
@@ -23,9 +27,18 @@
 	right: 25px;
 }
 
-.bg-staff {
-	outline: 1px solid #eee;
-	padding: 5px;
+.staff-stat {
+  outline: 1px solid #eee;
+}
+
+.staff-hire {
+  width: 15%;
+  height: 70px;
+  font-size: 18px;
+}
+
+.staff-progressbar-text {
+  font-style: italic;
 }
 
 .confirmpop {
@@ -54,4 +67,10 @@
 	opacity: 0.5;
 	width: 100%;
 	z-index: 149;
+}
+
+.col-centered {
+  float: none;
+  margin: 0 auto;
+  text-align: center;
 }

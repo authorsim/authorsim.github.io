@@ -5,102 +5,32 @@ $(function () {
 
 // Declare variables
 
-var save = {
-	monkeys: {Total: 0, Available: 1, Multiplier: 1.0, Lifetime: 0},
-	letters: {Total: 0.0, Unique: 0, PerSecond: 0.0, Using: 0, Lifetime: 0, Timer: 0.6},
-	words: {Total:0, Unique: 0, PerSecond: 0.0, Using: 0, Multiplier:1, Cost:6, Lifetime:0, Timer: 1.5},
-	sentences: {Total:0, Unique: 0, PerSecond: 0.0, Using: 0, Multiplier:1, Cost:15, Lifetime:0, Timer: 20},
-	pages: {Total:0, Unique: 0, PerSecond: 0.0, Using: 0, Multiplier:1, Cost:17, Lifetime:0, Timer: 300},
-	chapters: {Total:0, Unique: 0, PerSecond: 0.0, Using: 0, Multiplier:1, Cost:20, Lifetime:0},
-	books: {Total:0, Unique: 0, PerSecond: 0.0, Using: 0, Multiplier:1, Cost:25, Lifetime:0},
-	series: {Total:0, Unique: 0, PerSecond: 0.0, Using: 0, Multiplier:1, Cost:3, Lifetime:0},
-	upgrade: {writewords: false, 2: false, 3: false, 4:false},
-	office: {Space: 0, Counter: 1},
-	staff: {}
+function init(){
+	save = {
+		monkeys: {Total: 0, Multiplier: 1.0, Cost: 1, Lifetime: 0},
+		letters: {Total: 1000.0, Unique: 0, PerSecond: 0.0, Using: 0, Lifetime: 0, Timer: 0.6, Progress: 0},
+		words: {Total:0, Unique: 0, PerSecond: 0.0, Using: 0, Multiplier:1, Cost:6, Lifetime:0, Timer: 1.5, Progress: 0},
+		sentences: {Total:0, Unique: 0, PerSecond: 0.0, Using: 0, Multiplier:1, Cost:15, Lifetime:0, Timer: 20, Progress: 0},
+		pages: {Total:0, Unique: 0, PerSecond: 0.0, Using: 0, Multiplier:1, Cost:17, Lifetime:0, Timer: 300, Progress: 0},
+		chapters: {Total:0, Unique: 0, PerSecond: 0.0, Using: 0, Multiplier:1, Cost:20, Lifetime:0},
+		books: {Total:0, Unique: 0, PerSecond: 0.0, Using: 0, Multiplier:1, Cost:25, Lifetime:0},
+		series: {Total:0, Unique: 0, PerSecond: 0.0, Using: 0, Multiplier:1, Cost:3, Lifetime:0},
+		upgrade: {writewords: false, 2: false, 3: false, 4:false},
+		office: {Space: 0, Counter: 1},
+		staff: {}
+	};
 };
 
-var writingLetters = {Progress: 0};
-var writingWords = {Progress: 0};
-var writingSentences = {Progress: 0};
-var writingPages = {Progress: 0};
+if (typeof save === 'undefined') {
+	init();
+};
 
 staff = { // Exp and Eff values for all levels of staff
-		MSG: {
-			Exp1: 150,
-			Exp2: 300,
-			Exp3: 585,
-			Exp4: 1151,
-			Eff1: .05,
-			Eff2: .1,
-			Eff3: .15,
-			Eff4: .2
-		},
-		HSD: {
-			Exp1: 200,
-			Exp2: 400,
-			Exp3: 780,
-			Exp4: 1534,
-			Exp5: 3008,
-			Eff1: .1,
-			Eff2: .15,
-			Eff3: .2,
-			Eff4: .25,
-			Eff5: .3
-		},
-		UG: {
-			Exp1: 250,
-			Exp2: 500,
-			Exp3: 975,
-			Exp4: 1918,
-			Exp5: 3760,
-			Exp6: 7381,
-			Eff1: .15,
-			Eff2: .2,
-			Eff3: .25,
-			Eff4: .3,
-			Eff5: .35,
-			Eff6: .4
-		},
-		GS: {
-			Exp1: 300,
-			Exp2: 600,
-			Exp3: 1170,
-			Exp4: 2301,
-			Exp5: 4512,
-			Exp6: 8857,
-			Exp7: 17380,
-			Exp8: 34109,
-			Eff1: .2,
-			Eff2: .25,
-			Eff3: .3,
-			Eff4: .35,
-			Eff5: .4,
-			Eff6: .45,
-			Eff7: .5,
-			Eff8: .55
-		},
-		PHD: {
-			Exp1: 350,
-			Exp2: 700,
-			Exp3: 1365,
-			Exp4: 2685,
-			Exp5: 5264,
-			Exp6: 10334,
-			Exp7: 20277,
-			Exp8: 39794,
-			Exp9: 78092,
-			Exp10: 153252,
-			Eff1: .25,
-			Eff2: .3,
-			Eff3: .35,
-			Eff4: .4,
-			Eff5: .45,
-			Eff6: .5,
-			Eff7: .55,
-			Eff8: .6,
-			Eff9: .65,
-			Eff10: .7
-		}
+		MS: { Exp1: 150, Eff1: .05},
+		HS: { Exp1: 200, Eff1: .1},
+		UG: { Exp1: 250, Eff1: .15},
+		GS: { Exp1: 300, Eff1: .2},
+		PHD: { Exp1: 350, Eff1: .25}
 	}
 
 
@@ -108,66 +38,40 @@ staff = { // Exp and Eff values for all levels of staff
 //  Writing pieces
 //
 
-$('#startWritingLetters').click(function(){
-	startWriting("Letters");
-});
-$('#startWritingWords').click(function(){
-	startWriting("Words");
-});
-$('#startWritingSentences').click(function(){
-	startWriting("Sentences");
-});
-$('#startWritingPages').click(function(){
-	startWriting("Pages");
-});
+$('#startwritingletters').click(function(){startWriting("letters");});
+$('#startwritingwords').click(function(){startWriting("words");});
+$('#startwritingsentences').click(function(){startWriting("sentences");});
+$('#startwritingpages').click(function(){startWriting("pages");});
 
 function startWriting(unit) {
-	var units = ["Letters", "Words", "Sentences", "Pages"];
+	disengageWriting();
+	var units = ["letters", "words", "sentences", "pages", "chapters", "books", "series"];
 	for (i = 0; i < units.length; i++) {
-		if ($("#startWriting" + units[i]).hasClass("disabled")) {
-			disengageWriting();
-			if (units[i] == "Letters") { save.letters.PerSecond -= (1 / save.letters.Timer) }
-			if (units[i] == "Words") { save.words.PerSecond -= (1 / save.words.Timer); save.letters.Using -= save.words.Cost }
-			if (units[i] == "Sentences") { save.sentences.PerSecond -= (1 / save.sentences.Timer); save.words.Using -= save.sentences.Cost }
-			if (units[i] == "Pages") { save.pages.PerSecond -= (1 / save.pages.Timer) }
+		if (units[i] != "letters" && units[i] == unit) {
+			save[units[i]]["PerSecond"] += (1 / save[units[i]]["Timer"])
+			save[units[i - 1]]["Using"] += ((1 / save[units[i]]["Timer"]) * save[units[i]]["Cost"])
+		}else if (units[i] == "letters" && units[i] == unit) {
+			save[units[i]]["PerSecond"] += (1 / save[units[i]]["Timer"])
 		}
 	}
-	if (unit == "Letters") {
-		save.letters.PerSecond += (1 / save.letters.Timer)
-	}
-	if (unit == "Words") {
-		save.words.PerSecond += (1 / save.words.Timer)
-		save.letters.Using += save.words.Cost
-	}
-	if (unit == "Sentences") {
-		save.sentences.PerSecond += (1 / save.sentences.Timer)
-		save.words.Using += save.sentences.Cost
-	}
-	$("#startWriting" + unit).addClass("disabled");
-	$("#writing" + unit + "Progress").addClass("progress-bar-striped");
-	$("#writing" + unit + "Progress").addClass("active");	
+	$("#startwriting" + unit).addClass("disabled");
+	$("#writing" + unit + "progress").addClass("progress-bar-striped");
+	$("#writing" + unit + "progress").addClass("active");
 };
 
-function disengageWriting(){ // Resets the visual appearance of all the "write" tabs
-	$("#startWritingLetters").removeClass("disabled");
-	$("#writingLettersProgress").removeClass("progress-bar-striped");
-	$("#writingLettersProgress").removeClass("active");
-	$('#writingLettersProgress').css('width', '0%').attr('aria-valuenow', 0);
-	
-	$("#startWritingWords").removeClass("disabled");
-	$("#writingWordsProgress").removeClass("progress-bar-striped");
-	$("#writingWordsProgress").removeClass("active");
-	$('#writingWordsProgress').css('width', '0%').attr('aria-valuenow', 0);
-	
-	$("#startWritingSentences").removeClass("disabled");
-	$("#writingSentencesProgress").removeClass("progress-bar-striped");
-	$("#writingSentencesProgress").removeClass("active");
-	$('#writingSentencesProgress').css('width', '0%').attr('aria-valuenow', 0);
-	
-	$("#startWritingPages").removeClass("disabled");
-	$("#writingPagesProgress").removeClass("progress-bar-striped");
-	$("#writingPagesProgress").removeClass("active");
-	$('#writingPagesProgress').css('width', '0%').attr('aria-valuenow', 0);
+function disengageWriting(){
+	var units = ["letters", "words", "sentences", "pages", "chapters", "books", "series"];
+	for (i = 0; i < units.length; i++) {
+		if ($("#startwriting" + units[i]).hasClass("disabled") && units[i] != "letters") {
+			save[units[i]]["PerSecond"] -= (1 / save[units[i]]["Timer"])
+			save[units[i - 1]]["Using"] -= ((1 / save[units[i]]["Timer"]) * save[units[i]]["Cost"])
+		}
+		if ($("#startwriting" + units[i]).hasClass("disabled") && units[i] == "letters") {
+			save[units[i]]["PerSecond"] -= (1 / save[units[i]]["Timer"])
+		}
+		$("#startwriting" + units[i]).removeClass("disabled");
+		$("#writing" + units[i] + "progress").removeClass("progress-bar-striped active").css('width', '0%').attr('aria-valuenow', 0);
+	}
 };
 
 
@@ -185,28 +89,28 @@ function prettify(input,separator,forcedecimal) { //Credits to AlmostIdle.com
 	var SplitBefore = Before.split("."); //Split the input by "." to get the decimal
 	var After = ""; //Reset the result
 	var LastThree = ""; //Reset the last 3 characters
- 
+
 	while (SplitBefore[0].length > 0) { //While the left half of the number is still there
 		LastThree = SplitBefore[0].slice(-3); //Take the last 3
 		SplitBefore[0] = SplitBefore[0].slice(0,-3); //Remove the last 3
 		if (After.length == 0) { After = LastThree; } else { After = LastThree + separator + After; } //Append the last 3
 	}
- 
+
 	if (forcedecimal > 0) { //If the decimal number is enabled
 		After += "."; //Add the decimal place
 		var AddZeros = forcedecimal;
- 
+
 		if (SplitBefore[1]) { //If a decimal string already exists
 			AddZeros -= SplitBefore[1].length; //Get the number of trailing zeros required
 			if (AddZeros < 0) {AddZeros = 0;}
 			After += SplitBefore[1].substring(0,forcedecimal - AddZeros); //Add the existing trailing digits
 		}
- 
+
 		for (var zeros=0;zeros<AddZeros;zeros++) { //Add any trailing zeros
 			After += "0";
 		}
 	}
- 
+
 	return After; //Return the number as a string
 }
 
@@ -230,54 +134,23 @@ function drawStatistics(){
 //
 
 function writing(num){
-	if ($("#startWritingLetters").hasClass("disabled")) {
-		writingLetters.Progress += (100 / (save.letters.Timer * (1000 / interval)) * num)
-		$('#writingLettersProgress').css('width', writingLetters.Progress + '%').attr('aria-valuenow', writingLetters.Progress);
-		if (writingLetters.Progress >= 100) {
-			save.letters.Total += 1
-			save.letters.Lifetime += 1
-			writingLetters.Progress = 0
-		};
-		letterAch();
-	};
-	if ($("#startWritingWords").hasClass("disabled")) {
-		if (save.letters.Total >= 6) {
-			writingWords.Progress += (100 / (save.words.Timer * (1000 / interval)) * num)
-			$('#writingWordsProgress').css('width', writingWords.Progress + '%').attr('aria-valuenow', writingWords.Progress);
-			if (writingWords.Progress >= 100) {
-				save.letters.Total -= 6
-				save.words.Total += 1
-				save.words.Lifetime += 1
-				writingWords.Progress -= 100
-			};
-		};
-		wordAch();
-	};
-	if ($("#startWritingSentences").hasClass("disabled")) {
-		if (save.words.Total >= 15) {
-			writingSentences.Progress += (100 / (save.sentences.Timer * (1000 / interval)) * num)
-			$('#writingSentencesProgress').css('width', writingSentences.Progress + '%').attr('aria-valuenow', writingSentences.Progress);
-			if (writingSentences.Progress >= 100) {
-				save.words.Total -= 15
-				save.sentences.Total += 1
-				save.sentences.Lifetime += 1
-				writingSentences.Progress -= 100
-			};
-		};
-		sentenceAch();
-	};
-	if ($("#startWritingPages").hasClass("disabled")) {
-		if (save.sentences.Total >= 17) {
-			writingPages.Progress += (100 / (save.pages.Timer * (1000 / interval)) * num)
-			$('#writingPagesProgress').css('width', writingPages.Progress + '%').attr('aria-valuenow', writingPages.Progress);
-			if (writingPages.Progress >= 100) {
-				save.sentences.Total -= 17
-				save.pages.Total += 1
-				save.pages.Lifetime += 1
-				writingPages.Progress -= 100
-			};		
-		};
-	};
+	var units = ["letters", "words", "sentences", "pages", "chapters", "books", "series"];
+	for (i = 0; i < units.length; i++) {
+		if ($("#startwriting" + units[i]).hasClass("disabled")) {
+			save[units[i]]["Progress"] += (100 / (save[units[i]]["Timer"] * (1000 / interval)) * num)
+			$("#writing" + units[i] + "progress").css('width', save[units[i]]["Progress"] + '%').attr("aria-valuenow", save[units[i]]["Progress"]);
+			if (save[units[i]]["Progress"] >= 100 && units[i] != "letters") {
+				save[units[i - 1]]["Total"] -= save[units[i]]["Cost"]
+				save[units[i]]["Total"] += 1
+				save[units[i]]["Lifetime"] += 1
+				save[units[i]]["Progress"] = 0
+			} if (save[units[i]]["Progress"] >= 100 && units[i] == "letters") {
+				save[units[i]]["Total"] += 1
+				save[units[i]]["Lifetime"] += 1
+				save[units[i]]["Progress"] = 0
+			}
+		}
+	}
 };
 
 function staffWriting(num) {
@@ -285,19 +158,21 @@ function staffWriting(num) {
 	for (i = 1; i < 10; i++) { //Loops through all the staff slots
 		for (j = 0; j < units.length; j++) { // Loops all the units in the specified slot
 			if ($("#" + units[j] + i).hasClass("active")) { //Checks if a specific button is active on a staff member
-				if (save[units[j - 1]]["Total"] >= save[units[j]]["Cost"]) {
-					save["staff"][i]["Progress"] += 10
-					$('#staffProgressBar' + i).css('width', save["staff"][i]["Progress"] + '%').attr('aria-valuenow', save["staff"][i]["Progress"]);
-					if (save["staff"][i]["Progress"] >= 100) {
-						save[units[j - 1]]["Total"] -= (save[units[j]]["Cost"] - (save[units[j]]["Cost"] * save["staff"][i]["Eff"]))
+				if (save[units[j - 1]]["Total"] >= save[units[j]]["Cost"]) { //Checks if you can afford to create a unit
+					save["staff"]["S" + i]["Progress"] += (100 / ((save[units[j]]["Timer"] * (1 - save["staff"]["S" + i]["Eff"])) * (1000 / interval)) * num)
+					$('#staffProgressBar' + i).css('width', save["staff"]["S" + i]["Progress"] + '%').attr('aria-valuenow', save["staff"]["S" + i]["Progress"]);
+					if (save["staff"]["S" + i]["Progress"] >= 100) {
+						save[units[j - 1]]["Total"] -= (save[units[j]]["Cost"] - (save[units[j]]["Cost"] * save["staff"]["S" + i]["Eff"]))
 						save[units[j]]["Total"] += 1
 						save[units[j]]["Lifetime"] += 1
-						save["staff"][i]["Progress"] -= 100
-						save["staff"][i]["Exp"] += 1
-						$("#staffExpBar" + i).css('width', save["staff"][i]["Exp"] + '%').attr('aria-valuenow', save["staff"][i]["Exp"]);
-						$("#staffExpValue" + i).text(save["staff"][i]["Exp"]);
-						if (save["staff"][i]["Exp"] >= save["staff"][i]["NextExp"]) {
-							levelUp(i);
+						save["staff"]["S" + i]["Progress"] = 0
+						save["staff"]["S" + i]["Exp"] += save[units[j]]["Timer"] / 2
+						$("#staffExpBar" + i).css('width', ((save["staff"]["S" + i]["Exp"] / save["staff"]["S" + i]["NextExp"]) * 100) + '%');
+						$("#staffExpValue" + i).text(prettify(save["staff"]["S" + i]["Exp"],",",2));
+						if (save["staff"]["S" + i]["Exp"] >= save["staff"]["S" + i]["NextExp"]) {
+              if (save["staff"]["S" + i]["Level"] < save["staff"]["S" + i]["MaxLevel"]) {
+							  levelUp(i);
+              };
 						};
 					};
 				};
@@ -305,7 +180,6 @@ function staffWriting(num) {
 		};
 	};
 };
-
 
 var before = new Date();
 var interval = 20
@@ -322,23 +196,15 @@ window.onload = function WindowLoad(event){
 function timeout(){
 	window.setTimeout(function(){
 		localStorage.setItem("save",JSON.stringify(save));
-		console.log("Saved!");
 		timeout();
 	}, 10000);
 };
 
 // Fires before the page unloads
 window.onbeforeunload = function(event){
-    disengageStaff();
-	var units = ["Letters", "Words", "Sentences", "Pages"];
-	for (i = 0; i < units.length; i++) {
-		if ($("#startWriting" + units[i]).hasClass("disabled")) {
-			if (units[i] == "Letters") { save.letters.PerSecond -= (1 / save.letters.Timer) }
-			if (units[i] == "Words") { save.words.PerSecond -= (1 / save.words.Timer); save.letters.Using -= save.words.Cost }
-			if (units[i] == "Sentences") { save.sentences.PerSecond -= (1 / save.sentences.Timer); save.words.Using -= save.sentences.Cost }
-			if (units[i] == "Pages") { save.pages.PerSecond -= (1 / save.pages.Timer) }
-		}
-	}
+  localStorage.setItem("save",JSON.stringify(save));
+  disengageStaff();
+	disengageWriting();
 	localStorage.setItem("save",JSON.stringify(save));
 };
 
@@ -353,19 +219,22 @@ function load(){
 	save.chapters = savegame.chapters;
 	save.books = savegame.books;
 	save.series = savegame.series;
-	save.writingLetters = savegame.writingLetters;
-	save.writingWords = savegame.writingWords;
-	save.writingSentences = savegame.writingSentences;
-	save.writingPages = savegame.writingPages;
 	save.upgrade = savegame.upgrade;
-	
+	save.staff = savegame.staff;
+
+	for (i = 1; i < 10; i++) {
+		if (typeof save["staff"]["S" + i] !== 'undefined' && save["staff"]["S" + i]["Active"] == 1) {
+			drawStaff(save["staff"]["S" + i], [i]);
+		}
+	}
+
 	wordAch();
 	sentenceAch();
 	pageAch();
 	chapterAch();
 	bookAch();
 	seriesAch();
-	
+
 	if (savegame.upgrade.writewords === true){
 		$("#writingWords").show();
 	}
@@ -374,18 +243,15 @@ function load(){
 
 function drawGame(){
 	document.getElementsByClassName("monkeys.Total")[0].innerHTML = save.monkeys.Total
-	document.getElementsByClassName("monkeys.Available")[0].innerHTML = save.monkeys.Available
 	document.getElementsByClassName("letters.Total")[0].innerHTML = prettify(save.letters.Total,",",0)
 	document.getElementsByClassName("letters.Total")[1].innerHTML = prettify(save.letters.Total,",",0)
 	document.getElementsByClassName("letters.Total")[2].innerHTML = prettify(save.letters.Total,",",0)
-	document.getElementsByClassName("letters.Using")[0].innerHTML = prettify(save.letters.Using,",",0)
-	document.getElementsByClassName("letters.PerSecond")[0].innerHTML = prettify(save.letters.PerSecond,",",2)
-	document.getElementsByClassName("letters.PerSecond")[1].innerHTML = prettify(save.letters.PerSecond,",",2)
+  document.getElementsByClassName("letters.PerSecond")[0].innerHTML = prettify(save.letters.PerSecond,",",2)
+  document.getElementsByClassName("letters.PerSecond")[1].innerHTML = prettify(save.letters.PerSecond,",",2)
 	document.getElementsByClassName("writingLetters.Timer")[0].innerHTML = prettify(save.letters.Timer,",",2)
 	document.getElementsByClassName("words.Cost")[0].innerHTML = prettify(save.words.Cost,",",0)
 	document.getElementsByClassName("words.Total")[0].innerHTML = prettify(save.words.Total,",",0)
 	document.getElementsByClassName("words.Total")[1].innerHTML = prettify(save.words.Total,",",0)
-	document.getElementsByClassName("words.Using")[0].innerHTML = prettify(save.words.Using,",",2)
 	document.getElementsByClassName("words.PerSecond")[0].innerHTML = prettify(save.words.PerSecond,",",2)
 	document.getElementsByClassName("writingWords.Timer")[0].innerHTML = prettify(save.words.Timer,",",2)
 	document.getElementsByClassName("sentences.Cost")[0].innerHTML = prettify(save.sentences.Cost,",",0)
@@ -412,23 +278,7 @@ function delSave(){
 		localStorage.removeItem("save");
 		disengageWriting();
 		disengageStaff();
-		save = {
-			monkeys: {Total: 0, Available: 1, Multiplier: 1.0, Lifetime: 0},
-			letters: {Total: 1000.0, Unique: 0, PerSecond: 0.0, Using: 0, Lifetime: 0},
-			words: {Total:0, Unique: 0, PerSecond: 0.0, Using: 0, Multiplier:1, Cost:6, Lifetime:0},
-			sentences: {Total:0, Unique: 0, PerSecond: 0.0, Using: 0, Multiplier:1, Cost:15, Lifetime:0},
-			pages: {Total:0, Unique: 0, PerSecond: 0.0, Using: 0, Multiplier:1, Cost:17, Lifetime:0},
-			chapters: {Total:0, Unique: 0, PerSecond: 0.0, Using: 0, Multiplier:1, Cost:20, Lifetime:0},
-			books: {Total:0, Unique: 0, PerSecond: 0.0, Using: 0, Multiplier:1, Cost:25, Lifetime:0},
-			series: {Total:0, Unique: 0, PerSecond: 0.0, Using: 0, Multiplier:1, Cost:3, Lifetime:0},
-			writingLetters: {Timer: 0.6},
-			writingWords: {Timer: 1.5},
-			writingSentences: {Timer: 20},
-			writingPages: {Timer: 300},
-			upgrade: {writewords: false, 2: false, 3: false, 4:false},
-			office: {Space: 0, Counter: 1},
-			staff: {}
-		};
+		init();
 		location.reload();
 		$('.pop').fadeOut();
 		$('.confirmpopopacity').fadeOut();
@@ -445,11 +295,11 @@ function delSave(){
 
 window.setInterval(function(){
 	drawGame();
-	
+
 	now = new Date();
 	elapsedTime = (now.getTime() - before.getTime());
 	elapsedValue = (elapsedTime / interval);
-	
+
 	incrementLetters(elapsedValue);
 	writing(elapsedValue);
 	staffWriting(elapsedValue);
