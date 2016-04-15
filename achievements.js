@@ -6,16 +6,25 @@ function achieveAlert(id) {
 		$("#achieveTitle").text("Achievement Get!")
 		$("#achieveDesc").text("Created a functioning achievement popup!")
 	}
-	
+
 	window.setTimeout(function (){
 	$("#achieve").fadeTo(500, 0)
 	}, 7000);
 };
 
+function checkUpgrades() {
+	if (save.letters.Upgrade != 0) {
+		$("#lettersUpgrade").fadeIn();
+	}
+}
+
+// Check for achievements related to Letters
 function letterAch(){
 	if (save.letters.Total >= 150 && save.upgrade.writewords === false) {
 		$("#upgrade1").fadeIn();
+		save.letters.Upgrade += 1
 	};
+	checkUpgrades();
 };
 
 // Check for achievements related to Words
@@ -55,5 +64,5 @@ function bookAch(){
 
 // Check for achievements related to Series
 function seriesAch(){
-	
+
 };

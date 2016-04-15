@@ -24,7 +24,7 @@
 <div class="container">
 <div class="row">
 	<center><h1>Author Simulator</h1>
-	<p>version 0.0.4</p></center>
+	<p>version 0.1.0</p></center>
 	</div>
 
 	<ul class="nav nav-tabs" role="tablist">
@@ -160,7 +160,7 @@
 			</div>
 			</div>
 			<hr>
-			<div id="writingWords">
+			<div id="writingWords" style="display:none;">
 			<div class="row">
 				<div class="col-md-6">
 					<h3><small>Writing words manually takes <span class="writingWords.Timer">0</span> seconds each.</small><br>
@@ -269,13 +269,8 @@
       </div>
       <div class="row">
 				<div class="col-md-12">
-          <span class="staff-hire"><b>Hire:</b></span>
-          <button onclick="buyMonkey()" class="btn btn-primary staff-hire" id="buyMonkey" data-toggle="tooltip" data-placement="top" title="Each monkey writes 1 letter base per second."><span class="content">Monkey</span><span class="progress"><span class="progress-inner"></span></span></button>
-					<button onclick="buyStaff(1)" class="btn btn-info staff-hire"><small>Middle<br>Schooler</small></button>
-          <button onclick="buyStaff(2)" class="btn btn-info staff-hire">High<br>Schooler</button>
-          <button onclick="buyStaff(3)" class="btn btn-info staff-hire">Undergraduate</button>
-          <button onclick="buyStaff(4)" class="btn btn-info staff-hire">Graduate<br>Student</button>
-          <button onclick="buyStaff(5)" class="btn btn-info staff-hire">PhD</button>
+          <button id="buyMonkey" class="btn btn-primary staff-hire" data-toggle="tooltip" data-placement="top" title="Writes 1 letter per second">Buy Monkey <br> <span id="monkeyCost">1</span> Words</button>
+					<button id="buyStaff1" class="btn btn-info staff-hire" data-toggle="tooltip" data-placement="top" title="Writes words. Prestige unlocks higher units to write.">Hire Staff <br> <span id="staffCost">50</span> Words</button>
 				</div>
 			</div><br>
 

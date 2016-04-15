@@ -1,18 +1,29 @@
+$('#buyStaff1').click(function(){buyStaff(1);});
+$('#buyStaff2').click(function(){buyStaff(2);});
+$('#buyStaff3').click(function(){buyStaff(3);});
+$('#buyStaff4').click(function(){buyStaff(4);});
+$('#buyStaff5').click(function(){buyStaff(5);});
+$('#buyMonkey').click(function(){buyMonkey();});
+
 function buyStaff(num){
 	for (i = 1; i < 10; i++){ //Loop all open staff slots
 		if ($('#staffSlot' + [i]).css('display') == 'none'){ //If a staff slot is open
 			if (num === 1){ // Middle school girl
-				save["staff"]["S" + i] = {
-					Active: 1,
-					Name: "Miranda",
-					Type: 1,
-					Level: 1,
-					MaxLevel: 4,
-					Exp: 0,
-					NextExp: staff.MS.Exp1,
-					Eff: staff.MS.Eff1,
-					Progress: 0,
-			};
+				if (save.words.Total >= 50) {
+					save.words.total -= 50
+					save["staff"]["S" + i] = {
+						Active: 1,
+						Name: "Miranda",
+						Type: 1,
+						Level: 1,
+						MaxLevel: 4,
+						Exp: 0,
+						NextExp: staff.MS.Exp1,
+						Eff: staff.MS.Eff1,
+						Progress: 0,
+					};
+					drawStaff(save["staff"]["S" + i], [i]);
+				};
 			} else if (num === 2){ // Highschool dropout
 				save["staff"]["S" + i] = {
 					Active: 1,
@@ -25,6 +36,7 @@ function buyStaff(num){
 					Eff: staff.HS.Eff1,
 					Progress: 0,
 			};
+			drawStaff(save["staff"]["S" + i], [i]);
 			} else if (num === 3){ // Undergraduate
 				save["staff"]["S" + i] = {
 					Active: 1,
@@ -37,6 +49,7 @@ function buyStaff(num){
 					Eff: staff.UG.Eff1,
 					Progress: 0,
 			};
+			drawStaff(save["staff"]["S" + i], [i]);
 			} else if (num === 4){ // Graduate student
 				save["staff"]["S" + i] = {
 					Active: 1,
@@ -49,6 +62,7 @@ function buyStaff(num){
 					Eff: staff.GS.Eff1,
 					Progress: 0,
 			};
+			drawStaff(save["staff"]["S" + i], [i]);
 			} else if (num === 5){ // PhD
 				save["staff"]["S" + i] = {
 					Active: 1,
@@ -62,8 +76,7 @@ function buyStaff(num){
 					Progress: 0,
 			};
 			}
-			drawStaff(save["staff"]["S" + i], [i]);
-			break
+			break;
 		};
 	};
 };
@@ -75,6 +88,7 @@ function buyMonkey(){
 		save.monkeys.Lifetime += 1
 		save.letters.PerSecond += 1 * save.monkeys.Multiplier
 		save.monkeys.Cost = save.monkeys.Cost + 24
+		$("#monkeyCost").text(save.monkeys.Cost)
 	};
 };
 
@@ -107,22 +121,37 @@ function levelUp(slot) {
 
 function drawStaff(staff, slot) {
 	$("#staffSlot" + slot).css("display", "");
+	$("#sentences" + slot).css("display", "")
+	$("#pages" + slot).css("display", "")
+	$("#chapters" + slot).css("display", "")
+	$("#books" + slot).css("display", "")
+	$("#research" + slot).css("display", "none")
 	$("#staffName" + slot).text(staff.Name);
 		if (staff.Type == 1){
 			$("#staffEducation" + slot).text("Middle School");
+			$("#sentences" + slot).css("display", "none")
+			$("#pages" + slot).css("display", "none")
+			$("#chapters" + slot).css("display", "none")
+			$("#books" + slot).css("display", "none")
 		} else if (staff.Type == 2) {
 			$("#staffEducation" + slot).text("High School");
+			$("#pages" + slot).css("display", "none")
+			$("#chapters" + slot).css("display", "none")
+			$("#books" + slot).css("display", "none")
 		} else if (staff.Type == 3) {
 			$("#staffEducation" + slot).text("Undergraduate");
+			$("#chapters" + slot).css("display", "none")
+			$("#books" + slot).css("display", "none")
 		} else if (staff.Type == 4) {
 			$("#staffEducation" + slot).text("Graduate");
+			$("#books" + slot).css("display", "none")
 		} else if (staff.Type == 5) {
 			$("#staffEducation" + slot).text("PhD");
 		}
-	$("#staffEff" + slot).text(prettify((staff.Eff * 100),",",0) + "%");
+	$("#staffEff" + slot).text(prettify((staff.Eff * 100),0) + "%");
 	$("#staffLevel" + slot).text(staff.Level);
-	$("#staffExpValue" + slot).text(prettify(staff.Exp,",",0));
-	$("#staffExpTotal" + slot).text(prettify(staff.NextExp,",",0));
+	$("#staffExpValue" + slot).text(prettify(staff.Exp,0));
+	$("#staffExpTotal" + slot).text(prettify(staff.NextExp,0));
 };
 
 
@@ -179,17 +208,17 @@ function startStaffWriting (type, slot) {
 	for (j = 1; j < units.length; j++) { // Loops all the units in the specified slot
 		if ($("#" + units[j] + slot).hasClass("active")) { // Checks if the unit in the slot is active
 			$("#" + units[j] + slot).removeClass("active btn-success").addClass("btn-primary"); //Deactivates the active unit
-			save[units[j]]["PerSecond"] -= (1 / (save[units[j]]["Timer"] * (1 - save["staff"]["S" + slot]["Eff"])))
-			save[units[j - 1]]["Using"] -= (1 / (save[units[j]]["Timer"] * (1 - save["staff"]["S" + slot]["Eff"]))) * (save[units[j]]["Cost"] * (1 - save["staff"]["S" + slot]["Eff"]))
+			save[units[j]]["PerSecond"] -= (1 / (save[units[j]]["Timer"] * (1 - save["staff"]["S" + slot]["Eff"]))).toFixed(2)
+			save[units[j - 1]]["Using"] -= ((1 / (save[units[j]]["Timer"] * (1 - save["staff"]["S" + slot]["Eff"]))) * (save[units[j]]["Cost"] * (1 - save["staff"]["S" + slot]["Eff"]))).toFixed(2)
 		}
 		if (type === units[j]) {
 			$("#" + units[j] + slot).removeClass("btn-primary").addClass("active btn-success"); //Activates the unit
 			save[units[j]]["PerSecond"] += (1 / (save[units[j]]["Timer"] * (1 - save["staff"]["S" + slot]["Eff"])))
-			save[units[j - 1]]["Using"] += (1 / (save[units[j]]["Timer"] * (1 - save["staff"]["S" + slot]["Eff"]))) * (save[units[j]]["Cost"] * (1 - save["staff"]["S" + slot]["Eff"]))
+			save[units[j - 1]]["Using"] += ((1 / (save[units[j]]["Timer"] * (1 - save["staff"]["S" + slot]["Eff"]))) * (save[units[j]]["Cost"] * (1 - save["staff"]["S" + slot]["Eff"])))
 		}
 	}
-	document.getElementsByClassName("letters.Using")[0].innerHTML = prettify(save.letters.Using,",",2)
-	document.getElementsByClassName("words.Using")[0].innerHTML = prettify(save.words.Using,",",2)
+	document.getElementsByClassName("letters.Using")[0].innerHTML = save.letters.Using
+	document.getElementsByClassName("words.Using")[0].innerHTML = save.words.Using
 }
 
 function disengageStaff() {
@@ -198,12 +227,12 @@ function disengageStaff() {
 		for (j = 1; j < units.length; j++) { // Loops all the units in the specified slot
 			if ($("#" + units[j] + i).hasClass("active")) {
 				save[units[j]]["PerSecond"] -= (1 / (save[units[j]]["Timer"] * (1 - save["staff"]["S" + i]["Eff"])))
-				save[units[j - 1]]["Using"] -= (1 / (save[units[j]]["Timer"] * (1 - save["staff"]["S" + i]["Eff"]))) * (save[units[j]]["Cost"] * (1 - save["staff"]["S" + i]["Eff"]))
+				save[units[j - 1]]["Using"] -= ((1 / (save[units[j]]["Timer"] * (1 - save["staff"]["S" + i]["Eff"]))) * (save[units[j]]["Cost"] * (1 - save["staff"]["S" + i]["Eff"])))
 			}
 		}
 	}
-	document.getElementsByClassName("letters.Using")[0].innerHTML = prettify(save.letters.Using,",",2)
-	document.getElementsByClassName("words.Using")[0].innerHTML = prettify(save.words.Using,",",2)
+	document.getElementsByClassName("letters.Using")[0].innerHTML = save.letters.Using
+	document.getElementsByClassName("words.Using")[0].innerHTML = save.words.Using
 }
 
 function fireStaff(slot) {
@@ -215,15 +244,15 @@ function fireStaff(slot) {
 		for (j = 1; j < units.length; j++) { // Loops all the units in the specified slot
 			if ($("#" + units[j] + slot).hasClass("active")) {
 				save[units[j]]["PerSecond"] -= (1 / (save[units[j]]["Timer"] * (1 - save["staff"]["S" + slot]["Eff"])))
-				save[units[j - 1]]["Using"] -= (1 / (save[units[j]]["Timer"] * (1 - save["staff"]["S" + slot]["Eff"]))) * (save[units[j]]["Cost"] * (1 - save["staff"]["S" + slot]["Eff"]))
+				save[units[j - 1]]["Using"] -= ((1 / (save[units[j]]["Timer"] * (1 - save["staff"]["S" + slot]["Eff"]))) * (save[units[j]]["Cost"] * (1 - save["staff"]["S" + slot]["Eff"])))
 				$("#" + units[j] + slot).removeClass("active btn-success");
 				$("#" + units[j] + slot).addClass("btn-primary");
 			}
 		}
 		$('#staffSlot' + slot).css("display", "none")
 		save["staff"]["S" + slot]["Active"] = 0
-		document.getElementsByClassName("letters.Using")[0].innerHTML = prettify(save.letters.Using,",",2)
-		document.getElementsByClassName("words.Using")[0].innerHTML = prettify(save.words.Using,",",2)
+		document.getElementsByClassName("letters.Using")[0].innerHTML = save.letters.Using
+		document.getElementsByClassName("words.Using")[0].innerHTML = save.words.Using
 		$('.pop').fadeOut();
 		$('.confirmpopopacity').fadeOut();
 	});

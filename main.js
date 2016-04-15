@@ -8,10 +8,10 @@ $(function () {
 function init(){
 	save = {
 		monkeys: {Total: 0, Multiplier: 1.0, Cost: 1, Lifetime: 0},
-		letters: {Total: 1000.0, Unique: 0, PerSecond: 0.0, Using: 0, Lifetime: 0, Timer: 0.6, Progress: 0},
-		words: {Total:0, Unique: 0, PerSecond: 0.0, Using: 0, Multiplier:1, Cost:6, Lifetime:0, Timer: 1.5, Progress: 0},
-		sentences: {Total:0, Unique: 0, PerSecond: 0.0, Using: 0, Multiplier:1, Cost:15, Lifetime:0, Timer: 20, Progress: 0},
-		pages: {Total:0, Unique: 0, PerSecond: 0.0, Using: 0, Multiplier:1, Cost:17, Lifetime:0, Timer: 300, Progress: 0},
+		letters: {Total: 1000.0, Unique: 0, PerSecond: 0.0, Using: 0, Lifetime: 0, Timer: 0.6, Progress: 0, Upgrade: 0},
+		words: {Total:0, Unique: 0, PerSecond: 0.0, Using: 0, Multiplier:1, Cost:6, Lifetime:0, Timer: 1.5, Progress: 0, Upgrade: 0},
+		sentences: {Total:0, Unique: 0, PerSecond: 0.0, Using: 0, Multiplier:1, Cost:15, Lifetime:0, Timer: 20, Progress: 0, Upgrade: 0},
+		pages: {Total:0, Unique: 0, PerSecond: 0.0, Using: 0, Multiplier:1, Cost:17, Lifetime:0, Timer: 300, Progress: 0, Upgrade: 0},
 		chapters: {Total:0, Unique: 0, PerSecond: 0.0, Using: 0, Multiplier:1, Cost:20, Lifetime:0},
 		books: {Total:0, Unique: 0, PerSecond: 0.0, Using: 0, Multiplier:1, Cost:25, Lifetime:0},
 		series: {Total:0, Unique: 0, PerSecond: 0.0, Using: 0, Multiplier:1, Cost:3, Lifetime:0},
@@ -84,35 +84,20 @@ function incrementLetters(num){
 	save.letters.Lifetime += ((save.monkeys.Total * save.monkeys.Multiplier) / interval) * num
 };
 
-function prettify(input,separator,forcedecimal) { //Credits to AlmostIdle.com
-	var Before = String(input); //Turn the input into a string
-	var SplitBefore = Before.split("."); //Split the input by "." to get the decimal
-	var After = ""; //Reset the result
-	var LastThree = ""; //Reset the last 3 characters
+/* Number prettifier */
+  var nLog = Math.log(10);
+  var nArray = ["", "k", "M", "B", "T", "Qa", "Qi", "Sx", "Sp", "Oc", "No", "Dc", "UnD", "DuD", "TrD", "QaD", "QiD", "SeD", "SpD", "OcD", "NoD", "Vi", "UnV"];
 
-	while (SplitBefore[0].length > 0) { //While the left half of the number is still there
-		LastThree = SplitBefore[0].slice(-3); //Take the last 3
-		SplitBefore[0] = SplitBefore[0].slice(0,-3); //Remove the last 3
-		if (After.length == 0) { After = LastThree; } else { After = LastThree + separator + After; } //Append the last 3
-	}
+  var floor = function(n) {
+    return (Math.abs(Math.abs(n) - Math.abs(Math.floor(n))) >= 0.999999991) ? ((n >= 0) ? Math.ceil(n) : Math.floor(n)) : ((n >= 0) ? Math.floor(n) : Math.ceil(n));
+  };
 
-	if (forcedecimal > 0) { //If the decimal number is enabled
-		After += "."; //Add the decimal place
-		var AddZeros = forcedecimal;
-
-		if (SplitBefore[1]) { //If a decimal string already exists
-			AddZeros -= SplitBefore[1].length; //Get the number of trailing zeros required
-			if (AddZeros < 0) {AddZeros = 0;}
-			After += SplitBefore[1].substring(0,forcedecimal - AddZeros); //Add the existing trailing digits
-		}
-
-		for (var zeros=0;zeros<AddZeros;zeros++) { //Add any trailing zeros
-			After += "0";
-		}
-	}
-
-	return After; //Return the number as a string
-}
+  var prettify = function(n, d) {
+    var l = (floor(Math.log(Math.abs(n)) / nLog) <= 0) ? 0 : floor(Math.log(Math.abs(n)) / nLog),
+    p = (l % 3 === 0) ? 2 : (((l - 1) % 3 === 0) ? 1 : 0),
+    r = (Math.abs(n) < 1000) ? ((typeof d === "number") ? n.toFixed(d) : floor(n)) : (floor(n / (Math.pow(10, floor(l / 3) * 3 - p))) / Math.pow(10, p));
+    return (r + nArray[floor(l / 3)] + ((floor(r) === 42) ? "~" : "")) || "Infinite";
+  };
 
 
 //
@@ -120,13 +105,13 @@ function prettify(input,separator,forcedecimal) { //Credits to AlmostIdle.com
 //
 
 function drawStatistics(){
-	$('#lettersLifetimeStat').html(prettify(save.letters.Lifetime,",",0))
-	$('#wordsLifetimeStat').html(prettify(save.words.Lifetime,",",0))
-	$('#sentencesLifetimeStat').html(prettify(save.sentences.Lifetime,",",0))
-	$('#pagesLifetimeStat').html(prettify(save.pages.Lifetime,",",0))
-	$('#chaptersLifetimeStat').html(prettify(save.chapters.Lifetime,",",0))
-	$('#booksLifetimeStat').html(prettify(save.books.Lifetime,",",0))
-	$('#seriesLifetimeStat').html(prettify(save.series.Lifetime,",",0))
+	$('#lettersLifetimeStat').html(prettify(save.letters.Lifetime,0))
+	$('#wordsLifetimeStat').html(prettify(save.words.Lifetime,0))
+	$('#sentencesLifetimeStat').html(prettify(save.sentences.Lifetime,0))
+	$('#pagesLifetimeStat').html(prettify(save.pages.Lifetime,0))
+	$('#chaptersLifetimeStat').html(prettify(save.chapters.Lifetime,0))
+	$('#booksLifetimeStat').html(prettify(save.books.Lifetime,0))
+	$('#seriesLifetimeStat').html(prettify(save.series.Lifetime,0))
 };
 
 //
@@ -168,7 +153,7 @@ function staffWriting(num) {
 						save["staff"]["S" + i]["Progress"] = 0
 						save["staff"]["S" + i]["Exp"] += save[units[j]]["Timer"] / 2
 						$("#staffExpBar" + i).css('width', ((save["staff"]["S" + i]["Exp"] / save["staff"]["S" + i]["NextExp"]) * 100) + '%');
-						$("#staffExpValue" + i).text(prettify(save["staff"]["S" + i]["Exp"],",",2));
+						$("#staffExpValue" + i).text(prettify(save["staff"]["S" + i]["Exp"],2));
 						if (save["staff"]["S" + i]["Exp"] >= save["staff"]["S" + i]["NextExp"]) {
               if (save["staff"]["S" + i]["Level"] < save["staff"]["S" + i]["MaxLevel"]) {
 							  levelUp(i);
@@ -196,6 +181,12 @@ window.onload = function WindowLoad(event){
 function timeout(){
 	window.setTimeout(function(){
 		localStorage.setItem("save",JSON.stringify(save));
+    letterAch();
+    wordAch();
+    sentenceAch();
+    pageAch();
+    bookAch();
+    seriesAch();
 		timeout();
 	}, 10000);
 };
@@ -243,25 +234,27 @@ function load(){
 
 function drawGame(){
 	document.getElementsByClassName("monkeys.Total")[0].innerHTML = save.monkeys.Total
-	document.getElementsByClassName("letters.Total")[0].innerHTML = prettify(save.letters.Total,",",0)
-	document.getElementsByClassName("letters.Total")[1].innerHTML = prettify(save.letters.Total,",",0)
-	document.getElementsByClassName("letters.Total")[2].innerHTML = prettify(save.letters.Total,",",0)
-  document.getElementsByClassName("letters.PerSecond")[0].innerHTML = prettify(save.letters.PerSecond,",",2)
-  document.getElementsByClassName("letters.PerSecond")[1].innerHTML = prettify(save.letters.PerSecond,",",2)
-	document.getElementsByClassName("writingLetters.Timer")[0].innerHTML = prettify(save.letters.Timer,",",2)
-	document.getElementsByClassName("words.Cost")[0].innerHTML = prettify(save.words.Cost,",",0)
-	document.getElementsByClassName("words.Total")[0].innerHTML = prettify(save.words.Total,",",0)
-	document.getElementsByClassName("words.Total")[1].innerHTML = prettify(save.words.Total,",",0)
-	document.getElementsByClassName("words.PerSecond")[0].innerHTML = prettify(save.words.PerSecond,",",2)
-	document.getElementsByClassName("writingWords.Timer")[0].innerHTML = prettify(save.words.Timer,",",2)
-	document.getElementsByClassName("sentences.Cost")[0].innerHTML = prettify(save.sentences.Cost,",",0)
-	document.getElementsByClassName("sentences.Total")[0].innerHTML = prettify(save.sentences.Total,",",0)
-	document.getElementsByClassName("sentences.Total")[1].innerHTML = prettify(save.sentences.Total,",",0)
-	document.getElementsByClassName("sentences.PerSecond")[0].innerHTML = prettify(save.sentences.PerSecond,",",2)
-	document.getElementsByClassName("writingSentences.Timer")[0].innerHTML = prettify(save.sentences.Timer,",",2)
-	document.getElementsByClassName("pages.Total")[0].innerHTML = prettify(save.pages.Total,",",0)
-	document.getElementsByClassName("pages.Total")[1].innerHTML = prettify(save.pages.Total,",",0)
-	document.getElementsByClassName("pages.PerSecond")[0].innerHTML = prettify(save.pages.PerSecond,",",2)
+	document.getElementsByClassName("letters.Total")[0].innerHTML = prettify(save.letters.Total,0)
+	document.getElementsByClassName("letters.Total")[1].innerHTML = prettify(save.letters.Total,0)
+	document.getElementsByClassName("letters.Total")[2].innerHTML = prettify(save.letters.Total,0)
+  document.getElementsByClassName("letters.PerSecond")[0].innerHTML = prettify(save.letters.PerSecond,2)
+  document.getElementsByClassName("letters.PerSecond")[1].innerHTML = prettify(save.letters.PerSecond,2)
+  document.getElementsByClassName("letters.Using")[0].innerHTML = prettify(save.letters.Using,2)
+	document.getElementsByClassName("writingLetters.Timer")[0].innerHTML = prettify(save.letters.Timer,2)
+	document.getElementsByClassName("words.Cost")[0].innerHTML = prettify(save.words.Cost,0)
+	document.getElementsByClassName("words.Total")[0].innerHTML = prettify(save.words.Total,0)
+	document.getElementsByClassName("words.Total")[1].innerHTML = prettify(save.words.Total,0)
+	document.getElementsByClassName("words.PerSecond")[0].innerHTML = prettify(save.words.PerSecond,2)
+  document.getElementsByClassName("words.Using")[0].innerHTML = prettify(save.words.Using,2)
+	document.getElementsByClassName("writingWords.Timer")[0].innerHTML = prettify(save.words.Timer,2)
+	document.getElementsByClassName("sentences.Cost")[0].innerHTML = prettify(save.sentences.Cost,0)
+	document.getElementsByClassName("sentences.Total")[0].innerHTML = prettify(save.sentences.Total,0)
+	document.getElementsByClassName("sentences.Total")[1].innerHTML = prettify(save.sentences.Total,0)
+	document.getElementsByClassName("sentences.PerSecond")[0].innerHTML = prettify(save.sentences.PerSecond,2)
+	document.getElementsByClassName("writingSentences.Timer")[0].innerHTML = prettify(save.sentences.Timer,2)
+	document.getElementsByClassName("pages.Total")[0].innerHTML = prettify(save.pages.Total,0)
+	document.getElementsByClassName("pages.Total")[1].innerHTML = prettify(save.pages.Total,0)
+	document.getElementsByClassName("pages.PerSecond")[0].innerHTML = prettify(save.pages.PerSecond,2)
 	document.getElementsByClassName("chapters.Total")[0].innerHTML = save.chapters.Total
 	document.getElementsByClassName("chapters.Total")[1].innerHTML = save.chapters.Total
 	document.getElementsByClassName("books.Total")[0].innerHTML = save.books.Total
