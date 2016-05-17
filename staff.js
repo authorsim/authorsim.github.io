@@ -10,7 +10,7 @@ function buyStaff(num){
 		if ($('#staffSlot' + [i]).css('display') == 'none'){ //If a staff slot is open
 			if (num === 1){ // Middle school girl
 				if (save.words.Total >= 50) {
-					save.words.total -= 50
+					save.words.Total -= 50
 					save["staff"]["S" + i] = {
 						Active: 1,
 						Name: "Miranda",
@@ -82,7 +82,7 @@ function buyStaff(num){
 };
 
 function buyMonkey(){
-	if (save.words.Total > save.monkeys.Cost){
+	if (save.words.Total >= save.monkeys.Cost){
 		save.words.Total -= save.monkeys.Cost
 		save.monkeys.Total += 1
 		save.monkeys.Lifetime += 1
@@ -208,8 +208,8 @@ function startStaffWriting (type, slot) {
 	for (j = 1; j < units.length; j++) { // Loops all the units in the specified slot
 		if ($("#" + units[j] + slot).hasClass("active")) { // Checks if the unit in the slot is active
 			$("#" + units[j] + slot).removeClass("active btn-success").addClass("btn-primary"); //Deactivates the active unit
-			save[units[j]]["PerSecond"] -= (1 / (save[units[j]]["Timer"] * (1 - save["staff"]["S" + slot]["Eff"]))).toFixed(2)
-			save[units[j - 1]]["Using"] -= ((1 / (save[units[j]]["Timer"] * (1 - save["staff"]["S" + slot]["Eff"]))) * (save[units[j]]["Cost"] * (1 - save["staff"]["S" + slot]["Eff"]))).toFixed(2)
+			save[units[j]]["PerSecond"] -= (1 / (save[units[j]]["Timer"] * (1 - save["staff"]["S" + slot]["Eff"])))
+			save[units[j - 1]]["Using"] -= ((1 / (save[units[j]]["Timer"] * (1 - save["staff"]["S" + slot]["Eff"]))) * (save[units[j]]["Cost"] * (1 - save["staff"]["S" + slot]["Eff"])))
 		}
 		if (type === units[j]) {
 			$("#" + units[j] + slot).removeClass("btn-primary").addClass("active btn-success"); //Activates the unit

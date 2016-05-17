@@ -9,13 +9,13 @@ function init(){
 	save = {
 		monkeys: {Total: 0, Multiplier: 1.0, Cost: 1, Lifetime: 0},
 		letters: {Total: 1000.0, Unique: 0, PerSecond: 0.0, Using: 0, Lifetime: 0, Timer: 0.6, Progress: 0, Upgrade: 0},
-		words: {Total:0, Unique: 0, PerSecond: 0.0, Using: 0, Multiplier:1, Cost:6, Lifetime:0, Timer: 1.5, Progress: 0, Upgrade: 0},
-		sentences: {Total:0, Unique: 0, PerSecond: 0.0, Using: 0, Multiplier:1, Cost:15, Lifetime:0, Timer: 20, Progress: 0, Upgrade: 0},
+		words: {Total:1000, Unique: 0, PerSecond: 0.0, Using: 0, Multiplier:1, Cost:6, Lifetime:0, Timer: 1.5, Progress: 0, Upgrade: 0},
+		sentences: {Total:1000, Unique: 0, PerSecond: 0.0, Using: 0, Multiplier:1, Cost:15, Lifetime:0, Timer: 20, Progress: 0, Upgrade: 0},
 		pages: {Total:0, Unique: 0, PerSecond: 0.0, Using: 0, Multiplier:1, Cost:17, Lifetime:0, Timer: 300, Progress: 0, Upgrade: 0},
 		chapters: {Total:0, Unique: 0, PerSecond: 0.0, Using: 0, Multiplier:1, Cost:20, Lifetime:0},
 		books: {Total:0, Unique: 0, PerSecond: 0.0, Using: 0, Multiplier:1, Cost:25, Lifetime:0},
 		series: {Total:0, Unique: 0, PerSecond: 0.0, Using: 0, Multiplier:1, Cost:3, Lifetime:0},
-		upgrade: {writewords: false, 2: false, 3: false, 4:false},
+		upgrade: {writewords: false, writesentences: false, writepages: false, writechapters:false},
 		office: {Space: 0, Counter: 1},
 		staff: {}
 	};
@@ -44,7 +44,7 @@ $('#startwritingsentences').click(function(){startWriting("sentences");});
 $('#startwritingpages').click(function(){startWriting("pages");});
 
 function startWriting(unit) {
-	disengageWriting();
+  disengageWriting();
 	var units = ["letters", "words", "sentences", "pages", "chapters", "books", "series"];
 	for (i = 0; i < units.length; i++) {
 		if (units[i] != "letters" && units[i] == unit) {
@@ -124,7 +124,7 @@ function writing(num){
 		if ($("#startwriting" + units[i]).hasClass("disabled")) {
 			save[units[i]]["Progress"] += (100 / (save[units[i]]["Timer"] * (1000 / interval)) * num)
 			$("#writing" + units[i] + "progress").css('width', save[units[i]]["Progress"] + '%').attr("aria-valuenow", save[units[i]]["Progress"]);
-			if (save[units[i]]["Progress"] >= 100 && units[i] != "letters") {
+			if (save[units[i]]["Progress"] >= 100 && units[i] != "letters" && save[units[i]]["Cost"] <= save[units[i - 1]]["Total"]) {
 				save[units[i - 1]]["Total"] -= save[units[i]]["Cost"]
 				save[units[i]]["Total"] += 1
 				save[units[i]]["Lifetime"] += 1
@@ -181,14 +181,8 @@ window.onload = function WindowLoad(event){
 function timeout(){
 	window.setTimeout(function(){
 		localStorage.setItem("save",JSON.stringify(save));
-    letterAch();
-    wordAch();
-    sentenceAch();
-    pageAch();
-    bookAch();
-    seriesAch();
 		timeout();
-	}, 10000);
+	}, 5000);
 };
 
 // Fires before the page unloads
@@ -217,17 +211,6 @@ function load(){
 		if (typeof save["staff"]["S" + i] !== 'undefined' && save["staff"]["S" + i]["Active"] == 1) {
 			drawStaff(save["staff"]["S" + i], [i]);
 		}
-	}
-
-	wordAch();
-	sentenceAch();
-	pageAch();
-	chapterAch();
-	bookAch();
-	seriesAch();
-
-	if (savegame.upgrade.writewords === true){
-		$("#writingWords").show();
 	}
 	}
 };
