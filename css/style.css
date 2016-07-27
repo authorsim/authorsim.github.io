@@ -1,0 +1,104 @@
+#header {
+  text-align: center;
+}
+
+#achieve {
+  text-align: center;
+}
+
+.btn {
+  margin-top: 3px;
+}
+
+#LettersUpgradeAvailable,
+#WordsUpgradeAvailable,
+#SentencesUpgradeAvailable,
+#PagesUpgradeAvailable,
+#ChaptersUpgradeAvailable,
+#BooksUpgradeAvailable,
+#SeriesUpgradeAvailable {
+  display: none;
+}
+
+.progress-bar {
+    transition: width 0.01s;
+    -webkit-transition: width 0.01s;
+}
+
+.achieve {
+	text-align: center;
+	z-index: 1050;
+}
+
+.glyphicon-ok {
+	font-size: 60px;
+}
+
+.achieveicon {
+	position: absolute;
+	left: 25px;
+	top: 30px;
+}
+
+.gamestate {
+	position: absolute;
+	right: 25px;
+}
+
+.staff-stat {
+  border: 1px solid #ddd;
+  border-radius: 15px;
+  background: #f1f1f1;
+}
+
+.staff-hire {
+  width: 15%;
+  height: 70px;
+  text-align: center;
+}
+
+.staff-info {
+  border-radius: 25px;
+  background-color: #f4f4f4;
+  text-align: center;
+}
+
+.staff-progressbar-text {
+  font-style: italic;
+}
+
+.confirmpop {
+  background-color: #f4f4f4;
+  border: 1px solid #d9d9d9;
+  border-radius: 20px;
+  display: none;
+  font-size: 18px;
+  height: 140px;
+  left: 50%;
+  margin-left: -200px;
+  margin-right: -70px;
+  padding: 20px;
+  position: fixed;
+  top: 30%;
+  text-align: center;
+  width: 400px;
+  z-index: 150;
+}
+
+.confirmpopopacity {
+	background-color: #000;
+	display: none;
+	position: absolute;
+	height: 100%;
+  width: 100%;
+	opacity: 0.5;
+  top: 0;
+  left: 0;
+	z-index: 149;
+}
+
+.col-centered {
+  float: none;
+  margin: 0 auto;
+  text-align: center;
+}

@@ -1,0 +1,24 @@
+{
+  "name": "authorsim.github.io",
+  "version": "1.0.0",
+  "description": "An incremental game.",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/authorsim/authorsim.github.io.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/authorsim/authorsim.github.io/issues"
+  },
+  "homepage": "https://github.com/authorsim/authorsim.github.io#readme",
+  "devDependencies": {
+    "babel-core": "^6.10.4",
+    "babel-loader": "^6.2.4",
+    "babel-preset-es2015": "^6.9.0"
+  }
+}
