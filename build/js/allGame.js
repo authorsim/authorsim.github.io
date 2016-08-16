@@ -56,6 +56,17 @@
 	// Declare variables
 
 	var interval = 20;
+
+	var staff = { // Exp and Eff values for all levels of staff
+	  prestige1: { maxLevel: 4, baseExp: 150, eff: .950, speed: 1.05 },
+	  prestige2: { maxLevel: 5, baseExp: 200, eff: 1.10, speed: 1.45 },
+	  prestige3: { maxLevel: 6, baseExp: 250, eff: 1.30, speed: 1.95 },
+	  prestige4: { maxLevel: 8, baseExp: 300, eff: 1.55, speed: 2.55 },
+	  prestige5: { maxLevel: 10, baseExp: 350, eff: 1.90, speed: 3.35 }
+	};
+
+	var units = ['letters', 'words', 'sentences', 'pages', 'chapters', 'books', 'series'];
+
 	var save = void 0;
 	var init = function init() {
 	  save = {
@@ -66,7 +77,7 @@
 	    },
 	    active: 'letters',
 	    letters: { unit: 'letters',
-	      total: 1000,
+	      total: 0,
 	      manual: false,
 	      generating: 0,
 	      using: 0,
@@ -74,10 +85,10 @@
 	      lifetime: 0,
 	      timer: 0.6,
 	      progress: 0,
-	      upgrade: 0
+	      availableUpgrades: 0
 	    },
 	    words: { unit: 'words',
-	      total: 1000,
+	      total: 0,
 	      manual: false,
 	      generating: 0,
 	      using: 0,
@@ -85,11 +96,11 @@
 	      lifetime: 0,
 	      timer: 1.5,
 	      progress: 0,
-	      upgrade: 0,
+	      availableUpgrades: 0,
 	      cost: 6
 	    },
 	    sentences: { unit: 'sentences',
-	      total: 1000,
+	      total: 0,
 	      manual: false,
 	      generating: 0,
 	      using: 0,
@@ -97,7 +108,7 @@
 	      lifetime: 0,
 	      timer: 20,
 	      progress: 0,
-	      upgrade: 0,
+	      availableUpgrades: 0,
 	      cost: 15
 	    },
 	    pages: { unit: 'pages',
@@ -109,7 +120,7 @@
 	      lifetime: 0,
 	      timer: 300,
 	      progress: 0,
-	      upgrade: 0,
+	      availableUpgrades: 0,
 	      cost: 17
 	    },
 	    chapters: { unit: 'chapters',
@@ -120,7 +131,7 @@
 	      multiplier: 1,
 	      lifetime: 0,
 	      progress: 0,
-	      upgrade: 0,
+	      availableUpgrades: 0,
 	      cost: 20
 	    },
 	    books: { unit: 'books',
@@ -131,7 +142,7 @@
 	      multiplier: 1,
 	      lifetime: 0,
 	      progress: 0,
-	      upgrade: 0,
+	      availableUpgrades: 0,
 	      cost: 25
 	    },
 	    series: { unit: 'series',
@@ -141,7 +152,7 @@
 	      multiplier: 1,
 	      lifetime: 0,
 	      proress: 0,
-	      upgrade: 0,
+	      availableUpgrades: 0,
 	      cost: 3
 	    },
 	    office: { space: 0, counter: 1 },
@@ -155,6 +166,11 @@
 	      s8: {},
 	      s9: {}
 
+	    },
+	    upgrades: {
+	      writeWords: false,
+	      writeSentences: false,
+	      fasterLetters: false
 	    }
 	  };
 	};
@@ -163,16 +179,6 @@
 	if (typeof save === 'undefined') {
 	  init();
 	}
-
-	var staff = { // Exp and Eff values for all levels of staff
-	  prestige1: { exp: 150, eff: .95, speed: 1.05 },
-	  HS: { Exp1: 200, Eff1: .1 },
-	  UG: { Exp1: 250, Eff1: .15 },
-	  GS: { Exp1: 300, Eff1: .2 },
-	  PHD: { Exp1: 350, Eff1: .25 }
-	};
-
-	var units = ['letters', 'words', 'sentences', 'pages', 'chapters', 'books', 'series'];
 
 	//
 	// Writing calculation pieces
@@ -220,7 +226,7 @@
 	    // Check staff writing
 	    var _staff2 = save['staff']['s' + i];
 	    if (_staff2 && _staff2['writing'] === unit) {
-	      prev += 1 / c['timer'] * c['cost'] * _staff2['eff'] / 2;
+	      prev += 1 / c['timer'] * c['cost'] / _staff2['eff'] * _staff2['speed'] / 2;
 	    }
 	  }
 	  save[p]['using'] = prev;
@@ -251,8 +257,8 @@
 	  save[unit]['manual'] = true;
 	  calcGenerating(unit);
 
-	  // Visually update the clicked button and progress bar
-	  $('#writing' + unit + 'progress').addClass('progress-bar-striped active');
+	  // Visually update the progress bar
+	  $('#write' + unit).addClass('progress-bar-striped active');
 	};
 
 	var disengageWriting = function disengageWriting() {
@@ -261,14 +267,13 @@
 	    save[cur]['manual'] = false;
 	    calcGenerating(cur);
 
-	    // Visually update all buttons and progress bars
-	    $('#writing' + cur + 'progress').removeClass('progress-bar-striped active').css('width', '0%').attr('aria-valuenow', 0);
+	    // Update progress bar
+	    $('#writing' + cur).css('width', '0%').attr('aria-valuenow', 0);
 	  });
 	};
 
 	//
-	// Number prettifier
-	//    for displaying
+	// Number prettifier for displaying
 	//
 
 	var nLog = Math.log(10);
@@ -301,30 +306,37 @@
 	};
 
 	var writing = function writing(num) {
+	  // Manual writing
 	  // Returns only when deactivating an already-active writing process
 	  if (!getActiveUnit()) {
 	    return;
 	  }
 	  var curr = save[getActiveUnit()];
 	  // Increment progress bar
-	  curr['progress'] += 100 / (curr['timer'] * (1000 / interval)) * num;
-	  $('#writing' + getActiveUnit() + 'progress').css('width', curr['progress'] + '%').attr('aria-valuenow', curr['progress']);
-	  if (curr['progress'] >= 100) {
-	    units.reduce(function (pv, cv, i, arr) {
-	      var c = save[cv]; // Current unit
-	      if (cv === 'letters') {
-	        c['total'] += 1;
-	        c['lifetime'] += 1;
-	        c['progress'] -= 100;
-	      } else if (c['cost'] <= save[pv]['total'] && c === curr) {
-	        c['total'] += 1;
-	        c['lifetime'] += 1;
-	        c['progress'] -= 100;
-	        save[pv]['total'] -= c['cost'];
+	  $('#write' + getActiveUnit()).css('width', curr['progress'] + '%').attr('aria-valuenow', curr['progress']);
+	  units.reduce(function (pv, cv, i, arr) {
+	    if (cv === 'letters' && save[cv] === curr) {
+	      curr['progress'] += 100 / (curr['timer'] / curr['multiplier'] * (1000 / interval)) * num;
+	      if (curr['progress'] >= 100) {
+	        // Increment unit and reset progress
+	        curr['total'] += 1;
+	        curr['lifetime'] += 1;
+	        curr['progress'] -= 100;
 	      }
-	      return cv;
-	    }, 'letters');
-	  }
+	    } else if (curr['cost'] <= save[pv]['total'] && save[cv] === curr) {
+	      curr['progress'] += 100 / (curr['timer'] * (1000 / interval)) * num;
+	      if (curr['progress'] >= 100) {
+	        // Increment unit and reset progress
+	        curr['total'] += 1;
+	        curr['lifetime'] += 1;
+	        curr['progress'] -= 100;
+
+	        // Deduct the cost from the previous unit
+	        save[pv]['total'] -= curr['cost'];
+	      }
+	    }
+	    return cv;
+	  }, 'letters');
 	};
 
 	function staffWriting(num) {
@@ -341,20 +353,22 @@
 	          if (pUnit['total'] >= unit['cost']) {
 	            // Checks if you can afford to create a unit
 	            // Increments the progress bar
-	            _staff3['progress'] += 100 / (unit['timer'] * _staff3['eff'] * (1000 / interval)) * num;
-	            $('#staffProgressBar' + i) // Update progress bar
-	            .css('width', _staff3['progress'] + '%').attr('aria-valuenow', _staff3['progress']);
+	            _staff3['progress'] += 100 / (unit['timer'] / _staff3['speed'] * 2) / (1000 / interval) * num;
 	            if (_staff3['progress'] >= 100) {
 	              // When the progress bar gets full, run calc
-	              pUnit['total'] -= unit['cost'] * _staff3['eff'];
+	              // Deduct cost from previous unit
+	              pUnit['total'] -= unit['cost'] / _staff3['eff'];
+
+	              // Increment active unit
 	              unit['total'] += 1;
 	              unit['lifetime'] += 1;
+
+	              // Reset progress bar and exp
 	              _staff3['progress'] -= 100;
 	              _staff3['exp'] += unit['timer'] / 2;
-	              $('#staffExpBar' + i).css('width', _staff3['exp'] / _staff3['nextExp'] * 100 + '%');
-	              $('#staffExpValue' + i).text(prettify(_staff3['exp'], 2));
+
+	              // Checks for staff level up
 	              if (_staff3['exp'] >= _staff3['nextExp'] && _staff3['level'] < _staff3['maxLevel']) {
-	                // Ready to level up?
 	                levelUp(i);
 	              }
 	            }
@@ -366,15 +380,31 @@
 	}
 
 	//
+	// Configurable error popup
+	//
+	var errorAlert = function errorAlert(title, desc) {
+	  $('#error').fadeTo(500, 0.8);
+	  $('#errorTitle').text(title);
+	  $('#errorDesc').text(desc);
+
+	  // After 7 seconds, fades the window back out
+	  window.setTimeout(function () {
+	    $('#error').fadeTo(500, 0);
+	  }, 7000);
+	};
+
+	//
 	// Functions on page load (timeout, save)
 	//
 
-	window.onload = function WindowLoad(event) {
+	window.onload = function () {
 	  units.forEach(function (cv, i, arr) {
 	    calcGenerating(cv);
 	  });
 	  load();
 	  timeout();
+	  unlock.setup();
+	  upgrade.setup();
 	};
 
 	function timeout() {
@@ -386,9 +416,6 @@
 
 	// Fires before the page unloads
 	window.onbeforeunload = function (event) {
-	  localStorage.setItem('save', JSON.stringify(save));
-	  //disengageStaff()
-	  disengageWriting();
 	  localStorage.setItem('save', JSON.stringify(save));
 	};
 
@@ -403,15 +430,8 @@
 	    save.chapters = savegame.chapters;
 	    save.books = savegame.books;
 	    save.series = savegame.series;
-	    save.upgrade = savegame.upgrade;
+	    save.upgrades = savegame.upgrades;
 	    save.staff = savegame.staff;
-
-	    for (var i = 1; i < 10; i++) {
-	      var _staff4 = save['staff']['s' + i];
-	      if (_staff4 && _staff4['active']) {
-	        drawStaff(_staff4, i);
-	      }
-	    }
 	  }
 	};
 
@@ -422,11 +442,11 @@
 	  $('.confirm').off('click').click(function () {
 	    localStorage.removeItem('save');
 	    disengageWriting();
-	    disengageStaff();
+	    for (var i = 1; i < 10; i++) {
+	      disengageStaff(i);
+	    }
 	    init();
 	    location.reload();
-	    $('.pop').fadeOut();
-	    $('.confirmpopopacity').fadeOut();
 	  });
 	  $('.deny').off('click').click(function () {
 	    $('.pop').fadeOut();
@@ -446,7 +466,8 @@
 	  incrementLetters(elapsedValue);
 	  writing(elapsedValue);
 	  staffWriting(elapsedValue);
-
+	  unlock.check();
+	  upgrade.check();
 	  before = now;
 	}, 1000 / interval);
 

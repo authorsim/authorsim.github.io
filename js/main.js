@@ -1,15 +1,19 @@
 import React from 'react'
 import {render} from 'react-dom'
+import Tooltip from 'react-tooltip'
+require('./bootstrap.min.js')
 
 let AuthorSim = React.createClass({
   render: () => {
     return (
       <div className="container">
+        <Tooltip />
         <Header />
         <GameMenu />
         <GameField />
 
         <ConfirmWindow />
+        <ErrorWindow />
         <AchievementWindow />
       </div>
     )
@@ -21,7 +25,7 @@ let Header = React.createClass({
     return (
       <div className="row" id="header">
       	<h1>Author Simulator</h1>
-      	<p>version 0.2.0</p>
+      	<p>version 0.3.0</p>
       </div>
     )
   }
@@ -33,11 +37,13 @@ let GameMenu = React.createClass({
       <ul className="nav nav-tabs" role="tablist">
         <li role="presentation" className="active">
           <a href="#home" aria-controls="home" role="tab" data-toggle="tab">
-            <span className="letters.Total"></span> Letters
+            Units
           </a>
         </li>
         <li role="presentation">
-          <a href="#staff" aria-controls="staff" role="tab" data-toggle="tab">Staff</a>
+          <a href="#staff" aria-controls="staff" role="tab" data-toggle="tab">
+            Staff
+          </a>
         </li>
         <li role="presentation">
           <a href="#achievements" aria-controls="achievements" role="tab" data-toggle="tab">Achievements</a>
@@ -66,15 +72,11 @@ let GameField = React.createClass({
       <div className="tab-content">
         <UnitPanel />
         <StaffPanel />
-        <div role="tabpanel" className="tab-pane fade" id="achievements">
-
-        </div>
+        <AchievementPanel />
         <div role="tabpanel" className="tab-pane fade" id="statistics">
 
         </div>
-        <div role="tabpanel" className="tab-pane fade" id="options">
-
-        </div>
+        <OptionsPanel />
       </div>
     )
   }
@@ -84,7 +86,6 @@ let UnitPanel = React.createClass({
   getInitialState: function() {
     return {
       save: save,
-      activeUnit: save['letters']
     }
   },
   updateSave: function() {
@@ -92,16 +93,11 @@ let UnitPanel = React.createClass({
       save: save
     })
   },
-  updateActive: function(unit) {
-    this.setState({
-      activeUnit: save[unit]
-    })
-  },
   write: function(unit) {
     startWriting(unit)
   },
   componentDidMount: function() {
-    setInterval(this.updateSave, 100)
+    setInterval(this.updateSave, 50)
   },
   render: function() {
     return (
@@ -112,44 +108,61 @@ let UnitPanel = React.createClass({
               <UnitMenuItem
                 unit="Series"
                 total={this.state.save.series.total}
-                update={this.updateActive.bind(null,'series')}
               />
               <UnitMenuItem
                 unit="Books"
                 total={this.state.save.books.total}
-                update={this.updateActive.bind(null,'books')}
               />
               <UnitMenuItem
                 unit="Chapters"
                 total={this.state.save.chapters.total}
-                update={this.updateActive.bind(null,'chapters')}
               />
               <UnitMenuItem
                 unit="Pages"
                 total={this.state.save.pages.total}
-                update={this.updateActive.bind(null,'pages')}
               />
               <UnitMenuItem
                 unit="Sentences"
                 total={this.state.save.sentences.total}
-                update={this.updateActive.bind(null,'sentences')}
               />
               <UnitMenuItem
                 unit="Words"
                 total={this.state.save.words.total}
-                update={this.updateActive.bind(null,'words')}
               />
               <UnitMenuItem
                 unit="Letters"
                 total={this.state.save.letters.total}
-                update={this.updateActive.bind(null,'letters')}
               />
             </ul>
           </div>
-          <div className="col-sm-9">
+          <div className="tab-content col-sm-9">
             <UnitDetailsPanel
-              activeUnit={this.state.activeUnit}
-              write={this.write.bind(null, this.state.activeUnit.unit)}
+              unit={this.state.save.letters}
+              write={this.write.bind(null, this.state.save.letters.unit)}
+            />
+            <UnitDetailsPanel
+              unit={this.state.save.words}
+              write={this.write.bind(null, this.state.save.words.unit)}
+            />
+            <UnitDetailsPanel
+              unit={this.state.save.sentences}
+              write={this.write.bind(null, this.state.save.sentences.unit)}
+            />
+            <UnitDetailsPanel
+              unit={this.state.save.pages}
+              write={this.write.bind(null, this.state.save.pages.unit)}
+            />
+            <UnitDetailsPanel
+              unit={this.state.save.chapters}
+              write={this.write.bind(null, this.state.save.chapters.unit)}
+            />
+            <UnitDetailsPanel
+              unit={this.state.save.books}
+              write={this.write.bind(null, this.state.save.books.unit)}
+            />
+            <UnitDetailsPanel
+              unit={this.state.save.series}
+              write={this.write.bind(null, this.state.save.series.unit)}
             />
           </div>
         </div>
@@ -161,11 +174,11 @@ let UnitPanel = React.createClass({
 let UnitMenuItem = React.createClass({
   render: function() {
     return (
-      <li role="presentation">
-        <a href="#" role="tab" data-toggle="tab" onClick={this.props.update}>
+      <li id={this.props.unit + "Menu"} role="presentation">
+        <a href={'#' + this.props.unit.toLowerCase()} role="tab" data-toggle="tab" onClick={this.props.update}>
           <div className="row">
             <div className="col-sm-2">
-              <span id={this.props.unit + 'UpgradeAvailable'} className="glyphicon glyphicon-circle-arrow-up">
+              <span id={this.props.unit + 'UpgradeAvailable'} className="upgrade glyphicon glyphicon-circle-arrow-up">
               </span>
             </div>
             <div className="col-sm-4">{this.props.unit}</div>
@@ -180,31 +193,54 @@ let UnitMenuItem = React.createClass({
 let UnitDetailsPanel = React.createClass({
   render: function() {
     return (
-        <div role="tabpanel" className="tab-pane active fade in">
-          <div className="row">
-            <div className="col-sm-8">
-              <p>You have {prettify(this.props.activeUnit.total)} {this.props.activeUnit.unit}.</p>
-              <p>You are generating {prettify(this.props.activeUnit.generating, 2)} total {this.props.activeUnit.unit} per second.</p>
-              <p>You are using {prettify(this.props.activeUnit.using, 2)} {this.props.activeUnit.unit} per second.</p>
-            </div>
-          <div className="col-sm-4">
-            <UnitPanelUpgrade />
-          </div>
-        </div>
-        <hr />
+      <div id={this.props.unit.unit} role="tabpanel" className="tab-pane fade">
         <div className="row">
+          <div className="col-sm-7">
+            <p>You have {prettify(this.props.unit.total)} {this.props.unit.unit}.</p>
+            <p>You are generating {prettify(this.props.unit.generating, 2)} total {this.props.unit.unit} per second.</p>
+            <p>You are using {prettify(this.props.unit.using, 2)} {this.props.unit.unit} per second.</p>
+            {this.props.unit.unit !== 'letters' ?
+              <p>Writing a {this.props.unit.unit} costs {prettify(this.props.unit.cost, 1)} of the previous unit.</p> :
+              null
+            }
+          </div>
+          {this.props.unit.unit === 'letters' ?
+            <UnitPanelLettersUpgrade /> : null
+          }
+          {this.props.unit.unit === 'words' ?
+            <UnitPanelWordsUpgrade /> : null
+          }
+          {this.props.unit.unit === 'sentences' ?
+            <UnitPanelSentencesUpgrade /> : null
+          }
+          {this.props.unit.unit === 'pages' ?
+            <UnitPanelPagesUpgrade /> : null
+          }
+          {this.props.unit.unit === 'chapters' ?
+            <UnitPanelChaptersUpgrade /> : null
+          }
+          {this.props.unit.unit === 'books' ?
+            <UnitPanelBooksUpgrade /> : null
+          }
+        </div>
+        <div id={this.props.unit.unit + "ManualSection"} className="row">
+        <hr />
           <div className="col-sm-12">
-            <p>Writing {this.props.activeUnit.unit} by hand takes {prettify(this.props.activeUnit.timer, 1)} seconds.
+            <p>Writing {this.props.unit.unit} by hand takes {prettify(this.props.unit.timer / this.props.unit.multiplier, 2)} seconds.
             </p>
           </div>
-        </div>
-        <div className="row">
           <div className="col-sm-8 col-sm-offset-2">
-            <UnitPanelProgress
-              unit={this.props.activeUnit.unit}
-            />
-            <button className="btn btn-lg btn-info" onClick={this.props.write}>
-              Write {this.props.activeUnit.unit}
+          <div className="progress">
+            <div className="progress-bar progress-bar-info progress-bar-striped active"
+                id={"write" + this.props.unit.unit}
+                role="progressbar"
+                aria-valuenow="0"
+                aria-valuemin="0"
+                aria-valuemax="100">
+            </div>
+          </div>
+            <button className="btn btn-lg btn-info center-block" onClick={this.props.write}>
+              Write {this.props.unit.unit}
             </button>
           </div>
         </div>
@@ -213,25 +249,93 @@ let UnitDetailsPanel = React.createClass({
   }
 })
 
-let UnitPanelUpgrade = React.createClass({
-  render: () => {
+let UnitPanelUpgradeItem = React.createClass({
+  render: function() {
     return (
-      <div>Upgrades</div>
+      <button
+        id={this.props.upgradeName.replace(/\s+/g, '')}
+        className="btn btn-success btn-sm upgrade"
+        onClick={this.props.func}
+        data-tip={this.props.desc}
+      >
+        <p>{this.props.upgradeName}</p>
+        <small>Cost: {this.props.cost}</small>
+      </button>
     )
   }
 })
 
-let UnitPanelProgress = React.createClass({
+let UnitPanelLettersUpgrade = React.createClass({
   render: function() {
     return (
-      <div className="progress">
-        <div className="progress-bar progress-bar-info"
-            id={'writing' + this.props.unit + 'progress'}
-            role="progressbar"
-            aria-valuenow="50"
-            aria-valuemin="0"
-            aria-valuemax="100">
-        </div>
+      <div className="col-sm-5">
+        <UnitPanelUpgradeItem
+          upgradeName="Write Words"
+          desc="Allows you to write words manually."
+          func={upgrade.writeWords}
+          cost="50 Letters"
+        />
+        <UnitPanelUpgradeItem
+          upgradeName="Faster Letters"
+          desc="Write letters 50% faster when manually writing."
+          func={upgrade.fasterLetters}
+          cost="250 Letters"
+        />
+      </div>
+    )
+  }
+})
+
+let UnitPanelWordsUpgrade = React.createClass({
+  render: function() {
+    return (
+      <div className="col-sm-5">
+        <UnitPanelUpgradeItem
+          upgradeName="Write Sentences"
+          desc="Allows you to write sentences manually."
+          func={upgrade.writeSentences}
+          cost="30 Words"
+        />
+      </div>
+    )
+  }
+})
+
+let UnitPanelSentencesUpgrade = React.createClass({
+  render: function() {
+    return (
+      <div className="col-sm-5">
+
+      </div>
+    )
+  }
+})
+
+let UnitPanelPagesUpgrade = React.createClass({
+  render: function() {
+    return (
+      <div className="col-sm-5">
+
+      </div>
+    )
+  }
+})
+
+let UnitPanelChaptersUpgrade = React.createClass({
+  render: function() {
+    return (
+      <div className="col-sm-5">
+
+      </div>
+    )
+  }
+})
+
+let UnitPanelBooksUpgrade = React.createClass({
+  render: function() {
+    return (
+      <div className="col-sm-5">
+
       </div>
     )
   }
@@ -252,67 +356,68 @@ let StaffPanel = React.createClass({
       staff: save['staff']
     })
   },
+  hire: function(slot) {
+    hireStaff(slot)
+  },
+  buyMonkey: function() {
+    buyMonkey()
+  },
   componentDidMount: function() {
-    setInterval(this.updateState, 500)
+    setInterval(this.updateState, 50)
   },
   render: function() {
     return (
-      <div role="tabpanel" className="tab-pane fade" id="staff">
-
+      <div role="tabpanel" className="tab-pane fade in" id="staff">
   			<div className="row">
+          <div className="col-sm-3">
+            <button className="btn btn-primary staff-hire"
+              onClick={this.buyMonkey}
+              data-tip="Writes 1 letter per second">
+                Buy Monkey for {this.state.monkeys.cost} Words
+            </button>
+          </div>
   				<div className="col-sm-3">
   					<h4>Monkeys : {this.state.monkeys.total}</h4>
   				</div>
-          <div className="col-sm-3">
-            <h4>Letters per Second: {prettify(this.state.letterGen, 2)}</h4>
-          </div>
         </div>
-
+        <hr />
         <div className="row">
-          <button className="btn btn-primary staff-hire"
-            data-toggle="tooltip"
-            data-placement="top"
-            title="Writes 1 letter per second">
-              <p>Buy Monkey</p>
-              <p>{this.state.monkeys.cost} Words</p>
-          </button>
-					<button id="buyStaff1" className="btn btn-info staff-hire"
-            data-toggle="tooltip"
-            data-placement="top"
-            title="Writes words. Prestige unlocks higher units to write.">
-              <p>Hire Staff</p>
-              <p><span id="staffCost">50</span> Words</p>
-          </button>
-  			</div>
-
-        <div className="row">
-          <StaffSlot
-            staff={this.state.staff.s1}
-          />
-          <StaffSlot
-            staff={this.state.staff.s2}
-          />
-          <StaffSlot
-            staff={this.state.staff.s3}
-          />
-          <StaffSlot
-            staff={this.state.staff.s4}
-          />
-          <StaffSlot
-            staff={this.state.staff.s5}
-          />
-          <StaffSlot
-            staff={this.state.staff.s6}
-          />
-          <StaffSlot
-            staff={this.state.staff.s7}
-          />
-          <StaffSlot
-            staff={this.state.staff.s8}
-          />
-          <StaffSlot
-            staff={this.state.staff.s9}
-          />
+          {this.state.staff.s1.active ?
+            <StaffSlot staff={this.state.staff.s1} slot='1' /> :
+            <PurchaseStaffSlot hire={this.hire.bind(null, '1')} />
+          }
+          {this.state.staff.s2.active ?
+            <StaffSlot staff={this.state.staff.s2} slot='2' /> :
+            <PurchaseStaffSlot hire={this.hire.bind(null, '2')} />
+          }
+          {this.state.staff.s3.active ?
+            <StaffSlot staff={this.state.staff.s3} slot='3' /> :
+            <PurchaseStaffSlot hire={this.hire.bind(null, '3')} />
+          }
+          {this.state.staff.s4.active ?
+            <StaffSlot staff={this.state.staff.s4} slot='4' /> :
+            <PurchaseStaffSlot hire={this.hire.bind(null, '4')} />
+          }
+          {this.state.staff.s5.active ?
+            <StaffSlot staff={this.state.staff.s5} slot='5' /> :
+            <PurchaseStaffSlot hire={this.hire.bind(null, '5')} />
+          }
+          {this.state.staff.s6.active ?
+            <StaffSlot  staff={this.state.staff.s6} slot='6' /> :
+            <PurchaseStaffSlot hire={this.hire.bind(null, '6')} />
+          }
+          {this.state.staff.s7.active ?
+            <StaffSlot staff={this.state.staff.s7} slot='7' /> :
+            <PurchaseStaffSlot hire={this.hire.bind(null, '7')} />
+          }
+          {this.state.staff.s8.active ?
+            <StaffSlot staff={this.state.staff.s8} slot='8' /> :
+            <PurchaseStaffSlot hire={this.hire.bind(null, '8')} />
+          }
+          {this.state.staff.s9.active ?
+            <StaffSlot staff={this.state.staff.s9} slot='9' /> :
+            <PurchaseStaffSlot hire={this.hire.bind(null, '9')} />
+          }
         </div>
       </div>
     )
@@ -320,70 +425,169 @@ let StaffPanel = React.createClass({
 })
 
 let StaffSlot = React.createClass({
+  getEducation: function() {
+    let edu = ''
+    switch (this.props.staff.prestige) {
+      case 1:
+        edu = 'Middle School'
+        break
+      case 2:
+        edu = 'High School Dropout'
+        break
+      case 3:
+        edu = 'Undergraduate'
+        break
+      case 4:
+        edu = 'Graduate Student'
+        break
+      case 5:
+        edu = 'PhD'
+        break
+    }
+    return edu
+  },
+  startWriting: function(unit) {
+    startStaffWriting(unit, this.props.slot)
+  },
+  graduate: function() {
+    staffGraduate(this.props.slot)
+  },
+  componentDidMount: function() {
+    for (let i = 1; i < 10; i++) {
+      let staff = save['staff']['s' + i]
+      if (staff['active'] && staff['writing'] !== 'none') {
+        // Update button visuals
+        $('#staff' + staff['writing'] + i)
+          .removeClass('btn-primary')
+          .addClass('active btn-success')
+      }
+  	}
+  },
   render: function() {
-
     let expBar = {
       width: (this.props.staff.exp / this.props.staff.nextExp * 100) + '%'
     }
 
+    let progressBar = {
+      width: this.props.staff.progress + '%'
+    }
+
     return (
       <div className="col-sm-4 staff-stat">
-        <div className="row">
           <div className="col-sm-9">
             <h4>{this.props.staff.name}</h4>
           </div>
           <div className="col-sm-3">
-            <button className="btn btn-info">
-              Skills
-            </button>
+
           </div>
           <div className="col-sm-12">
-            <strong>Education:</strong> {this.props.staff.prestige}
+            <strong>Education:</strong> {this.getEducation()}
           </div>
-          <div className="col-sm-6">
-            <span data-toggle="tooltip" data-placement="top" title="Uses X% fewer resources.">
-              <strong>Efficiency:</strong> {this.props.staff.eff}
-            </span>
+          <div className="col-sm-6" data-tip="Higher number uses fewer resources">
+            <strong>Efficiency:</strong> {prettify(this.props.staff.eff, 2)}
           </div>
-          <div className="col-sm-6">
-            <span data-toggle="tooltip" data-placement="top" title="Is X% faster at writing.">
-              <strong>Speed:</strong> {this.props.staff.speed}
-            </span>
+          <div className="col-sm-6" data-tip="Higher number writes faster">
+            <strong>Speed:</strong> {prettify(this.props.staff.speed, 2)}
           </div>
           <div className="col-sm-3">
             <strong>Level:</strong> {this.props.staff.level}
           </div>
           <div className="col-sm-9">
+            {this.props.staff.level === 10 ?
+              null :
+              <div id={'staffExpBar' + this.props.slot} className="progress">
+                <div className="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="50" aria-valuemin="10" aria-valuemax="100" style={expBar}>
+                  <span>{this.props.staff.exp} / {this.props.staff.nextExp}</span>
+                </div>
+              </div>
+            }
+
+          </div>
+        <div id={'staffGraduate' + this.props.slot} className="graduate">
+          <button onClick={this.graduate} type="button" className="btn btn-success btn-lg">
+            Graduate
+          </button>
+        </div>
+        <div id={"staffProgressArea" + this.props.slot}>
+          <div className="col-sm-8 col-sm-offset-2 col-centered">
+            <button onClick={this.startWriting.bind(null, 'words')} id={'staffwords' + this.props.slot} type="button" className="btn btn-primary btn-sm" data-tip="Write Words">W</button>
+            <button onClick={this.startWriting.bind(null, 'sentences')} id={'staffsentences' + this.props.slot} type="button" className="btn btn-primary btn-sm" data-tip="Write Sentences">S</button>
+
+            {this.props.staff.prestige >= 2 ?
+              <button onClick={this.startWriting.bind(null, 'pages')} id={'staffpages' + this.props.slot} type="button" className="btn btn-primary btn-sm" data-tip="Write Pages">P</button> :
+              null
+            }
+            {this.props.staff.prestige >= 3 ?
+              <button onClick={this.startWriting.bind(null, 'chapters')} id={'staffchapters' + this.props.slot} type="button" className="btn btn-primary btn-sm" data-tip="Write Chapters">C</button> :
+              null
+            }
+            {this.props.staff.prestige >= 4 ?
+              <button onClick={this.startWriting.bind(null, 'books')} id={'staffbooks' + this.props.slot} type="button" className="btn btn-primary btn-sm" data-tip="Write Books">B</button> :
+              null
+            }
+            {this.props.staff.prestige >= 5 ?
+              <button onClick={this.startWriting.bind(null, 'series')} id={'staffseries' + this.props.slot} type="button" className="btn btn-info btn-sm" data-tip="Research">R</button> :
+              null
+            }
+          </div>
+          <div className="col-sm-10 col-sm-offset-1">
             <div className="progress">
-              <div className="progress-bar progress-bar-warning" id="staffExpBar1" role="progressbar" aria-valuenow="50" aria-valuemin="10" aria-valuemax="100">
-                {this.props.staff.exp} / {this.props.staff.nextExp}
+              <div id={'staffProgress' + this.props.slot} className="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="50" aria-valuemin="10" aria-valuemax="100" style={progressBar}>
               </div>
             </div>
           </div>
         </div>
+      </div>
+    )
+  }
+})
+
+let PurchaseStaffSlot = React.createClass({
+  render: function() {
+    return (
+      <div className="col-sm-4 staff-stat">
         <div className="row">
-        <div className="col-sm-8 col-sm-offset-2 col-centered">
-          <button id="words1" type="button" className="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="top" title="Write Words">W</button>
-          <button id="sentences1" type="button" className="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="top" title="Write Sentences">S</button>
-          <button id="pages1" type="button" className="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="top" title="Write Pages">P</button>
-          <button id="chapters1" type="button" className="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="top" title="Write Chapters">C</button>
-          <button id="books1" type="button" className="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="top" title="Write Books">B</button>
-          <button id="research1" type="button" className="btn btn-info btn-sm" data-toggle="tooltip" data-placement="top" title="Research">R</button>
+          <button onClick={this.props.hire} type="button" className="btn btn-primary btn-lg centered">
+            <p>Hire Staff Member</p>
+            <p>50 Words</p>
+          </button>
         </div>
-        <div className="col-sm-10 col-sm-offset-1">
-          <div className="progress">
-            <div className="progress-bar progress-bar-striped active" id="staffProgressBar1" role="progressbar" aria-valuenow="50" aria-valuemin="10" aria-valuemax="100">
-            </div>
+      </div>
+    )
+  }
+})
+
+let AchievementPanel = React.createClass({
+  render: function() {
+    return (
+      <div role="tabpanel" className="tab-pane fade" id="achievements">
+        <div className="row">
+          <div className="tab-content col-sm-3">
+            Coming...later
           </div>
         </div>
       </div>
-    </div>
+    )
+  }
+})
+
+let OptionsPanel = React.createClass({
+  delSave: function() {
+    delSave()
+  },
+  render: function() {
+    return (
+      <div role="tabpanel" className="tab-pane fade" id="options">
+        <div className="row">
+          <button onClick={this.delSave} className="btn btn-lg btn-danger">Delete Save</button>
+        </div>
+      </div>
     )
   }
 })
 
 let ConfirmWindow = React.createClass({
-  render: () => {
+  render: function() {
     return (
       <div>
       <div className="confirmpopopacity"></div>
@@ -400,15 +604,31 @@ let ConfirmWindow = React.createClass({
 })
 
 let AchievementWindow = React.createClass({
-  render: () => {
+  render: function() {
     return (
       <div className="row">
-    	<div className="col-md-12">
+    	<div className="col-sm-12">
     		<div id="achieve" className="alert alert-dismissible alert-info fade" role="alert">
     			<button type="button" className="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
     			<span className="achieveicon glyphicon glyphicon-ok"></span>
     			<h3 id="achieveTitle">Whoa!</h3>
     			<p id="achieveDesc">Looks like you earned an achievement!</p>
+    		</div>
+    	</div>
+    	</div>
+    )
+  }
+})
+
+let ErrorWindow = React.createClass({
+  render: function() {
+    return (
+      <div className="row">
+    	<div className="col-sm-6 col-sm-offset-3">
+    		<div id="error" className="alert alert-dismissible alert-danger fade" role="alert">
+    			<button type="button" className="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    			<h3 id="errorTitle">Whoa!</h3>
+    			<p id="errorDesc">Looks like you have an error!</p>
     		</div>
     	</div>
     	</div>

@@ -2,7 +2,7 @@
   text-align: center;
 }
 
-#achieve {
+.alert {
   text-align: center;
 }
 
@@ -10,24 +10,52 @@
   margin-top: 3px;
 }
 
-#LettersUpgradeAvailable,
-#WordsUpgradeAvailable,
-#SentencesUpgradeAvailable,
-#PagesUpgradeAvailable,
-#ChaptersUpgradeAvailable,
-#BooksUpgradeAvailable,
-#SeriesUpgradeAvailable {
+.centered {
+  top: 0;
+  left: 0;
+  transform: translateX(50%) translateY(50%);
+}
+
+.graduate {
+  text-align: center;
   display: none;
+}
+
+.upgrade {
+  display: none;
+}
+
+#SeriesMenu,
+#BooksMenu,
+#ChaptersMenu,
+#PagesMenu,
+#SentencesMenu,
+#WordsMenu {
+  display: none;
+}
+
+#wordsManualSection,
+#sentencesManualSection,
+#pagesManualSection,
+#chaptersManualSection,
+#booksManualSection {
+  display: none;
+}
+
+.progress {
+  position: relative;
+}
+
+.progress span {
+  position: absolute;
+  display: block;
+  width: 100%;
+  color: #000;
 }
 
 .progress-bar {
     transition: width 0.01s;
     -webkit-transition: width 0.01s;
-}
-
-.achieve {
-	text-align: center;
-	z-index: 1050;
 }
 
 .glyphicon-ok {
@@ -49,12 +77,7 @@
   border: 1px solid #ddd;
   border-radius: 15px;
   background: #f1f1f1;
-}
-
-.staff-hire {
-  width: 15%;
-  height: 70px;
-  text-align: center;
+  height: 185px;
 }
 
 .staff-info {
