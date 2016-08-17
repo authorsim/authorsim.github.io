@@ -26,7 +26,7 @@ const unlock = (function() {
   }
 
   let writeWords = () => {
-    if (l['lifetime'] >= 50 && !u['writeWords']) {
+    if (l['lifetime'] >= 34 && !u['writeWords']) {
       $('#WriteWords').fadeIn()
       l['availableUpgrades'] += 1
       unlocks.remove(writeWords)
@@ -41,19 +41,27 @@ const unlock = (function() {
     }
   }
 
+  let efficientMonkeys = () => {
+    if (l['lifetime'] >= 275 && m['total'] >= 3 && !u['efficientMonkeys']) {
+      $('#EfficientMonkeys').fadeIn()
+      l['availableUpgrades'] += 1
+      unlocks.remove(efficientMonkeys)
+    }
+  }
+
   //
   // Word Unlocks
   //
 
   let seeSentences = () => {
-    if (w['lifetime'] >= 12) {
+    if (w['lifetime'] >= 63) {
   		$('#SentencesMenu').fadeIn()
       unlocks.remove(seeSentences)
   	}
   }
 
   let writeSentences = () => {
-    if (w['lifetime'] >= 50 && !u[['writeSentences']]) {
+    if (w['lifetime'] >= 130 && !u[['writeSentences']]) {
       $('#WriteSentences').fadeIn()
       w['availableUpgrades'] += 1
       unlocks.remove(writeSentences)

@@ -124,7 +124,8 @@ let init = () => {
     upgrades: {
                 writeWords: false,
                 writeSentences: false,
-                fasterLetters: false
+                fasterLetters: false,
+                efficientMonkeys: false,
     }
 	}
 }
@@ -274,7 +275,7 @@ let writing = (num) => { // Manual writing
   units.reduce( (pv, cv, i, arr) => {
     if (cv === 'letters' && save[cv] === curr) {
       curr['progress'] += (100 / ((curr['timer'] / curr['multiplier']) * (1000 / interval)) * num)
-      if (curr['progress'] >= 100) {
+      while (curr['progress'] >= 100) {
         // Increment unit and reset progress
         curr['total'] += 1
         curr['lifetime'] += 1
@@ -282,7 +283,7 @@ let writing = (num) => { // Manual writing
       }
     } else if (curr['cost'] <= save[pv]['total'] && save[cv] === curr) {
       curr['progress'] += (100 / (curr['timer'] * (1000 / interval)) * num)
-      if (curr['progress'] >= 100) {
+      while (curr['progress'] >= 100) {
         // Increment unit and reset progress
         curr['total'] += 1
         curr['lifetime'] += 1

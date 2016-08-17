@@ -6,6 +6,7 @@ const upgrade = (function() {
   let u, l, w, s, p, c, b
   let setVar = () => {
     u = save['upgrades']
+    m = save['monkeys']
     l = save['letters']
     w = save['words']
     s = save['sentences']
@@ -55,13 +56,13 @@ const upgrade = (function() {
 
     writeWords: function() {
       setVar()
-      if (l['total'] >= 50 && !u['writeWords']) {
+      if (l['total'] >= 34 && !u['writeWords']) {
         $('#WriteWords').fadeOut()        // Fade out button
         u['writeWords'] = true            // Set upgrade to purchased
-        l['total'] -= 50                 // Deduct cost
+        l['total'] -= 34                 // Deduct cost
         l['availableUpgrades'] -= 1       // Deduct purchaseable upgrade
         $('#wordsManualSection').fadeIn() // Fade in purchased section
-      } else if (l['total'] < 50) {
+      } else if (l['total'] < 34) {
         errorAlert('Oh dear...','You are too poor to purchase this upgrade.')
       }
     },
@@ -86,9 +87,23 @@ const upgrade = (function() {
         u['fasterLetters'] = true
         l['total'] -= 250
         l['availableUpgrades'] -= 1
-        l['multiplier'] += 0.5
+        l['multiplier'] += 0.1
         calcGenerating('letters')
       } else if (l['total'] < 250) {
+        errorAlert('Oh dear...','You are too poor to purchase this upgrade.')
+      }
+    },
+
+    efficientMonkeys: function() {
+      setVar()
+      if (l['total'] >= 75 && !u['efficientMonkeys']) {
+        $('#EfficientMonkeys').fadeOut()
+        u['efficientMonkeys'] = true
+        l['total'] -= 75
+        l['availableUpgrades'] -= 1
+        m['multiplier'] += 0.5
+        calcGenerating('letters')
+      } else if (l['total'] < 75) {
         errorAlert('Oh dear...','You are too poor to purchase this upgrade.')
       }
     }

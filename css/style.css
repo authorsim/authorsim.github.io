@@ -42,6 +42,10 @@
   display: none;
 }
 
+#error {
+  display: none;
+}
+
 .progress {
   position: relative;
 }
@@ -58,14 +62,17 @@
     -webkit-transition: width 0.01s;
 }
 
-.glyphicon-ok {
-	font-size: 60px;
+.menuAlertGlyphicon,
+.menuAlertTitle {
+  font-size: 120%;
+  margin-right: 8px;
 }
 
 .achieveicon {
 	position: absolute;
 	left: 25px;
 	top: 30px;
+  font-size: 60px;
 }
 
 .gamestate {

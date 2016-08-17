@@ -7,8 +7,9 @@ const staffNames = [
 
 let hireStaff = (slot) => {
   let name = staffNames[Math.floor(Math.random()*staffNames.length)]
-	if (save.words.total >= 50) {
-		save.words.total -= 50
+  let cost = Math.pow(slot, 2.3) * 50
+  if (save.words.total >= cost) {
+		save.words.total -= cost
 		save['staff']['s' + slot] = {
 			active: true,
       writing: 'none',
@@ -22,7 +23,9 @@ let hireStaff = (slot) => {
       speed: staff.prestige1.speed,
 			progress: 0
 		}
-	}
+	} else {
+    errorAlert('This is embarrassing...','You can\'t afford that staff member.')
+  }
 }
 
 let buyMonkey = () => {
@@ -32,7 +35,7 @@ let buyMonkey = () => {
 		words['total'] -= monkeys['cost']
 		monkeys['total'] += 1
 	  monkeys['lifetime'] += 1
-		monkeys['cost'] = monkeys['cost'] + 24
+		monkeys['cost'] = (monkeys['cost'] + 2) * 1.04
 		$('#monkeyCost').text(monkeys['cost'])
 	}
   calcGenerating('letters')

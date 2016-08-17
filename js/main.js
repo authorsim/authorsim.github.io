@@ -13,7 +13,6 @@ let AuthorSim = React.createClass({
         <GameField />
 
         <ConfirmWindow />
-        <ErrorWindow />
         <AchievementWindow />
       </div>
     )
@@ -60,6 +59,13 @@ let GameMenu = React.createClass({
               <a href="#options" aria-controls="options" role="tab" data-toggle="tab">Options</a>
             </li>
           </ul>
+        </li>
+        <li role="presentation" className="navbar-right">
+          <div id="error" className="menuAlert">
+            <span className="glyphicon glyphicon-exclamation-sign menuAlertGlyphicon"></span>
+            <span id="errorTitle" className="menuAlertTitle">Whoa!</span>
+            <span id="errorDesc">Looks like you earned an achievement!</span>
+          </div>
         </li>
       </ul>
     )
@@ -273,13 +279,19 @@ let UnitPanelLettersUpgrade = React.createClass({
           upgradeName="Write Words"
           desc="Allows you to write words manually."
           func={upgrade.writeWords}
-          cost="50 Letters"
+          cost="34 Letters"
         />
         <UnitPanelUpgradeItem
           upgradeName="Faster Letters"
           desc="Write letters 50% faster when manually writing."
           func={upgrade.fasterLetters}
           cost="250 Letters"
+        />
+        <UnitPanelUpgradeItem
+          upgradeName="Efficient Monkeys"
+          desc="Monkeys write letters 10% faster."
+          func={upgrade.efficientMonkeys}
+          cost="75 Letters"
         />
       </div>
     )
@@ -373,50 +385,50 @@ let StaffPanel = React.createClass({
             <button className="btn btn-primary staff-hire"
               onClick={this.buyMonkey}
               data-tip="Writes 1 letter per second">
-                Buy Monkey for {this.state.monkeys.cost} Words
+                Buy Monkey for {prettify(this.state.monkeys.cost)} Words
             </button>
           </div>
   				<div className="col-sm-3">
-  					<h4>Monkeys : {this.state.monkeys.total}</h4>
+  					<h4 data-tip="monkey">Monkeys : {this.state.monkeys.total}</h4>
   				</div>
         </div>
         <hr />
         <div className="row">
           {this.state.staff.s1.active ?
             <StaffSlot staff={this.state.staff.s1} slot='1' /> :
-            <PurchaseStaffSlot hire={this.hire.bind(null, '1')} />
+            <PurchaseStaffSlot hire={this.hire.bind(null, '1')} slot='1' />
           }
           {this.state.staff.s2.active ?
             <StaffSlot staff={this.state.staff.s2} slot='2' /> :
-            <PurchaseStaffSlot hire={this.hire.bind(null, '2')} />
+            <PurchaseStaffSlot hire={this.hire.bind(null, '2')} slot='2' />
           }
           {this.state.staff.s3.active ?
             <StaffSlot staff={this.state.staff.s3} slot='3' /> :
-            <PurchaseStaffSlot hire={this.hire.bind(null, '3')} />
+            <PurchaseStaffSlot hire={this.hire.bind(null, '3')} slot='3' />
           }
           {this.state.staff.s4.active ?
             <StaffSlot staff={this.state.staff.s4} slot='4' /> :
-            <PurchaseStaffSlot hire={this.hire.bind(null, '4')} />
+            <PurchaseStaffSlot hire={this.hire.bind(null, '4')} slot='4' />
           }
           {this.state.staff.s5.active ?
             <StaffSlot staff={this.state.staff.s5} slot='5' /> :
-            <PurchaseStaffSlot hire={this.hire.bind(null, '5')} />
+            <PurchaseStaffSlot hire={this.hire.bind(null, '5')} slot='5' />
           }
           {this.state.staff.s6.active ?
             <StaffSlot  staff={this.state.staff.s6} slot='6' /> :
-            <PurchaseStaffSlot hire={this.hire.bind(null, '6')} />
+            <PurchaseStaffSlot hire={this.hire.bind(null, '6')} slot='6' />
           }
           {this.state.staff.s7.active ?
             <StaffSlot staff={this.state.staff.s7} slot='7' /> :
-            <PurchaseStaffSlot hire={this.hire.bind(null, '7')} />
+            <PurchaseStaffSlot hire={this.hire.bind(null, '7')} slot='7' />
           }
           {this.state.staff.s8.active ?
             <StaffSlot staff={this.state.staff.s8} slot='8' /> :
-            <PurchaseStaffSlot hire={this.hire.bind(null, '8')} />
+            <PurchaseStaffSlot hire={this.hire.bind(null, '8')} slot='8' />
           }
           {this.state.staff.s9.active ?
             <StaffSlot staff={this.state.staff.s9} slot='9' /> :
-            <PurchaseStaffSlot hire={this.hire.bind(null, '9')} />
+            <PurchaseStaffSlot hire={this.hire.bind(null, '9')} slot='9' />
           }
         </div>
       </div>
@@ -549,7 +561,7 @@ let PurchaseStaffSlot = React.createClass({
         <div className="row">
           <button onClick={this.props.hire} type="button" className="btn btn-primary btn-lg centered">
             <p>Hire Staff Member</p>
-            <p>50 Words</p>
+            <p>{prettify(Math.pow(this.props.slot, 2.3) * 50)} Words</p>
           </button>
         </div>
       </div>
@@ -619,22 +631,5 @@ let AchievementWindow = React.createClass({
     )
   }
 })
-
-let ErrorWindow = React.createClass({
-  render: function() {
-    return (
-      <div className="row">
-    	<div className="col-sm-6 col-sm-offset-3">
-    		<div id="error" className="alert alert-dismissible alert-danger fade" role="alert">
-    			<button type="button" className="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-    			<h3 id="errorTitle">Whoa!</h3>
-    			<p id="errorDesc">Looks like you have an error!</p>
-    		</div>
-    	</div>
-    	</div>
-    )
-  }
-})
-
 
 render(<AuthorSim />, document.getElementById('container'));
