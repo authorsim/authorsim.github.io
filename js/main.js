@@ -389,7 +389,9 @@ let StaffPanel = React.createClass({
             </button>
           </div>
   				<div className="col-sm-3">
-  					<h4 data-tip="monkey">Monkeys : {this.state.monkeys.total}</h4>
+  					<h4 data-tip="<img src='./images/monkey.png'>" data-html={true}>
+              Monkeys : {this.state.monkeys.total}
+            </h4>
   				</div>
         </div>
         <hr />

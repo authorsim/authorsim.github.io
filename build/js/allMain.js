@@ -601,7 +601,7 @@
 	          { className: 'col-sm-3' },
 	          _react2.default.createElement(
 	            'h4',
-	            { 'data-tip': 'monkey' },
+	            { 'data-tip': '<img src=\'./images/monkey.png\'>', 'data-html': true },
 	            'Monkeys : ',
 	            this.state.monkeys.total
 	          )
