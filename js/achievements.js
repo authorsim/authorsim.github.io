@@ -1,13 +1,9 @@
 const achieve = (function() {
-
   //
   // Drag and Drop
   //
 
-  window.setTimeout(() => {
-
-    let draggedItem
-
+  let setListeners = () => {
     // Define droppable areas
     let activePerks = document.querySelectorAll('.activePerk')
     for (let i = 0; i < activePerks.length; i++) {
@@ -28,8 +24,7 @@ const achieve = (function() {
       }, false)
     }
 
-    //Define draggable areas
-    let perks = document.querySelectorAll('.perk')
+    let perks = document.querySelectorAll('.achievement')
     for (let i = 0; i < perks.length; i++) {
       perks[i].addEventListener('dragstart', function(e) {
         e.dataTransfer.effectAllowed = 'copy'
@@ -41,19 +36,45 @@ const achieve = (function() {
         return true
       }, false)
     }
-	}, 10)
+	}
+
+  // Create callback object
+  let ach = $.Callbacks()
+
+  // Create variable shortcut
+  let a
+  let setVar = () => {
+    a = save['achievements']
+  }
+
+  let findPongo = () => {
+    $('#monkeys').mouseover((event) => {
+      achieve.alert('You Found Pongo!','+10% Speed to Monkeys')
+      a['findPongo'] = true
+      $(this).unbind(event)
+    })
+  }
 
   return {
     // Animation for fading in and then out an alert box
-    achieveAlert: (title, desc) => {
+    alert: (title, desc) => {
     	$('#achieve').fadeTo(500, 0.8)
     	$('#achieveTitle').text(title)
-    	$('#achieveDesc').text(desc)
+    	$('#achieveDesc').text('Perk: ' + desc)
 
       // After 7 seconds, fades the window back out
     	window.setTimeout(() => {
     	   $('#achieve').fadeTo(500, 0)
     	}, 7000)
-    }
+    },
+
+    setup: () => {
+      setVar()
+      if (!a['findPongo']) { ach.add(findPongo) }
+      ach.add(setListeners)
+      ach.fire()
+    },
+
+    check: () => { ach.fire() }
   }
 }())

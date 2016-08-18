@@ -1,5 +1,5 @@
 const unlock = (function() {
-  // Create callback objects
+  // Create callback object
   let unlocks = $.Callbacks()
 
   // Create shortcut variables to reduce typing

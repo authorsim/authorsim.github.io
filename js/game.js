@@ -126,6 +126,9 @@ let init = () => {
                 writeSentences: false,
                 fasterLetters: false,
                 efficientMonkeys: false,
+    },
+    achievements: {
+                findPongo: false,
     }
 	}
 }
@@ -359,6 +362,7 @@ window.onload = function() {
 	timeout()
   unlock.setup()
   upgrade.setup()
+  achieve.setup()
 }
 
 function timeout() {
@@ -386,6 +390,7 @@ let load = () => {
   	save.series = savegame.series
   	save.upgrades = savegame.upgrades
     save.staff = savegame.staff
+    save.achievements = savegame.achievements
 	}
 }
 

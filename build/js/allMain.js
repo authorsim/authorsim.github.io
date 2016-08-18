@@ -588,7 +588,7 @@
 	          { className: 'col-sm-3' },
 	          _react2.default.createElement(
 	            'button',
-	            { className: 'btn btn-primary staff-hire',
+	            { className: 'btn btn-primary',
 	              onClick: this.buyMonkey,
 	              'data-tip': 'Writes 1 letter per second' },
 	            'Buy Monkey for ',
@@ -601,7 +601,7 @@
 	          { className: 'col-sm-3' },
 	          _react2.default.createElement(
 	            'h4',
-	            { 'data-tip': '<img src=\'./images/monkey.png\'>', 'data-html': true },
+	            { id: 'monkeys', 'data-tip': '<img src=\'./images/monkey.png\'>', 'data-html': true },
 	            'Monkeys : ',
 	            this.state.monkeys.total
 	          )
@@ -842,6 +842,18 @@
 	var AchievementPanel = _react2.default.createClass({
 	  displayName: 'AchievementPanel',
 
+	  getInitialState: function getInitialState() {
+	    return { ach: save['achievements'] };
+	  },
+	  update: function update() {
+	    this.setState({
+	      ach: save['achievements']
+	    });
+	    achieve.check();
+	  },
+	  componentDidMount: function componentDidMount() {
+	    setInterval(this.update, 300);
+	  },
 	  render: function render() {
 	    return _react2.default.createElement(
 	      'div',
@@ -868,12 +880,9 @@
 	      _react2.default.createElement(
 	        'div',
 	        { className: 'row' },
-	        _react2.default.createElement(AchievementItem, {
-	          achName: 'You Found Pongo'
-	        }),
-	        _react2.default.createElement(AchievementItem, {
-	          achName: 'You Clicked 3 Times'
-	        })
+	        save.achievements.findPongo ? _react2.default.createElement(AchievementItem, {
+	          achName: 'You Found Pongo',
+	          achPerk: '+10% speed to monkeys.' }) : _react2.default.createElement(FadedAchievementItem, null)
 	      )
 	    );
 	  }
@@ -885,26 +894,20 @@
 	  render: function render() {
 	    return _react2.default.createElement(
 	      'div',
-	      { className: 'col-sm-3 perk', draggable: 'true' },
+	      {
+	        id: this.props.achName.replace(/\s+/g, ''),
+	        className: 'col-sm-3 achievement', draggable: 'true'
+	      },
 	      _react2.default.createElement(
-	        'div',
-	        { id: this.props.achName.replace(/\s+/g, '') },
-	        _react2.default.createElement(
-	          'h5',
-	          null,
-	          this.props.achName,
-	          '!'
-	        ),
-	        _react2.default.createElement(
-	          'p',
-	          null,
-	          'You earned this by doing something cool.'
-	        ),
-	        _react2.default.createElement(
-	          'small',
-	          null,
-	          '+10% to monkey efficiency.'
-	        )
+	        'h4',
+	        null,
+	        this.props.achName,
+	        '!'
+	      ),
+	      _react2.default.createElement(
+	        'small',
+	        null,
+	        this.props.achPerk
 	      )
 	    );
 	  }
@@ -916,8 +919,17 @@
 	  render: function render() {
 	    return _react2.default.createElement(
 	      'div',
-	      { className: 'col-sm-3 perk' },
-	      'Achievement!'
+	      { className: 'col-sm-3 achPlaceholder' },
+	      _react2.default.createElement(
+	        'h4',
+	        null,
+	        'Achievement!'
+	      ),
+	      _react2.default.createElement(
+	        'small',
+	        null,
+	        'Perks!'
+	      )
 	    );
 	  }
 	});
@@ -996,7 +1008,7 @@
 	  render: function render() {
 	    return _react2.default.createElement(
 	      'div',
-	      { className: 'row' },
+	      { className: 'row achievementWindow' },
 	      _react2.default.createElement(
 	        'div',
 	        { className: 'col-sm-12' },

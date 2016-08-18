@@ -172,6 +172,9 @@
 	      writeSentences: false,
 	      fasterLetters: false,
 	      efficientMonkeys: false
+	    },
+	    achievements: {
+	      findPongo: false
 	    }
 	  };
 	};
@@ -406,6 +409,7 @@
 	  timeout();
 	  unlock.setup();
 	  upgrade.setup();
+	  achieve.setup();
 	};
 
 	function timeout() {
@@ -433,6 +437,7 @@
 	    save.series = savegame.series;
 	    save.upgrades = savegame.upgrades;
 	    save.staff = savegame.staff;
+	    save.achievements = savegame.achievements;
 	  }
 	};
 

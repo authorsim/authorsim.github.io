@@ -382,14 +382,14 @@ let StaffPanel = React.createClass({
       <div role="tabpanel" className="tab-pane fade in" id="staff">
   			<div className="row">
           <div className="col-sm-3">
-            <button className="btn btn-primary staff-hire"
+            <button className="btn btn-primary"
               onClick={this.buyMonkey}
               data-tip="Writes 1 letter per second">
                 Buy Monkey for {prettify(this.state.monkeys.cost)} Words
             </button>
           </div>
   				<div className="col-sm-3">
-  					<h4 data-tip="<img src='./images/monkey.png'>" data-html={true}>
+  					<h4 id="monkeys" data-tip="<img src='./images/monkey.png'>" data-html={true}>
               Monkeys : {this.state.monkeys.total}
             </h4>
   				</div>
@@ -572,6 +572,18 @@ let PurchaseStaffSlot = React.createClass({
 })
 
 let AchievementPanel = React.createClass({
+  getInitialState: function() {
+    return { ach: save['achievements'] }
+  },
+  update: function() {
+    this.setState({
+      ach: save['achievements']
+    })
+    achieve.check()
+  },
+  componentDidMount: function() {
+    setInterval(this.update, 300)
+  },
   render: function() {
     return (
       <div role="tabpanel" className="tab-pane fade" id="achievements">
@@ -587,12 +599,11 @@ let AchievementPanel = React.createClass({
           </div>
         </div>
         <div className="row">
-          <AchievementItem
-            achName="You Found Pongo"
-          />
-          <AchievementItem
-            achName="You Clicked 3 Times"
-          />
+          {save.achievements.findPongo ?
+            <AchievementItem
+              achName="You Found Pongo"
+              achPerk="+10% speed to monkeys." /> :
+            <FadedAchievementItem />}
         </div>
       </div>
     )
@@ -602,12 +613,12 @@ let AchievementPanel = React.createClass({
 let AchievementItem = React.createClass({
   render: function() {
     return (
-      <div className="col-sm-3 perk" draggable="true">
-        <div id={this.props.achName.replace(/\s+/g, '')}>
-          <h5>{this.props.achName}!</h5>
-          <p>You earned this by doing something cool.</p>
-          <small>+10% to monkey efficiency.</small>
-        </div>
+      <div
+        id={this.props.achName.replace(/\s+/g, '')}
+        className="col-sm-3 achievement" draggable="true"
+      >
+        <h4>{this.props.achName}!</h4>
+        <small>{this.props.achPerk}</small>
       </div>
     )
   }
@@ -616,8 +627,9 @@ let AchievementItem = React.createClass({
 let FadedAchievementItem = React.createClass({
   render: function() {
     return (
-      <div className="col-sm-3 perk">
-        Achievement!
+      <div className="col-sm-3 achPlaceholder">
+        <h4>Achievement!</h4>
+        <small>Perks!</small>
       </div>
     )
   }
@@ -658,7 +670,7 @@ let ConfirmWindow = React.createClass({
 let AchievementWindow = React.createClass({
   render: function() {
     return (
-      <div className="row">
+      <div className="row achievementWindow">
     	<div className="col-sm-12">
     		<div id="achieve" className="alert alert-dismissible alert-info fade" role="alert">
     			<button type="button" className="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>

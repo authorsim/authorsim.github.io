@@ -54,16 +54,6 @@
   margin-top: 3%;
 }
 
-.perk {
-  margin: 10px;
-  padding: 10px;
-  border: 1px dotted #000;
-  border-radius: 15px;
-  display: inline-block;
-  width: 23%;
-  cursor: move;
-}
-
 .progress {
   position: relative;
 }
@@ -91,6 +81,29 @@
 	left: 25px;
 	top: 30px;
   font-size: 60px;
+}
+
+.achievement {
+  margin: 10px;
+  padding: 10px;
+  border: 1px dotted #000;
+  border-radius: 15px;
+  display: inline-block;
+  width: 23%;
+  cursor: move;
+}
+
+.achPlaceholder {
+  opacity: 0.5;
+}
+
+.achievementWindow {
+  position: absolute;
+  top: 70%;
+  left: 25%;
+  width: 50%;
+  height: 20%;
+  z-index: 100000;
 }
 
 .gamestate {
