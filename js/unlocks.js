@@ -3,9 +3,10 @@ const unlock = (function() {
   let unlocks = $.Callbacks()
 
   // Create shortcut variables to reduce typing
-  let u, l, w, s, p, c, b
+  let u, m, l, w, s, p, c, b
   let setVar = () => {
     u = save['upgrades']
+    m = save['monkeys']
     l = save['letters']
     w = save['words']
     s = save['sentences']
@@ -54,14 +55,14 @@ const unlock = (function() {
   //
 
   let seeSentences = () => {
-    if (w['lifetime'] >= 63) {
+    if (w['lifetime'] >= 113) {
   		$('#SentencesMenu').fadeIn()
       unlocks.remove(seeSentences)
   	}
   }
 
   let writeSentences = () => {
-    if (w['lifetime'] >= 130 && !u[['writeSentences']]) {
+    if (w['lifetime'] >= 200 && !u[['writeSentences']]) {
       $('#WriteSentences').fadeIn()
       w['availableUpgrades'] += 1
       unlocks.remove(writeSentences)
@@ -73,7 +74,7 @@ const unlock = (function() {
   //
 
   let seePages = () => {
-    if (s['lifetime'] >= 30) {
+    if (s['lifetime'] >= 113) {
       $('#PagesMenu').fadeIn()
       unlocks.remove(seePages)
     }
@@ -84,7 +85,7 @@ const unlock = (function() {
   //
 
   let seeChapters = () => {
-    if (p['lifetime'] >= 34) {
+    if (p['lifetime'] >= 200) {
       $('#ChaptersMenu').fadeIn()
       unlocks.remove(seeChapters)
     }
@@ -95,7 +96,7 @@ const unlock = (function() {
   //
 
   let seeBooks = () => {
-    if (c['lifetime'] >= 40) {
+    if (c['lifetime'] >= 143) {
       $('#BooksMenu').fadeIn()
       unlocks.remove(seeBooks)
     }
@@ -106,6 +107,7 @@ const unlock = (function() {
     // Initial setup of callback object with all functions
     // Fires onLoad
     setup: function() {
+      setVar()
       // Includes functions in callback object
       unlocks.add(setVar)
       unlocks.add(seeWords)
@@ -117,9 +119,9 @@ const unlock = (function() {
       unlocks.add(writeSentences)
 
       unlocks.add(fasterLetters)
+      unlocks.add(efficientMonkeys)
 
       // Sets upgrade counting variables to 0
-      setVar()
       l['availableUpgrades'] = 0
       w['availableUpgrades'] = 0
       s['availableUpgrades'] = 0

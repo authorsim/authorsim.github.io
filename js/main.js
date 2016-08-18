@@ -576,10 +576,45 @@ let AchievementPanel = React.createClass({
     return (
       <div role="tabpanel" className="tab-pane fade" id="achievements">
         <div className="row">
-          <div className="tab-content col-sm-3">
-            Coming...later
+          <div className="col-sm-4 activePerk">
+            Active Perk #1
+          </div>
+          <div className="col-sm-4 activePerk">
+            Active Perk #2
+          </div>
+          <div className="col-sm-4 activePerk">
+            Active Perk #3
           </div>
         </div>
+        <div className="row">
+          <AchievementItem
+            achName="You Found Pongo"
+          />
+        </div>
+      </div>
+    )
+  }
+})
+
+let AchievementItem = React.createClass({
+  render: function() {
+    return (
+      <div className="col-sm-3 perk" draggable="true">
+        <div id={this.props.achName.replace(/\s+/g, '')}>
+          <h5>{this.props.achName}!</h5>
+          <p>You earned this by doing something cool.</p>
+          <small>+10% to monkey efficiency.</small>
+        </div>
+      </div>
+    )
+  }
+})
+
+let FadedAchievementItem = React.createClass({
+  render: function() {
+    return (
+      <div className="col-sm-3 perk">
+        Achievement!
       </div>
     )
   }

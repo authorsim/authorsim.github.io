@@ -87,7 +87,7 @@ const upgrade = (function() {
         u['fasterLetters'] = true
         l['total'] -= 250
         l['availableUpgrades'] -= 1
-        l['multiplier'] += 0.1
+        l['multiplier'] += 0.5
         calcGenerating('letters')
       } else if (l['total'] < 250) {
         errorAlert('Oh dear...','You are too poor to purchase this upgrade.')
@@ -101,7 +101,7 @@ const upgrade = (function() {
         u['efficientMonkeys'] = true
         l['total'] -= 75
         l['availableUpgrades'] -= 1
-        m['multiplier'] += 0.5
+        m['multiplier'] += 0.1
         calcGenerating('letters')
       } else if (l['total'] < 75) {
         errorAlert('Oh dear...','You are too poor to purchase this upgrade.')

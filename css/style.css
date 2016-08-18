@@ -46,6 +46,24 @@
   display: none;
 }
 
+.activePerk {
+  text-align: center;
+  border: 1px dotted #000;
+  padding: 20px;
+  margin-bottom: 3%;
+  margin-top: 3%;
+}
+
+.perk {
+  margin: 10px;
+  padding: 10px;
+  border: 1px dotted #000;
+  border-radius: 15px;
+  display: inline-block;
+  width: 23%;
+  cursor: move;
+}
+
 .progress {
   position: relative;
 }

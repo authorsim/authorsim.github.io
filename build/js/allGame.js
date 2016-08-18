@@ -221,7 +221,7 @@
 	  var prev = 0;
 	  if (c['manual']) {
 	    // Check manual writing
-	    prev += 1 / c['timer'] * c['cost'];
+	    prev += c['cost'] / c['timer'];
 	  }
 	  for (var i = 1; i < 10; i++) {
 	    // Check staff writing

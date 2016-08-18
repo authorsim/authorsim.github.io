@@ -35,9 +35,11 @@ let buyMonkey = () => {
 		words['total'] -= monkeys['cost']
 		monkeys['total'] += 1
 	  monkeys['lifetime'] += 1
-		monkeys['cost'] = (monkeys['cost'] + 2) * 1.04
+		monkeys['cost'] = (monkeys['cost'] + 2) * 1.06
 		$('#monkeyCost').text(monkeys['cost'])
-	}
+	} else {
+    errorAlert('Whoops.','That monkey is too costly for you.')
+  }
   calcGenerating('letters')
 }
 

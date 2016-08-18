@@ -168,7 +168,7 @@ let calcUsing = (unit) => {
   })
   let prev = 0
   if (c['manual']) { // Check manual writing
-    prev += 1 / c['timer'] * c['cost']
+    prev += c['cost'] / c['timer']
   }
   for (let i = 1; i < 10; i++) { // Check staff writing
     let staff = save['staff']['s' + i]
