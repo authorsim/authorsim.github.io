@@ -590,6 +590,9 @@ let AchievementPanel = React.createClass({
           <AchievementItem
             achName="You Found Pongo"
           />
+          <AchievementItem
+            achName="You Clicked 3 Times"
+          />
         </div>
       </div>
     )

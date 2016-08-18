@@ -870,6 +870,9 @@
 	        { className: 'row' },
 	        _react2.default.createElement(AchievementItem, {
 	          achName: 'You Found Pongo'
+	        }),
+	        _react2.default.createElement(AchievementItem, {
+	          achName: 'You Clicked 3 Times'
 	        })
 	      )
 	    );

@@ -5,21 +5,26 @@ const achieve = (function() {
   //
 
   window.setTimeout(() => {
+
+    let draggedItem
+
     // Define droppable areas
     let activePerks = document.querySelectorAll('.activePerk')
     for (let i = 0; i < activePerks.length; i++) {
       activePerks[i].addEventListener('dragover', function(e){
-        console.log(e.dataTransferItemList)
         e.preventDefault()
-        if (e.target.innerHTML === e.dataTransfer.items) {
-          e.dataTransfer.dropEffect = 'none'
-        } else {
-          e.dataTransfer.dropEffect = 'copy'
-        }
+        e.dataTransfer.effectAllowed = 'copy'
       }, false)
       activePerks[i].addEventListener('drop', function(e){
         e.preventDefault()
-        this.innerHTML = e.dataTransfer.getData('text/html')
+        let counter = 0
+        for (let i = 0; i < activePerks.length; i++) {
+          if (e.dataTransfer.getData('text/html') !== activePerks[i].innerHTML) {
+            counter += 1
+          } if (counter === 3) {
+            this.innerHTML = e.dataTransfer.getData('text/html')
+          }
+        }
       }, false)
     }
 
@@ -35,15 +40,8 @@ const achieve = (function() {
         e.preventDefault()
         return true
       }, false)
-      perks[i].addEventListener('drop', function(e){
-        if (e.stopPropogation) {
-          e.stopPropagation()
-        }
-        this.innerHTML = e.dataTransfer.getData('text/html')
-        return false
-      }, false)
     }
-	}, 1000)
+	}, 10)
 
   return {
     // Animation for fading in and then out an alert box
