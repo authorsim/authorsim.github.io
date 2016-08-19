@@ -128,6 +128,8 @@ let init = () => {
                 fasterLetters2: false,
                 efficientMonkeys: false,
                 fasterWords: false,
+                fasterSentences: false,
+                efficientWords: false,
     },
     achievements: {
                 findPongo: false,

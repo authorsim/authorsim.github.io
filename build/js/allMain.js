@@ -92,7 +92,7 @@
 	      _react2.default.createElement(
 	        'p',
 	        null,
-	        'version 0.3.0'
+	        'version 0.4.1 -- Achievement system & more upgrades!'
 	      )
 	    );
 	  }
@@ -492,6 +492,12 @@
 	        desc: 'Monkeys write letters 10% faster.',
 	        func: upgrade.efficientMonkeys,
 	        cost: '75 Letters'
+	      }),
+	      _react2.default.createElement(UnitPanelUpgradeItem, {
+	        upgradeName: 'Efficient Words',
+	        desc: 'Words are 10% cheaper across the board.',
+	        func: upgrade.efficientWords,
+	        cost: '1,450 Letters'
 	      })
 	    );
 	  }
@@ -524,7 +530,16 @@
 	  displayName: 'UnitPanelSentencesUpgrade',
 
 	  render: function render() {
-	    return _react2.default.createElement('div', { className: 'col-sm-5' });
+	    return _react2.default.createElement(
+	      'div',
+	      { className: 'col-sm-5' },
+	      _react2.default.createElement(UnitPanelUpgradeItem, {
+	        upgradeName: 'Faster Sentences',
+	        desc: 'Write sentences 25% faster when manually writing.',
+	        func: upgrade.fasterSentences,
+	        cost: '25 Sentences'
+	      })
+	    );
 	  }
 	});
 

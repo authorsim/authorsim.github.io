@@ -66,6 +66,16 @@ const unlock = (function() {
     }
   }
 
+  let efficientWords = () => {
+    if (l['lifetime'] >= 2300 && !u['efficientWords']) {
+      $('#EfficientWords').fadeIn()
+      l['availableUpgrades'] += 1
+      unlocks.remove(efficientWords)
+    } else if (u['efficientWords']) {
+      unlocks.remove(efficientWords)
+    }
+  }
+
   //
   // Word Unlocks
   //
@@ -105,6 +115,16 @@ const unlock = (function() {
     if (s['lifetime'] >= 113) {
       $('#PagesMenu').fadeIn()
       unlocks.remove(seePages)
+    }
+  }
+
+  let fasterSentences = () => {
+    if (s['lifetime'] >= 35 && !u['fasterSentences']) {
+      $('#FasterSentences').fadeIn()
+      s['availableUpgrades'] += 1
+      unlocks.remove(fasterSentences)
+    } else if (u['fasterSentences']) {
+      unlocks.remove(fasterSentences)
     }
   }
 

@@ -24,7 +24,7 @@ let Header = React.createClass({
     return (
       <div className="row" id="header">
       	<h1>Author Simulator</h1>
-      	<p>version 0.3.0</p>
+      	<p>version 0.4.1 -- Achievement system & more upgrades!</p>
       </div>
     )
   }
@@ -299,6 +299,12 @@ let UnitPanelLettersUpgrade = React.createClass({
           func={upgrade.efficientMonkeys}
           cost="75 Letters"
         />
+        <UnitPanelUpgradeItem
+          upgradeName="Efficient Words"
+          desc="Words are 10% cheaper across the board."
+          func={upgrade.efficientWords}
+          cost="1,450 Letters"
+        />
       </div>
     )
   }
@@ -329,7 +335,12 @@ let UnitPanelSentencesUpgrade = React.createClass({
   render: function() {
     return (
       <div className="col-sm-5">
-
+        <UnitPanelUpgradeItem
+          upgradeName="Faster Sentences"
+          desc="Write sentences 25% faster when manually writing."
+          func={upgrade.fasterSentences}
+          cost="25 Sentences"
+        />
       </div>
     )
   }

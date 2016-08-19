@@ -15,6 +15,10 @@ const upgrade = (function() {
     b = save['books']
   }
 
+  let upgradeError = () => {
+    return errorAlert('Oh dear...','You are too poor to purchase this upgrade.')
+  }
+
   return {
     // Checks regularly to fade in icon if upgrades are purchaseable
     check: function() {
@@ -63,7 +67,7 @@ const upgrade = (function() {
         l['availableUpgrades'] -= 1       // Deduct purchaseable upgrade
         $('#wordsManualSection').fadeIn() // Fade in purchased section
       } else if (l['total'] < 34) {
-        errorAlert('Oh dear...','You are too poor to purchase this upgrade.')
+        upgradeError()
       }
     },
 
@@ -76,7 +80,7 @@ const upgrade = (function() {
         w['availableUpgrades'] -= 1
         $('#sentencesManualSection').fadeIn()
       } else if (w['total'] < 30) {
-        errorAlert('Oh dear...','You are too poor to purchase this upgrade.')
+        upgradeError()
       }
     },
 
@@ -90,7 +94,7 @@ const upgrade = (function() {
         l['multiplier'] += 0.5
         calcGenerating('letters')
       } else if (l['total'] < 250) {
-        errorAlert('Oh dear...','You are too poor to purchase this upgrade.')
+        upgradeError()
       }
     },
 
@@ -104,7 +108,7 @@ const upgrade = (function() {
         l['multiplier'] += 0.5
         calcGenerating('letters')
       } else if (l['total'] < 425) {
-        errorAlert('Oh dear...','You are too poor to purchase this upgrade.')
+        upgradeError()
       }
     },
 
@@ -118,7 +122,7 @@ const upgrade = (function() {
         m['multiplier'] += 0.1
         calcGenerating('letters')
       } else if (l['total'] < 75) {
-        errorAlert('Oh dear...','You are too poor to purchase this upgrade.')
+        upgradeError()
       }
     },
 
@@ -132,7 +136,35 @@ const upgrade = (function() {
         w['multiplier'] += 0.3
         calcGenerating('words')
       } else if (w['total'] < 25) {
-        errorAlert('Oh dear...','You are too poor to purchase this upgrade.')
+        upgradeError()
+      }
+    },
+
+    fasterSentences: function() {
+      setVar()
+      if (s['total'] >= 25 && !u['fasterSentences']) {
+        $('#FasterSentences').fadeOut()
+        u['fasterSentences'] = true
+        s['total'] -= 25
+        s['availableUpgrades'] -= 1
+        s['multiplier'] += 0.25
+        calcGenerating('sentences')
+      } else if (s['total'] < 25) {
+        upgradeError()
+      }
+    },
+
+    efficientWords: function() {
+      setVar()
+      if (l['total'] >= 1450 && !u['efficientWords']) {
+        $('#EfficientWords').fadeOut()
+        u['efficientWords'] = true
+        l['total'] -= 1450
+        w['availableUpgrades'] -= 1
+        w['cost'] = w['cost'] * 0.9
+        calcGenerating('words')
+      } else if (l['total'] < 1450) {
+        upgradeError()
       }
     },
   }
