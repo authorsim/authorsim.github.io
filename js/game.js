@@ -11,11 +11,11 @@ require('./upgrades.js')
 const interval = 20
 
 const staff = { // Exp and Eff values for all levels of staff
-  prestige1: { maxLevel: 4, baseExp: 150, eff: .950, speed: 1.05 },
-  prestige2: { maxLevel: 5, baseExp: 200, eff: 1.10, speed: 1.45 },
-  prestige3: { maxLevel: 6, baseExp: 250, eff: 1.30, speed: 1.95 },
-  prestige4: { maxLevel: 8, baseExp: 300, eff: 1.55, speed: 2.55 },
-  prestige5: { maxLevel: 10, baseExp: 350, eff: 1.90, speed: 3.35 },
+  prestige1: { maxLevel: 4, maxExp: 150, eff: .950, speed: 1.05 },
+  prestige2: { maxLevel: 5, maxExp: 200, eff: 1.10, speed: 1.95 },
+  prestige3: { maxLevel: 6, maxExp: 250, eff: 1.30, speed: 3.15 },
+  prestige4: { maxLevel: 8, maxExp: 300, eff: 1.55, speed: 4.65 },
+  prestige5: { maxLevel: 10, maxExp: 350, eff: 1.90, speed: 6.75 },
 }
 
 const units = ['letters', 'words', 'sentences',
@@ -125,6 +125,7 @@ let init = () => {
                 writeWords: false,
                 writeSentences: false,
                 fasterLetters: false,
+                fasterLetters2: false,
                 efficientMonkeys: false,
     },
     achievements: {
@@ -213,6 +214,7 @@ let disengageWriting = () => {
   units.forEach( (cur, i, arr) => {
     // Set all units to false
     save[cur]['manual'] = false
+    save[cur]['progress'] = 0
     calcGenerating(cur)
 
     // Update progress bar

@@ -94,6 +94,20 @@ const upgrade = (function() {
       }
     },
 
+    fasterLetters2: function() {
+      setVar()
+      if (l['total'] >= 425 && !u['fasterLetters2']) {
+        $('#FasterLetters2').fadeOut()
+        u['fasterLetters2'] = true
+        l['total'] -= 425
+        l['availableUpgrades'] -= 1
+        l['multiplier'] += 0.5
+        calcGenerating('letters')
+      } else if (l['total'] < 425) {
+        errorAlert('Oh dear...','You are too poor to purchase this upgrade.')
+      }
+    },
+
     efficientMonkeys: function() {
       setVar()
       if (l['total'] >= 75 && !u['efficientMonkeys']) {

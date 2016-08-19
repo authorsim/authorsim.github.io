@@ -18,7 +18,7 @@ let hireStaff = (slot) => {
 			level: 1,
 			maxLevel: 4,
 			exp: 0,
-			nextExp: staff.prestige1.baseExp,
+			nextExp: staff.prestige1.maxExp,
 			eff: staff.prestige1.eff,
       speed: staff.prestige1.speed,
 			progress: 0
@@ -52,7 +52,7 @@ let levelUp = (slot) => {
 	staff['level'] += 1
 	staff['exp'] = 0
 	staff['eff'] += 0.05
-  staff['speed'] += 0.05
+  staff['speed'] += 0.30
 	staff['nextExp'] = ((staff['nextExp'] * 2) * 1.3)
 	if (staff['level'] === staff['maxLevel']) {
     $('#staffExpBar' + slot).hide()
@@ -70,7 +70,7 @@ let staffGraduate = (slot) => {
   cur['level'] = 1
   cur['maxLevel'] = newStats['maxLevel']
   cur['exp'] = 0
-  cur['nextExp'] = newStats['baseExp']
+  cur['nextExp'] = newStats['maxExp']
   cur['eff'] = newStats['eff']
   cur['speed'] = newStats['speed']
   cur['progress'] = 0

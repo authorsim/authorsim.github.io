@@ -288,6 +288,12 @@ let UnitPanelLettersUpgrade = React.createClass({
           cost="250 Letters"
         />
         <UnitPanelUpgradeItem
+          upgradeName="Faster Letters 2"
+          desc="Write letters 50% faster when manually writing."
+          func={upgrade.fasterLetters2}
+          cost="425 Letters"
+        />
+        <UnitPanelUpgradeItem
           upgradeName="Efficient Monkeys"
           desc="Monkeys write letters 10% faster."
           func={upgrade.efficientMonkeys}
@@ -498,10 +504,10 @@ let StaffSlot = React.createClass({
             <strong>Education:</strong> {this.getEducation()}
           </div>
           <div className="col-sm-6" data-tip="Higher number uses fewer resources">
-            <strong>Efficiency:</strong> {prettify(this.props.staff.eff, 2)}
+            <strong>Efficiency:</strong> {prettify(this.props.staff.eff * 100) + '%'}
           </div>
           <div className="col-sm-6" data-tip="Higher number writes faster">
-            <strong>Speed:</strong> {prettify(this.props.staff.speed, 2)}
+            <strong>Speed:</strong> {prettify(this.props.staff.speed * 100) + '%'}
           </div>
           <div className="col-sm-3">
             <strong>Level:</strong> {this.props.staff.level}

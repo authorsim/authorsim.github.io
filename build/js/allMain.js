@@ -482,6 +482,12 @@
 	        cost: '250 Letters'
 	      }),
 	      _react2.default.createElement(UnitPanelUpgradeItem, {
+	        upgradeName: 'Faster Letters 2',
+	        desc: 'Write letters 50% faster when manually writing.',
+	        func: upgrade.fasterLetters2,
+	        cost: '425 Letters'
+	      }),
+	      _react2.default.createElement(UnitPanelUpgradeItem, {
 	        upgradeName: 'Efficient Monkeys',
 	        desc: 'Monkeys write letters 10% faster.',
 	        func: upgrade.efficientMonkeys,
@@ -706,7 +712,7 @@
 	          'Efficiency:'
 	        ),
 	        ' ',
-	        prettify(this.props.staff.eff, 2)
+	        prettify(this.props.staff.eff * 100) + '%'
 	      ),
 	      _react2.default.createElement(
 	        'div',
@@ -717,7 +723,7 @@
 	          'Speed:'
 	        ),
 	        ' ',
-	        prettify(this.props.staff.speed, 2)
+	        prettify(this.props.staff.speed * 100) + '%'
 	      ),
 	      _react2.default.createElement(
 	        'div',
