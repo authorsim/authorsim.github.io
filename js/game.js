@@ -127,6 +127,7 @@ let init = () => {
                 fasterLetters: false,
                 fasterLetters2: false,
                 efficientMonkeys: false,
+                fasterWords: false,
     },
     achievements: {
                 findPongo: false,

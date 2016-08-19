@@ -58,13 +58,15 @@ const achieve = (function() {
   return {
     // Animation for fading in and then out an alert box
     alert: (title, desc) => {
-    	$('#achieve').fadeTo(500, 0.8)
+      $('.achievementWindow').removeClass('achBehind').addClass('achInFront')
+    	$('#achieve').fadeTo(500, 0.9)
     	$('#achieveTitle').text(title)
     	$('#achieveDesc').text('Perk: ' + desc)
 
       // After 7 seconds, fades the window back out
     	window.setTimeout(() => {
     	   $('#achieve').fadeTo(500, 0)
+         $('.achievementWindow').removeClass('achInFront').addClass('achBehind')
     	}, 7000)
     },
 

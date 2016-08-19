@@ -172,7 +172,8 @@
 	      writeSentences: false,
 	      fasterLetters: false,
 	      fasterLetters2: false,
-	      efficientMonkeys: false
+	      efficientMonkeys: false,
+	      fasterWords: false
 	    },
 	    achievements: {
 	      findPongo: false

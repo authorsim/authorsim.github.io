@@ -31,6 +31,8 @@ const unlock = (function() {
       $('#WriteWords').fadeIn()
       l['availableUpgrades'] += 1
       unlocks.remove(writeWords)
+    } else if (u['writeWords']) {
+      unlocks.remove(writeWords)
     }
   }
 
@@ -38,6 +40,8 @@ const unlock = (function() {
     if (l['lifetime'] >= 475 && !u['fasterLetters']) {
       $('#FasterLetters').fadeIn()
       l['availableUpgrades'] += 1
+      unlocks.remove(fasterLetters)
+    } else if (u['fasterLetters']) {
       unlocks.remove(fasterLetters)
     }
   }
@@ -47,6 +51,8 @@ const unlock = (function() {
       $('#FasterLetters2').fadeIn()
       l['availableUpgrades'] += 1
       unlocks.remove(fasterLetters2)
+    } else if (u['fasterLetters2']) {
+      unlocks.remove(fasterLetters2)
     }
   }
 
@@ -54,6 +60,8 @@ const unlock = (function() {
     if (l['lifetime'] >= 275 && m['total'] >= 3 && !u['efficientMonkeys']) {
       $('#EfficientMonkeys').fadeIn()
       l['availableUpgrades'] += 1
+      unlocks.remove(efficientMonkeys)
+    } else if (u['efficientMonkeys']) {
       unlocks.remove(efficientMonkeys)
     }
   }
@@ -74,6 +82,18 @@ const unlock = (function() {
       $('#WriteSentences').fadeIn()
       w['availableUpgrades'] += 1
       unlocks.remove(writeSentences)
+    } else if (u['writeSentences']) {
+      unlocks.remove(writeSentences)
+    }
+  }
+
+  let fasterWords = () => {
+    if (w['lifetime'] >= 45 && !u['fasterWords']) {
+      $('#FasterWords').fadeIn()
+      w['availableUpgrades'] += 1
+      unlocks.remove(fasterWords)
+    } else if (u['fasterWords']) {
+      unlocks.remove(fasterWords)
     }
   }
 

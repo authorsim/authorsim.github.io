@@ -314,6 +314,12 @@ let UnitPanelWordsUpgrade = React.createClass({
           func={upgrade.writeSentences}
           cost="30 Words"
         />
+        <UnitPanelUpgradeItem
+          upgradeName="Faster Words"
+          desc="Write words 30% faster when manually writing."
+          func={upgrade.fasterWords}
+          cost="25 Words"
+        />
       </div>
     )
   }
@@ -676,7 +682,7 @@ let ConfirmWindow = React.createClass({
 let AchievementWindow = React.createClass({
   render: function() {
     return (
-      <div className="row achievementWindow">
+      <div className="row achievementWindow achBehind">
     	<div className="col-sm-12">
     		<div id="achieve" className="alert alert-dismissible alert-info fade" role="alert">
     			<button type="button" className="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>

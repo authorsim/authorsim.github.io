@@ -120,6 +120,20 @@ const upgrade = (function() {
       } else if (l['total'] < 75) {
         errorAlert('Oh dear...','You are too poor to purchase this upgrade.')
       }
-    }
+    },
+
+    fasterWords: function() {
+      setVar()
+      if (w['total'] >= 25 && !u['fasterWords']) {
+        $('#FasterWords').fadeOut()
+        u['fasterWords'] = true
+        w['total'] -= 25
+        w['availableUpgrades'] -= 1
+        w['multiplier'] += 0.3
+        calcGenerating('words')
+      } else if (w['total'] < 25) {
+        errorAlert('Oh dear...','You are too poor to purchase this upgrade.')
+      }
+    },
   }
 }())

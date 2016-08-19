@@ -509,6 +509,12 @@
 	        desc: 'Allows you to write sentences manually.',
 	        func: upgrade.writeSentences,
 	        cost: '30 Words'
+	      }),
+	      _react2.default.createElement(UnitPanelUpgradeItem, {
+	        upgradeName: 'Faster Words',
+	        desc: 'Write words 30% faster when manually writing.',
+	        func: upgrade.fasterWords,
+	        cost: '25 Words'
 	      })
 	    );
 	  }
@@ -1014,7 +1020,7 @@
 	  render: function render() {
 	    return _react2.default.createElement(
 	      'div',
-	      { className: 'row achievementWindow' },
+	      { className: 'row achievementWindow achBehind' },
 	      _react2.default.createElement(
 	        'div',
 	        { className: 'col-sm-12' },
