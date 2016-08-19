@@ -206,7 +206,7 @@ let UnitDetailsPanel = React.createClass({
             <p>You are generating {prettify(this.props.unit.generating, 2)} total {this.props.unit.unit} per second.</p>
             <p>You are using {prettify(this.props.unit.using, 2)} {this.props.unit.unit} per second.</p>
             {this.props.unit.unit !== 'letters' ?
-              <p>Writing a {this.props.unit.unit} costs {prettify(this.props.unit.cost, 1)} of the previous unit.</p> :
+              <p>Writing {this.props.unit.unit} costs {prettify(this.props.unit.cost, 1)} of the previous unit.</p> :
               null
             }
           </div>

@@ -379,7 +379,7 @@
 	          this.props.unit.unit !== 'letters' ? _react2.default.createElement(
 	            'p',
 	            null,
-	            'Writing a ',
+	            'Writing ',
 	            this.props.unit.unit,
 	            ' costs ',
 	            prettify(this.props.unit.cost, 1),
