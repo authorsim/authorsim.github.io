@@ -190,22 +190,6 @@
 	var GameField = _react2.default.createClass({
 	  displayName: 'GameField',
 
-	  render: function render() {
-	    return _react2.default.createElement(
-	      'div',
-	      { className: 'tab-content' },
-	      _react2.default.createElement(UnitPanel, null),
-	      _react2.default.createElement(StaffPanel, null),
-	      _react2.default.createElement(AchievementPanel, null),
-	      _react2.default.createElement('div', { role: 'tabpanel', className: 'tab-pane fade', id: 'statistics' }),
-	      _react2.default.createElement(OptionsPanel, null)
-	    );
-	  }
-	});
-
-	var UnitPanel = _react2.default.createClass({
-	  displayName: 'UnitPanel',
-
 	  getInitialState: function getInitialState() {
 	    return {
 	      save: save
@@ -216,11 +200,27 @@
 	      save: save
 	    });
 	  },
-	  write: function write(unit) {
-	    startWriting(unit);
-	  },
 	  componentDidMount: function componentDidMount() {
 	    setInterval(this.updateSave, 50);
+	  },
+	  render: function render() {
+	    return _react2.default.createElement(
+	      'div',
+	      { className: 'tab-content' },
+	      _react2.default.createElement(UnitPanel, { save: this.state.save }),
+	      _react2.default.createElement(StaffPanel, { save: this.state.save }),
+	      _react2.default.createElement(AchievementPanel, null),
+	      _react2.default.createElement('div', { role: 'tabpanel', className: 'tab-pane fade', id: 'statistics' }),
+	      _react2.default.createElement(OptionsPanel, null)
+	    );
+	  }
+	});
+
+	var UnitPanel = _react2.default.createClass({
+	  displayName: 'UnitPanel',
+
+	  write: function write(unit) {
+	    startWriting(unit);
 	  },
 	  render: function render() {
 	    return _react2.default.createElement(
@@ -237,31 +237,31 @@
 	            { className: 'nav nav-pills nav-stacked' },
 	            _react2.default.createElement(UnitMenuItem, {
 	              unit: 'Series',
-	              total: this.state.save.series.total
+	              total: this.props.save.series.total
 	            }),
 	            _react2.default.createElement(UnitMenuItem, {
 	              unit: 'Books',
-	              total: this.state.save.books.total
+	              total: this.props.save.books.total
 	            }),
 	            _react2.default.createElement(UnitMenuItem, {
 	              unit: 'Chapters',
-	              total: this.state.save.chapters.total
+	              total: this.props.save.chapters.total
 	            }),
 	            _react2.default.createElement(UnitMenuItem, {
 	              unit: 'Pages',
-	              total: this.state.save.pages.total
+	              total: this.props.save.pages.total
 	            }),
 	            _react2.default.createElement(UnitMenuItem, {
 	              unit: 'Sentences',
-	              total: this.state.save.sentences.total
+	              total: this.props.save.sentences.total
 	            }),
 	            _react2.default.createElement(UnitMenuItem, {
 	              unit: 'Words',
-	              total: this.state.save.words.total
+	              total: this.props.save.words.total
 	            }),
 	            _react2.default.createElement(UnitMenuItem, {
 	              unit: 'Letters',
-	              total: this.state.save.letters.total
+	              total: this.props.save.letters.total
 	            })
 	          )
 	        ),
@@ -269,32 +269,32 @@
 	          'div',
 	          { className: 'tab-content col-sm-9' },
 	          _react2.default.createElement(UnitDetailsPanel, {
-	            unit: this.state.save.letters,
-	            write: this.write.bind(null, this.state.save.letters.unit)
+	            unit: this.props.save.letters,
+	            write: this.write.bind(null, this.props.save.letters.unit)
 	          }),
 	          _react2.default.createElement(UnitDetailsPanel, {
-	            unit: this.state.save.words,
-	            write: this.write.bind(null, this.state.save.words.unit)
+	            unit: this.props.save.words,
+	            write: this.write.bind(null, this.props.save.words.unit)
 	          }),
 	          _react2.default.createElement(UnitDetailsPanel, {
-	            unit: this.state.save.sentences,
-	            write: this.write.bind(null, this.state.save.sentences.unit)
+	            unit: this.props.save.sentences,
+	            write: this.write.bind(null, this.props.save.sentences.unit)
 	          }),
 	          _react2.default.createElement(UnitDetailsPanel, {
-	            unit: this.state.save.pages,
-	            write: this.write.bind(null, this.state.save.pages.unit)
+	            unit: this.props.save.pages,
+	            write: this.write.bind(null, this.props.save.pages.unit)
 	          }),
 	          _react2.default.createElement(UnitDetailsPanel, {
-	            unit: this.state.save.chapters,
-	            write: this.write.bind(null, this.state.save.chapters.unit)
+	            unit: this.props.save.chapters,
+	            write: this.write.bind(null, this.props.save.chapters.unit)
 	          }),
 	          _react2.default.createElement(UnitDetailsPanel, {
-	            unit: this.state.save.books,
-	            write: this.write.bind(null, this.state.save.books.unit)
+	            unit: this.props.save.books,
+	            write: this.write.bind(null, this.props.save.books.unit)
 	          }),
 	          _react2.default.createElement(UnitDetailsPanel, {
-	            unit: this.state.save.series,
-	            write: this.write.bind(null, this.state.save.series.unit)
+	            unit: this.props.save.series,
+	            write: this.write.bind(null, this.props.save.series.unit)
 	          })
 	        )
 	      )
@@ -479,17 +479,11 @@
 	        upgradeName: 'Faster Letters',
 	        desc: 'Write letters 50% faster when manually writing.',
 	        func: upgrade.fasterLetters,
-	        cost: '250 Letters'
-	      }),
-	      _react2.default.createElement(UnitPanelUpgradeItem, {
-	        upgradeName: 'Faster Letters 2',
-	        desc: 'Write letters 50% faster when manually writing.',
-	        func: upgrade.fasterLetters2,
-	        cost: '425 Letters'
+	        cost: '175 Letters'
 	      }),
 	      _react2.default.createElement(UnitPanelUpgradeItem, {
 	        upgradeName: 'Efficient Monkeys',
-	        desc: 'Monkeys write letters 10% faster.',
+	        desc: 'Monkeys write 10% more letters.',
 	        func: upgrade.efficientMonkeys,
 	        cost: '75 Letters'
 	      }),
@@ -570,20 +564,6 @@
 	var StaffPanel = _react2.default.createClass({
 	  displayName: 'StaffPanel',
 
-	  getInitialState: function getInitialState() {
-	    return {
-	      letterGen: save['letters']['generating'],
-	      staff: save['staff'],
-	      monkeys: save['monkeys']
-	    };
-	  },
-	  updateState: function updateState() {
-	    this.setState({
-	      monkeys: save['monkeys'],
-	      letterGen: save['letters']['generating'],
-	      staff: save['staff']
-	    });
-	  },
 	  hire: function hire(slot) {
 	    hireStaff(slot);
 	  },
@@ -600,9 +580,6 @@
 	  }(function () {
 	    buyMonkey();
 	  }),
-	  componentDidMount: function componentDidMount() {
-	    setInterval(this.updateState, 50);
-	  },
 	  render: function render() {
 	    return _react2.default.createElement(
 	      'div',
@@ -619,7 +596,7 @@
 	              onClick: this.buyMonkey,
 	              'data-tip': 'Writes 1 letter per second' },
 	            'Buy Monkey for ',
-	            prettify(this.state.monkeys.cost),
+	            prettify(this.props.save.monkeys.cost),
 	            ' Words'
 	          )
 	        ),
@@ -630,7 +607,7 @@
 	            'h4',
 	            { id: 'monkeys', 'data-tip': '<img src=\'./images/monkey.png\'>', 'data-html': true },
 	            'Monkeys : ',
-	            this.state.monkeys.total
+	            this.props.save.monkeys.total
 	          )
 	        )
 	      ),
@@ -638,15 +615,15 @@
 	      _react2.default.createElement(
 	        'div',
 	        { className: 'row' },
-	        this.state.staff.s1.active ? _react2.default.createElement(StaffSlot, { staff: this.state.staff.s1, slot: '1' }) : _react2.default.createElement(PurchaseStaffSlot, { hire: this.hire.bind(null, '1'), slot: '1' }),
-	        this.state.staff.s2.active ? _react2.default.createElement(StaffSlot, { staff: this.state.staff.s2, slot: '2' }) : _react2.default.createElement(PurchaseStaffSlot, { hire: this.hire.bind(null, '2'), slot: '2' }),
-	        this.state.staff.s3.active ? _react2.default.createElement(StaffSlot, { staff: this.state.staff.s3, slot: '3' }) : _react2.default.createElement(PurchaseStaffSlot, { hire: this.hire.bind(null, '3'), slot: '3' }),
-	        this.state.staff.s4.active ? _react2.default.createElement(StaffSlot, { staff: this.state.staff.s4, slot: '4' }) : _react2.default.createElement(PurchaseStaffSlot, { hire: this.hire.bind(null, '4'), slot: '4' }),
-	        this.state.staff.s5.active ? _react2.default.createElement(StaffSlot, { staff: this.state.staff.s5, slot: '5' }) : _react2.default.createElement(PurchaseStaffSlot, { hire: this.hire.bind(null, '5'), slot: '5' }),
-	        this.state.staff.s6.active ? _react2.default.createElement(StaffSlot, { staff: this.state.staff.s6, slot: '6' }) : _react2.default.createElement(PurchaseStaffSlot, { hire: this.hire.bind(null, '6'), slot: '6' }),
-	        this.state.staff.s7.active ? _react2.default.createElement(StaffSlot, { staff: this.state.staff.s7, slot: '7' }) : _react2.default.createElement(PurchaseStaffSlot, { hire: this.hire.bind(null, '7'), slot: '7' }),
-	        this.state.staff.s8.active ? _react2.default.createElement(StaffSlot, { staff: this.state.staff.s8, slot: '8' }) : _react2.default.createElement(PurchaseStaffSlot, { hire: this.hire.bind(null, '8'), slot: '8' }),
-	        this.state.staff.s9.active ? _react2.default.createElement(StaffSlot, { staff: this.state.staff.s9, slot: '9' }) : _react2.default.createElement(PurchaseStaffSlot, { hire: this.hire.bind(null, '9'), slot: '9' })
+	        this.props.save.staff.s1.active ? _react2.default.createElement(StaffSlot, { staff: this.props.save.staff.s1, slot: '1' }) : _react2.default.createElement(PurchaseStaffSlot, { hire: this.hire.bind(null, '1'), slot: '1' }),
+	        this.props.save.staff.s2.active ? _react2.default.createElement(StaffSlot, { staff: this.props.save.staff.s2, slot: '2' }) : _react2.default.createElement(PurchaseStaffSlot, { hire: this.hire.bind(null, '2'), slot: '2' }),
+	        this.props.save.staff.s3.active ? _react2.default.createElement(StaffSlot, { staff: this.props.save.staff.s3, slot: '3' }) : _react2.default.createElement(PurchaseStaffSlot, { hire: this.hire.bind(null, '3'), slot: '3' }),
+	        this.props.save.staff.s4.active ? _react2.default.createElement(StaffSlot, { staff: this.props.save.staff.s4, slot: '4' }) : _react2.default.createElement(PurchaseStaffSlot, { hire: this.hire.bind(null, '4'), slot: '4' }),
+	        this.props.save.staff.s5.active ? _react2.default.createElement(StaffSlot, { staff: this.props.save.staff.s5, slot: '5' }) : _react2.default.createElement(PurchaseStaffSlot, { hire: this.hire.bind(null, '5'), slot: '5' }),
+	        this.props.save.staff.s6.active ? _react2.default.createElement(StaffSlot, { staff: this.props.save.staff.s6, slot: '6' }) : _react2.default.createElement(PurchaseStaffSlot, { hire: this.hire.bind(null, '6'), slot: '6' }),
+	        this.props.save.staff.s7.active ? _react2.default.createElement(StaffSlot, { staff: this.props.save.staff.s7, slot: '7' }) : _react2.default.createElement(PurchaseStaffSlot, { hire: this.hire.bind(null, '7'), slot: '7' }),
+	        this.props.save.staff.s8.active ? _react2.default.createElement(StaffSlot, { staff: this.props.save.staff.s8, slot: '8' }) : _react2.default.createElement(PurchaseStaffSlot, { hire: this.hire.bind(null, '8'), slot: '8' }),
+	        this.props.save.staff.s9.active ? _react2.default.createElement(StaffSlot, { staff: this.props.save.staff.s9, slot: '9' }) : _react2.default.createElement(PurchaseStaffSlot, { hire: this.hire.bind(null, '9'), slot: '9' })
 	      )
 	    );
 	  }
@@ -769,7 +746,7 @@
 	            _react2.default.createElement(
 	              'span',
 	              null,
-	              this.props.staff.exp,
+	              prettify(this.props.staff.exp, 2),
 	              ' / ',
 	              this.props.staff.nextExp
 	            )
@@ -778,57 +755,61 @@
 	      ),
 	      _react2.default.createElement(
 	        'div',
-	        { id: 'staffGraduate' + this.props.slot, className: 'graduate' },
-	        _react2.default.createElement(
-	          'button',
-	          { onClick: this.graduate, type: 'button', className: 'btn btn-success btn-lg' },
-	          'Graduate'
-	        )
-	      ),
-	      _react2.default.createElement(
-	        'div',
-	        { id: "staffProgressArea" + this.props.slot },
+	        { className: 'col-sm-12' },
 	        _react2.default.createElement(
 	          'div',
-	          { className: 'col-sm-8 col-sm-offset-2 col-centered' },
+	          { id: 'staffGraduate' + this.props.slot, className: 'graduate' },
 	          _react2.default.createElement(
 	            'button',
-	            { onClick: this.startWriting.bind(null, 'words'), id: 'staffwords' + this.props.slot, type: 'button', className: 'btn btn-primary btn-sm', 'data-tip': 'Write Words' },
-	            'W'
-	          ),
-	          _react2.default.createElement(
-	            'button',
-	            { onClick: this.startWriting.bind(null, 'sentences'), id: 'staffsentences' + this.props.slot, type: 'button', className: 'btn btn-primary btn-sm', 'data-tip': 'Write Sentences' },
-	            'S'
-	          ),
-	          this.props.staff.prestige >= 2 ? _react2.default.createElement(
-	            'button',
-	            { onClick: this.startWriting.bind(null, 'pages'), id: 'staffpages' + this.props.slot, type: 'button', className: 'btn btn-primary btn-sm', 'data-tip': 'Write Pages' },
-	            'P'
-	          ) : null,
-	          this.props.staff.prestige >= 3 ? _react2.default.createElement(
-	            'button',
-	            { onClick: this.startWriting.bind(null, 'chapters'), id: 'staffchapters' + this.props.slot, type: 'button', className: 'btn btn-primary btn-sm', 'data-tip': 'Write Chapters' },
-	            'C'
-	          ) : null,
-	          this.props.staff.prestige >= 4 ? _react2.default.createElement(
-	            'button',
-	            { onClick: this.startWriting.bind(null, 'books'), id: 'staffbooks' + this.props.slot, type: 'button', className: 'btn btn-primary btn-sm', 'data-tip': 'Write Books' },
-	            'B'
-	          ) : null,
-	          this.props.staff.prestige >= 5 ? _react2.default.createElement(
-	            'button',
-	            { onClick: this.startWriting.bind(null, 'series'), id: 'staffseries' + this.props.slot, type: 'button', className: 'btn btn-info btn-sm', 'data-tip': 'Research' },
-	            'R'
-	          ) : null
+	            { onClick: this.graduate, type: 'button', className: 'btn btn-success btn-lg' },
+	            'Graduate'
+	          )
 	        ),
 	        _react2.default.createElement(
 	          'div',
-	          { className: 'col-sm-10 col-sm-offset-1' },
+	          { id: "staffProgressArea" + this.props.slot },
 	          _react2.default.createElement(
 	            'div',
-	            { className: 'progress' },
-	            _react2.default.createElement('div', { id: 'staffProgress' + this.props.slot, className: 'progress-bar progress-bar-striped active', role: 'progressbar', 'aria-valuenow': '50', 'aria-valuemin': '10', 'aria-valuemax': '100', style: progressBar })
+	            { className: 'col-sm-8 col-sm-offset-2 col-centered' },
+	            _react2.default.createElement(
+	              'button',
+	              { onClick: this.startWriting.bind(null, 'words'), id: 'staffwords' + this.props.slot, type: 'button', className: 'btn btn-primary btn-sm', 'data-tip': 'Write Words' },
+	              'W'
+	            ),
+	            _react2.default.createElement(
+	              'button',
+	              { onClick: this.startWriting.bind(null, 'sentences'), id: 'staffsentences' + this.props.slot, type: 'button', className: 'btn btn-primary btn-sm', 'data-tip': 'Write Sentences' },
+	              'S'
+	            ),
+	            this.props.staff.prestige >= 2 ? _react2.default.createElement(
+	              'button',
+	              { onClick: this.startWriting.bind(null, 'pages'), id: 'staffpages' + this.props.slot, type: 'button', className: 'btn btn-primary btn-sm', 'data-tip': 'Write Pages' },
+	              'P'
+	            ) : null,
+	            this.props.staff.prestige >= 3 ? _react2.default.createElement(
+	              'button',
+	              { onClick: this.startWriting.bind(null, 'chapters'), id: 'staffchapters' + this.props.slot, type: 'button', className: 'btn btn-primary btn-sm', 'data-tip': 'Write Chapters' },
+	              'C'
+	            ) : null,
+	            this.props.staff.prestige >= 4 ? _react2.default.createElement(
+	              'button',
+	              { onClick: this.startWriting.bind(null, 'books'), id: 'staffbooks' + this.props.slot, type: 'button', className: 'btn btn-primary btn-sm', 'data-tip': 'Write Books' },
+	              'B'
+	            ) : null,
+	            this.props.staff.prestige >= 5 ? _react2.default.createElement(
+	              'button',
+	              { onClick: this.startWriting.bind(null, 'series'), id: 'staffseries' + this.props.slot, type: 'button', className: 'btn btn-info btn-sm', 'data-tip': 'Research' },
+	              'R'
+	            ) : null
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'col-sm-10 col-sm-offset-1' },
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'progress' },
+	              _react2.default.createElement('div', { id: 'staffProgress' + this.props.slot, className: 'progress-bar progress-bar-striped active', role: 'progressbar', 'aria-valuenow': '50', 'aria-valuemin': '10', 'aria-valuemax': '100', style: progressBar })
+	            )
 	          )
 	        )
 	      )
@@ -879,7 +860,7 @@
 	    achieve.check();
 	  },
 	  componentDidMount: function componentDidMount() {
-	    setInterval(this.update, 300);
+	    setInterval(this.update, 500);
 	  },
 	  render: function render() {
 	    return _react2.default.createElement(
@@ -1041,7 +1022,7 @@
 	        { className: 'col-sm-12' },
 	        _react2.default.createElement(
 	          'div',
-	          { id: 'achieve', className: 'alert alert-dismissible alert-info fade', role: 'alert' },
+	          { id: 'achieve', className: 'alert alert-dismissible alert-success fade', role: 'alert' },
 	          _react2.default.createElement(
 	            'button',
 	            { type: 'button', className: 'close', 'data-dismiss': 'alert', 'aria-label': 'Close' },

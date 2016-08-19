@@ -46,16 +46,6 @@ const unlock = (function() {
     }
   }
 
-  let fasterLetters2 = () => {
-    if (l['lifetime'] >= 693 && !u['fasterLetters2']) {
-      $('#FasterLetters2').fadeIn()
-      l['availableUpgrades'] += 1
-      unlocks.remove(fasterLetters2)
-    } else if (u['fasterLetters2']) {
-      unlocks.remove(fasterLetters2)
-    }
-  }
-
   let efficientMonkeys = () => {
     if (l['lifetime'] >= 275 && m['total'] >= 3 && !u['efficientMonkeys']) {
       $('#EfficientMonkeys').fadeIn()
@@ -167,7 +157,7 @@ const unlock = (function() {
       unlocks.add(writeSentences)
 
       unlocks.add(fasterLetters)
-      unlocks.add(fasterLetters2)
+      unlocks.add(fasterWords)
       unlocks.add(efficientMonkeys)
 
       // Sets upgrade counting variables to 0

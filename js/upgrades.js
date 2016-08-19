@@ -86,28 +86,14 @@ const upgrade = (function() {
 
     fasterLetters: function() {
       setVar()
-      if (l['total'] >= 250 && !u['fasterLetters']) {
+      if (l['total'] >= 175 && !u['fasterLetters']) {
         $('#FasterLetters').fadeOut()
         u['fasterLetters'] = true
-        l['total'] -= 250
+        l['total'] -= 175
         l['availableUpgrades'] -= 1
         l['multiplier'] += 0.5
         calcGenerating('letters')
-      } else if (l['total'] < 250) {
-        upgradeError()
-      }
-    },
-
-    fasterLetters2: function() {
-      setVar()
-      if (l['total'] >= 425 && !u['fasterLetters2']) {
-        $('#FasterLetters2').fadeOut()
-        u['fasterLetters2'] = true
-        l['total'] -= 425
-        l['availableUpgrades'] -= 1
-        l['multiplier'] += 0.5
-        calcGenerating('letters')
-      } else if (l['total'] < 425) {
+      } else if (l['total'] < 175) {
         upgradeError()
       }
     },
@@ -133,7 +119,7 @@ const upgrade = (function() {
         u['fasterWords'] = true
         w['total'] -= 25
         w['availableUpgrades'] -= 1
-        w['multiplier'] += 0.3
+        w['timer'] = w['timer'] * 0.7
         calcGenerating('words')
       } else if (w['total'] < 25) {
         upgradeError()

@@ -125,7 +125,6 @@ let init = () => {
                 writeWords: false,
                 writeSentences: false,
                 fasterLetters: false,
-                fasterLetters2: false,
                 efficientMonkeys: false,
                 fasterWords: false,
                 fasterSentences: false,
@@ -175,7 +174,7 @@ let calcUsing = (unit) => {
   })
   let prev = 0
   if (c['manual']) { // Check manual writing
-    prev += c['cost'] / c['timer']
+    prev += c['cost'] / c['timer'] * c['multiplier']
   }
   for (let i = 1; i < 10; i++) { // Check staff writing
     let staff = save['staff']['s' + i]
@@ -296,7 +295,6 @@ let writing = (num) => { // Manual writing
         curr['total'] += 1
         curr['lifetime'] += 1
         curr['progress'] -= 100
-
         // Deduct the cost from the previous unit
         save[pv]['total'] -= curr['cost']
       }
@@ -405,10 +403,6 @@ function delSave() {
 	$('.confirmpopopacity').fadeIn()
 	$('.confirm').off('click').click(function() {
 		localStorage.removeItem('save')
-		disengageWriting()
-    for (let i = 1; i < 10; i++) {
-      disengageStaff(i)
-    }
 		init()
 		location.reload()
 	})

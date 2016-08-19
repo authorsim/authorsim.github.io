@@ -73,11 +73,24 @@ let GameMenu = React.createClass({
 })
 
 let GameField = React.createClass({
+  getInitialState: function() {
+    return {
+      save: save,
+    }
+  },
+  updateSave: function() {
+    this.setState({
+      save: save
+    })
+  },
+  componentDidMount: function() {
+    setInterval(this.updateSave, 50)
+  },
   render: function () {
     return (
       <div className="tab-content">
-        <UnitPanel />
-        <StaffPanel />
+        <UnitPanel save={this.state.save}/>
+        <StaffPanel save={this.state.save} />
         <AchievementPanel />
         <div role="tabpanel" className="tab-pane fade" id="statistics">
 
@@ -89,21 +102,8 @@ let GameField = React.createClass({
 })
 
 let UnitPanel = React.createClass({
-  getInitialState: function() {
-    return {
-      save: save,
-    }
-  },
-  updateSave: function() {
-    this.setState({
-      save: save
-    })
-  },
   write: function(unit) {
     startWriting(unit)
-  },
-  componentDidMount: function() {
-    setInterval(this.updateSave, 50)
   },
   render: function() {
     return (
@@ -113,62 +113,62 @@ let UnitPanel = React.createClass({
             <ul className="nav nav-pills nav-stacked">
               <UnitMenuItem
                 unit="Series"
-                total={this.state.save.series.total}
+                total={this.props.save.series.total}
               />
               <UnitMenuItem
                 unit="Books"
-                total={this.state.save.books.total}
+                total={this.props.save.books.total}
               />
               <UnitMenuItem
                 unit="Chapters"
-                total={this.state.save.chapters.total}
+                total={this.props.save.chapters.total}
               />
               <UnitMenuItem
                 unit="Pages"
-                total={this.state.save.pages.total}
+                total={this.props.save.pages.total}
               />
               <UnitMenuItem
                 unit="Sentences"
-                total={this.state.save.sentences.total}
+                total={this.props.save.sentences.total}
               />
               <UnitMenuItem
                 unit="Words"
-                total={this.state.save.words.total}
+                total={this.props.save.words.total}
               />
               <UnitMenuItem
                 unit="Letters"
-                total={this.state.save.letters.total}
+                total={this.props.save.letters.total}
               />
             </ul>
           </div>
           <div className="tab-content col-sm-9">
             <UnitDetailsPanel
-              unit={this.state.save.letters}
-              write={this.write.bind(null, this.state.save.letters.unit)}
+              unit={this.props.save.letters}
+              write={this.write.bind(null, this.props.save.letters.unit)}
             />
             <UnitDetailsPanel
-              unit={this.state.save.words}
-              write={this.write.bind(null, this.state.save.words.unit)}
+              unit={this.props.save.words}
+              write={this.write.bind(null, this.props.save.words.unit)}
             />
             <UnitDetailsPanel
-              unit={this.state.save.sentences}
-              write={this.write.bind(null, this.state.save.sentences.unit)}
+              unit={this.props.save.sentences}
+              write={this.write.bind(null, this.props.save.sentences.unit)}
             />
             <UnitDetailsPanel
-              unit={this.state.save.pages}
-              write={this.write.bind(null, this.state.save.pages.unit)}
+              unit={this.props.save.pages}
+              write={this.write.bind(null, this.props.save.pages.unit)}
             />
             <UnitDetailsPanel
-              unit={this.state.save.chapters}
-              write={this.write.bind(null, this.state.save.chapters.unit)}
+              unit={this.props.save.chapters}
+              write={this.write.bind(null, this.props.save.chapters.unit)}
             />
             <UnitDetailsPanel
-              unit={this.state.save.books}
-              write={this.write.bind(null, this.state.save.books.unit)}
+              unit={this.props.save.books}
+              write={this.write.bind(null, this.props.save.books.unit)}
             />
             <UnitDetailsPanel
-              unit={this.state.save.series}
-              write={this.write.bind(null, this.state.save.series.unit)}
+              unit={this.props.save.series}
+              write={this.write.bind(null, this.props.save.series.unit)}
             />
           </div>
         </div>
@@ -285,17 +285,11 @@ let UnitPanelLettersUpgrade = React.createClass({
           upgradeName="Faster Letters"
           desc="Write letters 50% faster when manually writing."
           func={upgrade.fasterLetters}
-          cost="250 Letters"
-        />
-        <UnitPanelUpgradeItem
-          upgradeName="Faster Letters 2"
-          desc="Write letters 50% faster when manually writing."
-          func={upgrade.fasterLetters2}
-          cost="425 Letters"
+          cost="175 Letters"
         />
         <UnitPanelUpgradeItem
           upgradeName="Efficient Monkeys"
-          desc="Monkeys write letters 10% faster."
+          desc="Monkeys write 10% more letters."
           func={upgrade.efficientMonkeys}
           cost="75 Letters"
         />
@@ -377,28 +371,11 @@ let UnitPanelBooksUpgrade = React.createClass({
 })
 
 let StaffPanel = React.createClass({
-  getInitialState: function() {
-    return {
-      letterGen: save['letters']['generating'],
-      staff: save['staff'],
-      monkeys: save['monkeys']
-    }
-  },
-  updateState: function() {
-    this.setState({
-      monkeys: save['monkeys'],
-      letterGen: save['letters']['generating'],
-      staff: save['staff']
-    })
-  },
   hire: function(slot) {
     hireStaff(slot)
   },
   buyMonkey: function() {
     buyMonkey()
-  },
-  componentDidMount: function() {
-    setInterval(this.updateState, 50)
   },
   render: function() {
     return (
@@ -408,51 +385,51 @@ let StaffPanel = React.createClass({
             <button className="btn btn-primary"
               onClick={this.buyMonkey}
               data-tip="Writes 1 letter per second">
-                Buy Monkey for {prettify(this.state.monkeys.cost)} Words
+                Buy Monkey for {prettify(this.props.save.monkeys.cost)} Words
             </button>
           </div>
   				<div className="col-sm-3">
   					<h4 id="monkeys" data-tip="<img src='./images/monkey.png'>" data-html={true}>
-              Monkeys : {this.state.monkeys.total}
+              Monkeys : {this.props.save.monkeys.total}
             </h4>
   				</div>
         </div>
         <hr />
         <div className="row">
-          {this.state.staff.s1.active ?
-            <StaffSlot staff={this.state.staff.s1} slot='1' /> :
+          {this.props.save.staff.s1.active ?
+            <StaffSlot staff={this.props.save.staff.s1} slot='1' /> :
             <PurchaseStaffSlot hire={this.hire.bind(null, '1')} slot='1' />
           }
-          {this.state.staff.s2.active ?
-            <StaffSlot staff={this.state.staff.s2} slot='2' /> :
+          {this.props.save.staff.s2.active ?
+            <StaffSlot staff={this.props.save.staff.s2} slot='2' /> :
             <PurchaseStaffSlot hire={this.hire.bind(null, '2')} slot='2' />
           }
-          {this.state.staff.s3.active ?
-            <StaffSlot staff={this.state.staff.s3} slot='3' /> :
+          {this.props.save.staff.s3.active ?
+            <StaffSlot staff={this.props.save.staff.s3} slot='3' /> :
             <PurchaseStaffSlot hire={this.hire.bind(null, '3')} slot='3' />
           }
-          {this.state.staff.s4.active ?
-            <StaffSlot staff={this.state.staff.s4} slot='4' /> :
+          {this.props.save.staff.s4.active ?
+            <StaffSlot staff={this.props.save.staff.s4} slot='4' /> :
             <PurchaseStaffSlot hire={this.hire.bind(null, '4')} slot='4' />
           }
-          {this.state.staff.s5.active ?
-            <StaffSlot staff={this.state.staff.s5} slot='5' /> :
+          {this.props.save.staff.s5.active ?
+            <StaffSlot staff={this.props.save.staff.s5} slot='5' /> :
             <PurchaseStaffSlot hire={this.hire.bind(null, '5')} slot='5' />
           }
-          {this.state.staff.s6.active ?
-            <StaffSlot  staff={this.state.staff.s6} slot='6' /> :
+          {this.props.save.staff.s6.active ?
+            <StaffSlot  staff={this.props.save.staff.s6} slot='6' /> :
             <PurchaseStaffSlot hire={this.hire.bind(null, '6')} slot='6' />
           }
-          {this.state.staff.s7.active ?
-            <StaffSlot staff={this.state.staff.s7} slot='7' /> :
+          {this.props.save.staff.s7.active ?
+            <StaffSlot staff={this.props.save.staff.s7} slot='7' /> :
             <PurchaseStaffSlot hire={this.hire.bind(null, '7')} slot='7' />
           }
-          {this.state.staff.s8.active ?
-            <StaffSlot staff={this.state.staff.s8} slot='8' /> :
+          {this.props.save.staff.s8.active ?
+            <StaffSlot staff={this.props.save.staff.s8} slot='8' /> :
             <PurchaseStaffSlot hire={this.hire.bind(null, '8')} slot='8' />
           }
-          {this.state.staff.s9.active ?
-            <StaffSlot staff={this.state.staff.s9} slot='9' /> :
+          {this.props.save.staff.s9.active ?
+            <StaffSlot staff={this.props.save.staff.s9} slot='9' /> :
             <PurchaseStaffSlot hire={this.hire.bind(null, '9')} slot='9' />
           }
         </div>
@@ -534,42 +511,44 @@ let StaffSlot = React.createClass({
               null :
               <div id={'staffExpBar' + this.props.slot} className="progress">
                 <div className="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="50" aria-valuemin="10" aria-valuemax="100" style={expBar}>
-                  <span>{this.props.staff.exp} / {this.props.staff.nextExp}</span>
+                  <span>{prettify(this.props.staff.exp,2)} / {this.props.staff.nextExp}</span>
                 </div>
               </div>
             }
 
           </div>
-        <div id={'staffGraduate' + this.props.slot} className="graduate">
-          <button onClick={this.graduate} type="button" className="btn btn-success btn-lg">
-            Graduate
-          </button>
-        </div>
-        <div id={"staffProgressArea" + this.props.slot}>
-          <div className="col-sm-8 col-sm-offset-2 col-centered">
-            <button onClick={this.startWriting.bind(null, 'words')} id={'staffwords' + this.props.slot} type="button" className="btn btn-primary btn-sm" data-tip="Write Words">W</button>
-            <button onClick={this.startWriting.bind(null, 'sentences')} id={'staffsentences' + this.props.slot} type="button" className="btn btn-primary btn-sm" data-tip="Write Sentences">S</button>
-
-            {this.props.staff.prestige >= 2 ?
-              <button onClick={this.startWriting.bind(null, 'pages')} id={'staffpages' + this.props.slot} type="button" className="btn btn-primary btn-sm" data-tip="Write Pages">P</button> :
-              null
-            }
-            {this.props.staff.prestige >= 3 ?
-              <button onClick={this.startWriting.bind(null, 'chapters')} id={'staffchapters' + this.props.slot} type="button" className="btn btn-primary btn-sm" data-tip="Write Chapters">C</button> :
-              null
-            }
-            {this.props.staff.prestige >= 4 ?
-              <button onClick={this.startWriting.bind(null, 'books')} id={'staffbooks' + this.props.slot} type="button" className="btn btn-primary btn-sm" data-tip="Write Books">B</button> :
-              null
-            }
-            {this.props.staff.prestige >= 5 ?
-              <button onClick={this.startWriting.bind(null, 'series')} id={'staffseries' + this.props.slot} type="button" className="btn btn-info btn-sm" data-tip="Research">R</button> :
-              null
-            }
+        <div className="col-sm-12">
+          <div id={'staffGraduate' + this.props.slot} className="graduate">
+            <button onClick={this.graduate} type="button" className="btn btn-success btn-lg">
+              Graduate
+            </button>
           </div>
-          <div className="col-sm-10 col-sm-offset-1">
-            <div className="progress">
-              <div id={'staffProgress' + this.props.slot} className="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="50" aria-valuemin="10" aria-valuemax="100" style={progressBar}>
+          <div id={"staffProgressArea" + this.props.slot}>
+            <div className="col-sm-8 col-sm-offset-2 col-centered">
+              <button onClick={this.startWriting.bind(null, 'words')} id={'staffwords' + this.props.slot} type="button" className="btn btn-primary btn-sm" data-tip="Write Words">W</button>
+              <button onClick={this.startWriting.bind(null, 'sentences')} id={'staffsentences' + this.props.slot} type="button" className="btn btn-primary btn-sm" data-tip="Write Sentences">S</button>
+
+              {this.props.staff.prestige >= 2 ?
+                <button onClick={this.startWriting.bind(null, 'pages')} id={'staffpages' + this.props.slot} type="button" className="btn btn-primary btn-sm" data-tip="Write Pages">P</button> :
+                null
+              }
+              {this.props.staff.prestige >= 3 ?
+                <button onClick={this.startWriting.bind(null, 'chapters')} id={'staffchapters' + this.props.slot} type="button" className="btn btn-primary btn-sm" data-tip="Write Chapters">C</button> :
+                null
+              }
+              {this.props.staff.prestige >= 4 ?
+                <button onClick={this.startWriting.bind(null, 'books')} id={'staffbooks' + this.props.slot} type="button" className="btn btn-primary btn-sm" data-tip="Write Books">B</button> :
+                null
+              }
+              {this.props.staff.prestige >= 5 ?
+                <button onClick={this.startWriting.bind(null, 'series')} id={'staffseries' + this.props.slot} type="button" className="btn btn-info btn-sm" data-tip="Research">R</button> :
+                null
+              }
+            </div>
+            <div className="col-sm-10 col-sm-offset-1">
+              <div className="progress">
+                <div id={'staffProgress' + this.props.slot} className="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="50" aria-valuemin="10" aria-valuemax="100" style={progressBar}>
+                </div>
               </div>
             </div>
           </div>
@@ -605,7 +584,7 @@ let AchievementPanel = React.createClass({
     achieve.check()
   },
   componentDidMount: function() {
-    setInterval(this.update, 300)
+    setInterval(this.update, 500)
   },
   render: function() {
     return (
@@ -695,7 +674,7 @@ let AchievementWindow = React.createClass({
     return (
       <div className="row achievementWindow achBehind">
     	<div className="col-sm-12">
-    		<div id="achieve" className="alert alert-dismissible alert-info fade" role="alert">
+    		<div id="achieve" className="alert alert-dismissible alert-success fade" role="alert">
     			<button type="button" className="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
     			<span className="achieveicon glyphicon glyphicon-ok"></span>
     			<h3 id="achieveTitle">Whoa!</h3>

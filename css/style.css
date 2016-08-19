@@ -66,8 +66,9 @@
 }
 
 .progress-bar {
-    transition: width 0.01s;
-    -webkit-transition: width 0.01s;
+    transition: all 0.01s;
+    -moz-transition: all 0.01s;
+    -webkit-transition: all 0.01s;
 }
 
 .menuAlertGlyphicon,

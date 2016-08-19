@@ -171,7 +171,6 @@
 	      writeWords: false,
 	      writeSentences: false,
 	      fasterLetters: false,
-	      fasterLetters2: false,
 	      efficientMonkeys: false,
 	      fasterWords: false,
 	      fasterSentences: false,
@@ -228,7 +227,7 @@
 	  var prev = 0;
 	  if (c['manual']) {
 	    // Check manual writing
-	    prev += c['cost'] / c['timer'];
+	    prev += c['cost'] / c['timer'] * c['multiplier'];
 	  }
 	  for (var i = 1; i < 10; i++) {
 	    // Check staff writing
@@ -339,7 +338,6 @@
 	        curr['total'] += 1;
 	        curr['lifetime'] += 1;
 	        curr['progress'] -= 100;
-
 	        // Deduct the cost from the previous unit
 	        save[pv]['total'] -= curr['cost'];
 	      }
@@ -452,10 +450,6 @@
 	  $('.confirmpopopacity').fadeIn();
 	  $('.confirm').off('click').click(function () {
 	    localStorage.removeItem('save');
-	    disengageWriting();
-	    for (var i = 1; i < 10; i++) {
-	      disengageStaff(i);
-	    }
 	    init();
 	    location.reload();
 	  });
