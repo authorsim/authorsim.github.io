@@ -216,7 +216,7 @@ let disengageWriting = () => {
     calcGenerating(cur)
 
     // Update progress bar
-    $('#writing' + cur)
+    $('#write' + cur)
       .css('width', '0%')
       .attr('aria-valuenow', 0)
   })

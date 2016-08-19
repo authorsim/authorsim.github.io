@@ -272,7 +272,7 @@
 	    calcGenerating(cur);
 
 	    // Update progress bar
-	    $('#writing' + cur).css('width', '0%').attr('aria-valuenow', 0);
+	    $('#write' + cur).css('width', '0%').attr('aria-valuenow', 0);
 	  });
 	};
 
