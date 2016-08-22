@@ -381,7 +381,27 @@ let StaffPanel = React.createClass({
   render: function() {
     return (
       <div role="tabpanel" className="tab-pane fade in" id="staff">
-  			<div className="row">
+        <div className="row">
+          <div className="col-sm-2">
+            Letters: {prettify(this.props.save.letters.total)}
+          </div>
+          <div className="col-sm-2">
+            Words: {prettify(this.props.save.words.total)}
+          </div>
+          <div className="col-sm-2">
+            Sentences: {prettify(this.props.save.sentences.total)}
+          </div>
+          <div className="col-sm-2">
+            Pages: {prettify(this.props.save.pages.total)}
+          </div>
+          <div className="col-sm-2">
+            Chapters: {prettify(this.props.save.chapters.total)}
+          </div>
+          <div className="col-sm-2">
+            Books: {prettify(this.props.save.books.total)}
+          </div>
+        </div>
+        <div className="row">
           <div className="col-sm-3">
             <button className="btn btn-primary"
               onClick={this.buyMonkey}

@@ -590,6 +590,46 @@
 	        { className: 'row' },
 	        _react2.default.createElement(
 	          'div',
+	          { className: 'col-sm-2' },
+	          'Letters: ',
+	          prettify(this.props.save.letters.total)
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'col-sm-2' },
+	          'Words: ',
+	          prettify(this.props.save.words.total)
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'col-sm-2' },
+	          'Sentences: ',
+	          prettify(this.props.save.sentences.total)
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'col-sm-2' },
+	          'Pages: ',
+	          prettify(this.props.save.pages.total)
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'col-sm-2' },
+	          'Chapters: ',
+	          prettify(this.props.save.chapters.total)
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'col-sm-2' },
+	          'Books: ',
+	          prettify(this.props.save.books.total)
+	        )
+	      ),
+	      _react2.default.createElement(
+	        'div',
+	        { className: 'row' },
+	        _react2.default.createElement(
+	          'div',
 	          { className: 'col-sm-3' },
 	          _react2.default.createElement(
 	            'button',
