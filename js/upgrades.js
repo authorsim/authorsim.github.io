@@ -29,6 +29,17 @@ const upgrade = (function() {
     // Checks regularly to fade in icon if upgrades are purchaseable
     check: () => {
       setVar()
+      // If there are any upgrades, fade in global icon
+      if (l['availableUpgrades'] +
+          w['availableUpgrades'] +
+          s['availableUpgrades'] +
+          p['availableUpgrades'] +
+          c['availableUpgrades'] +
+          b['availableUpgrades'] !== 0) {
+            $('#upgradeAvailable').fadeIn()
+          } else {
+            $('#upgradeAvailable').fadeOut()
+          }
       // If there are upgrades, fade in the icon
       if (l['availableUpgrades'] !== 0) {
         $('#LettersUpgradeAvailable').fadeIn()

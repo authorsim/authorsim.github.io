@@ -36,7 +36,9 @@ let GameMenu = React.createClass({
       <ul className="nav nav-tabs" role="tablist">
         <li role="presentation" className="active">
           <a href="#home" aria-controls="home" role="tab" data-toggle="tab">
-            Units
+          <span id="upgradeAvailable" className="upgrade glyphicon glyphicon-circle-arrow-up">
+          </span>
+          <span> Units</span>
           </a>
         </li>
         <li role="presentation">

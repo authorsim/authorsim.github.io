@@ -216,6 +216,11 @@ const unlock = (function() {
       unlocks.add(fasterLetters)
       unlocks.add(fasterWords)
       unlocks.add(efficientMonkeys)
+      unlocks.add(monkeyIntelligenceI)
+      unlocks.add(monkeyIntelligenceII)
+      unlocks.add(monkeyIntelligenceBreakthrough)
+      unlocks.add(smarterLetters)
+      unlocks.add(wordWhiz)
 
       // Sets upgrade counting variables to 0
       l['availableUpgrades'] = 0

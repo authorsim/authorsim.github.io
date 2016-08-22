@@ -111,7 +111,12 @@
 	        _react2.default.createElement(
 	          'a',
 	          { href: '#home', 'aria-controls': 'home', role: 'tab', 'data-toggle': 'tab' },
-	          'Units'
+	          _react2.default.createElement('span', { id: 'upgradeAvailable', className: 'upgrade glyphicon glyphicon-circle-arrow-up' }),
+	          _react2.default.createElement(
+	            'span',
+	            null,
+	            ' Units'
+	          )
 	        )
 	      ),
 	      _react2.default.createElement(
