@@ -489,10 +489,34 @@
 	        cost: '75 Letters'
 	      }),
 	      _react2.default.createElement(UnitPanelUpgradeItem, {
+	        upgradeName: 'Monkey Intelligence I',
+	        desc: 'Monkeys write 20% more letters.',
+	        func: upgrade.monkeyIntelligenceI,
+	        cost: '350 Letters'
+	      }),
+	      _react2.default.createElement(UnitPanelUpgradeItem, {
+	        upgradeName: 'Smarter Letters',
+	        desc: 'Write 10% more letters.',
+	        func: upgrade.smarterLetters,
+	        cost: '500 Letters'
+	      }),
+	      _react2.default.createElement(UnitPanelUpgradeItem, {
+	        upgradeName: 'Monkey Intelligence II',
+	        desc: 'Monkeys write 25% more letters.',
+	        func: upgrade.monkeyIntelligenceII,
+	        cost: '775 Letters'
+	      }),
+	      _react2.default.createElement(UnitPanelUpgradeItem, {
 	        upgradeName: 'Efficient Words',
-	        desc: 'Words are 10% cheaper across the board.',
+	        desc: 'Words are 10% cheaper.',
 	        func: upgrade.efficientWords,
 	        cost: '1,450 Letters'
+	      }),
+	      _react2.default.createElement(UnitPanelUpgradeItem, {
+	        upgradeName: 'Monkey Intelligence Breakthrough',
+	        desc: 'Monkeys write 100% more letters.',
+	        func: upgrade.monkeyIntelligenceBreakthrough,
+	        cost: '2,200 Letters'
 	      })
 	    );
 	  }
@@ -516,6 +540,12 @@
 	        desc: 'Write words 30% faster when manually writing.',
 	        func: upgrade.fasterWords,
 	        cost: '25 Words'
+	      }),
+	      _react2.default.createElement(UnitPanelUpgradeItem, {
+	        upgradeName: 'Word Whiz',
+	        desc: 'Write 15% more words.',
+	        func: upgrade.wordWhiz,
+	        cost: '100 Words'
 	      })
 	    );
 	  }
@@ -590,37 +620,37 @@
 	        { className: 'row' },
 	        _react2.default.createElement(
 	          'div',
-	          { className: 'col-sm-2' },
+	          { className: 'col-sm-2 text-center' },
 	          'Letters: ',
 	          prettify(this.props.save.letters.total)
 	        ),
 	        _react2.default.createElement(
 	          'div',
-	          { className: 'col-sm-2' },
+	          { className: 'col-sm-2 text-center' },
 	          'Words: ',
 	          prettify(this.props.save.words.total)
 	        ),
 	        _react2.default.createElement(
 	          'div',
-	          { className: 'col-sm-2' },
+	          { className: 'col-sm-2 text-center' },
 	          'Sentences: ',
 	          prettify(this.props.save.sentences.total)
 	        ),
 	        _react2.default.createElement(
 	          'div',
-	          { className: 'col-sm-2' },
+	          { className: 'col-sm-2 text-center' },
 	          'Pages: ',
 	          prettify(this.props.save.pages.total)
 	        ),
 	        _react2.default.createElement(
 	          'div',
-	          { className: 'col-sm-2' },
+	          { className: 'col-sm-2 text-center' },
 	          'Chapters: ',
 	          prettify(this.props.save.chapters.total)
 	        ),
 	        _react2.default.createElement(
 	          'div',
-	          { className: 'col-sm-2' },
+	          { className: 'col-sm-2 text-center' },
 	          'Books: ',
 	          prettify(this.props.save.books.total)
 	        )
@@ -1048,7 +1078,11 @@
 	              ),
 	              ')'
 	            ),
-	            _react2.default.createElement('li', null)
+	            _react2.default.createElement(
+	              'li',
+	              null,
+	              'Unit multipliers now work properly.'
+	            )
 	          )
 	        )
 	      )

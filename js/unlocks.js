@@ -63,6 +63,36 @@ const unlock = (function() {
     }
   }
 
+  const monkeyIntelligenceI = () => {
+    if (l['lifetime'] >= 655 && m['total'] >= 7 && !u['monkeyIntelligenceI']) {
+      $('#MonkeyIntelligenceI').fadeIn()
+      l['availableUpgrades'] += 1
+      unlocks.remove(monkeyIntelligenceI)
+    } else if (u['monkeyIntelligenceI']) {
+      unlocks.remove(monkeyIntelligenceI)
+    }
+  }
+
+  const smarterLetters = () => {
+    if (l['lifetime'] >= 1200 && !u['smarterLetters']) {
+      $('#SmarterLetters').fadeIn()
+      l['availableUpgrades'] += 1
+      unlocks.remove(smarterLetters)
+    } else if (u['smarterLetters']) {
+      unlocks.remove(smarterLetters)
+    }
+  }
+
+  const monkeyIntelligenceII = () => {
+    if (l['lifetime'] >= 1600 && m['total'] >= 13 && !u['monkeyIntelligenceII']) {
+      $('#MonkeyIntelligenceII').fadeIn()
+      l['availableUpgrades'] += 1
+      unlocks.remove(monkeyIntelligenceII)
+    } else if (u['monkeyIntelligenceII']) {
+      unlocks.remove(monkeyIntelligenceII)
+    }
+  }
+
   const efficientWords = () => {
     if (l['lifetime'] >= 2300 && !u['efficientWords']) {
       $('#EfficientWords').fadeIn()
@@ -70,6 +100,16 @@ const unlock = (function() {
       unlocks.remove(efficientWords)
     } else if (u['efficientWords']) {
       unlocks.remove(efficientWords)
+    }
+  }
+
+  const monkeyIntelligenceBreakthrough = () => {
+    if (l['lifetime'] >= 4000 && m['total'] >= 20 && !u['monkeyIntelligenceBreakthrough']) {
+      $('#monkeyIntelligenceBreakthrough').fadeIn()
+      l['availableUpgrades'] += 1
+      unlocks.remove(monkeyIntelligenceBreakthrough)
+    } else if (u['monkeyIntelligenceBreakthrough']) {
+      unlocks.remove(monkeyIntelligenceBreakthrough)
     }
   }
 
@@ -101,6 +141,16 @@ const unlock = (function() {
       unlocks.remove(fasterWords)
     } else if (u['fasterWords']) {
       unlocks.remove(fasterWords)
+    }
+  }
+
+  const wordWhiz = () => {
+    if (w['lifetime'] >= 450 && !u['wordWhiz']) {
+      $('#WordWhiz').fadeIn()
+      w['availableUpgrades'] += 1
+      unlocks.remove(wordWhiz)
+    } else if (u['wordWhiz']) {
+      unlocks.remove(wordWhiz)
     }
   }
 

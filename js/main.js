@@ -295,10 +295,34 @@ let UnitPanelLettersUpgrade = React.createClass({
           cost="75 Letters"
         />
         <UnitPanelUpgradeItem
+          upgradeName="Monkey Intelligence I"
+          desc="Monkeys write 20% more letters."
+          func={upgrade.monkeyIntelligenceI}
+          cost="350 Letters"
+        />
+        <UnitPanelUpgradeItem
+          upgradeName="Smarter Letters"
+          desc="Write 10% more letters."
+          func={upgrade.smarterLetters}
+          cost="500 Letters"
+        />
+        <UnitPanelUpgradeItem
+          upgradeName="Monkey Intelligence II"
+          desc="Monkeys write 25% more letters."
+          func={upgrade.monkeyIntelligenceII}
+          cost="775 Letters"
+        />
+        <UnitPanelUpgradeItem
           upgradeName="Efficient Words"
-          desc="Words are 10% cheaper across the board."
+          desc="Words are 10% cheaper."
           func={upgrade.efficientWords}
           cost="1,450 Letters"
+        />
+        <UnitPanelUpgradeItem
+          upgradeName="Monkey Intelligence Breakthrough"
+          desc="Monkeys write 100% more letters."
+          func={upgrade.monkeyIntelligenceBreakthrough}
+          cost="2,200 Letters"
         />
       </div>
     )
@@ -320,6 +344,12 @@ let UnitPanelWordsUpgrade = React.createClass({
           desc="Write words 30% faster when manually writing."
           func={upgrade.fasterWords}
           cost="25 Words"
+        />
+        <UnitPanelUpgradeItem
+          upgradeName="Word Whiz"
+          desc="Write 15% more words."
+          func={upgrade.wordWhiz}
+          cost="100 Words"
         />
       </div>
     )
@@ -382,22 +412,22 @@ let StaffPanel = React.createClass({
     return (
       <div role="tabpanel" className="tab-pane fade in" id="staff">
         <div className="row">
-          <div className="col-sm-2">
+          <div className="col-sm-2 text-center">
             Letters: {prettify(this.props.save.letters.total)}
           </div>
-          <div className="col-sm-2">
+          <div className="col-sm-2 text-center">
             Words: {prettify(this.props.save.words.total)}
           </div>
-          <div className="col-sm-2">
+          <div className="col-sm-2 text-center">
             Sentences: {prettify(this.props.save.sentences.total)}
           </div>
-          <div className="col-sm-2">
+          <div className="col-sm-2 text-center">
             Pages: {prettify(this.props.save.pages.total)}
           </div>
-          <div className="col-sm-2">
+          <div className="col-sm-2 text-center">
             Chapters: {prettify(this.props.save.chapters.total)}
           </div>
-          <div className="col-sm-2">
+          <div className="col-sm-2 text-center">
             Books: {prettify(this.props.save.books.total)}
           </div>
         </div>
@@ -682,7 +712,7 @@ let ChangelogPanel = React.createClass({
             <h3>V0.4.2</h3>
             <ul>
               <li>Added changelog panel. (thanks <a href="https://www.reddit.com/user/Simon662">/u/Simon662</a>)</li>
-              <li></li>
+              <li>Unit multipliers now work properly.</li>
             </ul>
           </div>
         </div>

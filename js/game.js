@@ -128,6 +128,11 @@ const init = () => {
                 fasterWords: false,
                 fasterSentences: false,
                 efficientWords: false,
+                monkeyIntelligenceI: false,
+                monkeyIntelligenceII: false,
+                monkeyIntelligenceBreakthrough: false,
+                wordWhiz: false,
+                smarterLetters: false,
     },
     achievements: { findPongo: false,
     },
@@ -279,10 +284,10 @@ const writing = (num) => { // Manual writing
     .attr('aria-valuenow', curr['progress'])
   units.reduce( (pv, cv, i, arr) => {
     if (cv === 'letters' && save[cv] === curr) {
-      curr['progress'] += (100 / ((curr['timer'] / curr['multiplier']) * (1000 / interval)) * num)
+      curr['progress'] += (100 / ((curr['timer']) * (1000 / interval)) * num)
       while (curr['progress'] >= 100) {
         // Increment unit and reset progress
-        curr['total'] += 1
+        curr['total'] += 1 * curr['multiplier']
         curr['lifetime'] += 1
         curr['progress'] -= 100
       }
@@ -290,11 +295,11 @@ const writing = (num) => { // Manual writing
       curr['progress'] += (100 / (curr['timer'] * (1000 / interval)) * num)
       while (curr['progress'] >= 100) {
         // Increment unit and reset progress
-        curr['total'] += 1
-        curr['lifetime'] += 1
+        curr['total'] += 1 * curr['multiplier']
+        curr['lifetime'] += 1 * curr['multiplier']
         curr['progress'] -= 100
         // Deduct the cost from the previous unit
-        save[pv]['total'] -= curr['cost']
+        save[pv]['total'] -= curr['cost'] * curr['multiplier']
       }
     }
     return cv
@@ -314,11 +319,11 @@ const staffWriting = (num) => {
             staff['progress'] += 100 / (unit['timer'] / staff['speed'] * 2) / (1000 / interval) * num
             if (staff['progress'] >= 100) { // When the progress bar gets full, run calc
               // Deduct cost from previous unit
-              pUnit['total'] -= unit['cost'] / staff['eff']
+              pUnit['total'] -= unit['cost'] / staff['eff'] * unit['multiplier']
 
               // Increment active unit
-              unit['total'] += 1
-              unit['lifetime'] += 1
+              unit['total'] += 1 * unit['multiplier']
+              unit['lifetime'] += 1 * unit['multiplier']
 
               // Reset progress bar and exp
               staff['progress'] -= 100

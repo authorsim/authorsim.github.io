@@ -173,7 +173,12 @@
 	      efficientMonkeys: false,
 	      fasterWords: false,
 	      fasterSentences: false,
-	      efficientWords: false
+	      efficientWords: false,
+	      monkeyIntelligenceI: false,
+	      monkeyIntelligenceII: false,
+	      monkeyIntelligenceBreakthrough: false,
+	      wordWhiz: false,
+	      smarterLetters: false
 	    },
 	    achievements: { findPongo: false
 	    }
@@ -322,10 +327,10 @@
 	  $('#write' + getActiveUnit()).css('width', curr['progress'] + '%').attr('aria-valuenow', curr['progress']);
 	  units.reduce(function (pv, cv, i, arr) {
 	    if (cv === 'letters' && save[cv] === curr) {
-	      curr['progress'] += 100 / (curr['timer'] / curr['multiplier'] * (1000 / interval)) * num;
+	      curr['progress'] += 100 / (curr['timer'] * (1000 / interval)) * num;
 	      while (curr['progress'] >= 100) {
 	        // Increment unit and reset progress
-	        curr['total'] += 1;
+	        curr['total'] += 1 * curr['multiplier'];
 	        curr['lifetime'] += 1;
 	        curr['progress'] -= 100;
 	      }
@@ -333,11 +338,11 @@
 	      curr['progress'] += 100 / (curr['timer'] * (1000 / interval)) * num;
 	      while (curr['progress'] >= 100) {
 	        // Increment unit and reset progress
-	        curr['total'] += 1;
-	        curr['lifetime'] += 1;
+	        curr['total'] += 1 * curr['multiplier'];
+	        curr['lifetime'] += 1 * curr['multiplier'];
 	        curr['progress'] -= 100;
 	        // Deduct the cost from the previous unit
-	        save[pv]['total'] -= curr['cost'];
+	        save[pv]['total'] -= curr['cost'] * curr['multiplier'];
 	      }
 	    }
 	    return cv;
@@ -362,11 +367,11 @@
 	            if (_staff3['progress'] >= 100) {
 	              // When the progress bar gets full, run calc
 	              // Deduct cost from previous unit
-	              pUnit['total'] -= unit['cost'] / _staff3['eff'];
+	              pUnit['total'] -= unit['cost'] / _staff3['eff'] * unit['multiplier'];
 
 	              // Increment active unit
-	              unit['total'] += 1;
-	              unit['lifetime'] += 1;
+	              unit['total'] += 1 * unit['multiplier'];
+	              unit['lifetime'] += 1 * unit['multiplier'];
 
 	              // Reset progress bar and exp
 	              _staff3['progress'] -= 100;
