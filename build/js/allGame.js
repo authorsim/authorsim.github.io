@@ -58,7 +58,7 @@
 	var interval = 20;
 
 	var staff = { // Exp and Eff values for all levels of staff
-	  prestige1: { maxLevel: 4, maxExp: 150, eff: .950, speed: 1.05 },
+	  prestige1: { maxLevel: 4, maxExp: 150, eff: 0.950, speed: 1.05 },
 	  prestige2: { maxLevel: 5, maxExp: 200, eff: 1.10, speed: 1.95 },
 	  prestige3: { maxLevel: 6, maxExp: 250, eff: 1.30, speed: 3.15 },
 	  prestige4: { maxLevel: 8, maxExp: 300, eff: 1.55, speed: 4.65 },
@@ -167,8 +167,7 @@
 	      s9: {}
 
 	    },
-	    upgrades: {
-	      writeWords: false,
+	    upgrades: { writeWords: false,
 	      writeSentences: false,
 	      fasterLetters: false,
 	      efficientMonkeys: false,
@@ -176,8 +175,7 @@
 	      fasterSentences: false,
 	      efficientWords: false
 	    },
-	    achievements: {
-	      findPongo: false
+	    achievements: { findPongo: false
 	    }
 	  };
 	};
@@ -190,31 +188,6 @@
 	//
 	// Writing calculation pieces
 	//
-
-	var calcGenerating = function calcGenerating(unit) {
-	  var c = save[unit];
-	  var g = 0;
-	  if (c['manual']) {
-	    // Check manual writing
-	    g += 1 / c['timer'] * c['multiplier'];
-	  }
-	  for (var i = 1; i < 10; i++) {
-	    // Check staff writing
-	    var _staff = save['staff']['s' + i];
-	    if (_staff && _staff['writing'] === unit) {
-	      g += 1 / c['timer'] * c['multiplier'] * _staff['speed'] / 2;
-	    }
-	  }
-	  if (unit === 'letters') {
-	    // Do letters-specific things
-	    g += save['monkeys']['total'] * save['monkeys']['multiplier'];
-	  }
-	  if (unit !== 'letters') {
-	    // Do non-letters things
-	    calcUsing(unit);
-	  }
-	  c['generating'] = g;
-	};
 
 	var calcUsing = function calcUsing(unit) {
 	  var p = '';
@@ -231,12 +204,37 @@
 	  }
 	  for (var i = 1; i < 10; i++) {
 	    // Check staff writing
-	    var _staff2 = save['staff']['s' + i];
-	    if (_staff2 && _staff2['writing'] === unit) {
-	      prev += 1 / c['timer'] * c['cost'] / _staff2['eff'] * _staff2['speed'] / 2;
+	    var _staff = save['staff']['s' + i];
+	    if (_staff && _staff['writing'] === unit) {
+	      prev += 1 / c['timer'] * c['cost'] / _staff['eff'] * _staff['speed'] / 2;
 	    }
 	  }
 	  save[p]['using'] = prev;
+	};
+
+	var calcGenerating = function calcGenerating(unit) {
+	  var c = save[unit];
+	  var g = 0;
+	  if (c['manual']) {
+	    // Check manual writing
+	    g += 1 / c['timer'] * c['multiplier'];
+	  }
+	  for (var i = 1; i < 10; i++) {
+	    // Check staff writing
+	    var _staff2 = save['staff']['s' + i];
+	    if (_staff2 && _staff2['writing'] === unit) {
+	      g += 1 / c['timer'] * c['multiplier'] * _staff2['speed'] / 2;
+	    }
+	  }
+	  if (unit === 'letters') {
+	    // Do letters-specific things
+	    g += save.monkeys.total * save.monkeys.multiplier;
+	  }
+	  if (unit !== 'letters') {
+	    // Do non-letters things
+	    calcUsing(unit);
+	  }
+	  c['generating'] = g;
 	};
 
 	var getActiveUnit = function getActiveUnit() {
@@ -306,8 +304,8 @@
 	//
 
 	var incrementLetters = function incrementLetters(num) {
-	  var l = save['letters'];
-	  var m = save['monkeys'];
+	  var l = save.letters;
+	  var m = save.monkeys;
 	  var equation = m['total'] * m['multiplier'] / (1000 / interval) * num;
 	  l['total'] += equation;
 	  l['lifetime'] += equation;
@@ -346,7 +344,7 @@
 	  }, 'letters');
 	};
 
-	function staffWriting(num) {
+	var staffWriting = function staffWriting(num) {
 	  for (var i = 1; i < 10; i++) {
 	    // Loops through all the staff slots
 	    var _staff3 = save['staff']['s' + i];
@@ -384,7 +382,7 @@
 	      }
 	    }
 	  }
-	}
+	};
 
 	//
 	// Configurable error popup
@@ -444,7 +442,7 @@
 	  }
 	};
 
-	function delSave() {
+	var delSave = function delSave() {
 	  $('#confirmpopMessage').text('Are you sure you want to delete your save?');
 	  $('.pop').fadeIn();
 	  $('.confirmpopopacity').fadeIn();
@@ -457,7 +455,7 @@
 	    $('.pop').fadeOut();
 	    $('.confirmpopopacity').fadeOut();
 	  });
-	}
+	};
 
 	//
 	// The loop

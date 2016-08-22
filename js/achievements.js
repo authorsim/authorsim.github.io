@@ -3,9 +3,9 @@ const achieve = (function() {
   // Drag and Drop
   //
 
-  let setListeners = () => {
+  const setListeners = () => {
     // Define droppable areas
-    let activePerks = document.querySelectorAll('.activePerk')
+    const activePerks = document.querySelectorAll('.activePerk')
     for (let i = 0; i < activePerks.length; i++) {
       activePerks[i].addEventListener('dragover', function(e){
         e.preventDefault()
@@ -24,7 +24,7 @@ const achieve = (function() {
       }, false)
     }
 
-    let perks = document.querySelectorAll('.achievement')
+    const perks = document.querySelectorAll('.achievement')
     for (let i = 0; i < perks.length; i++) {
       perks[i].addEventListener('dragstart', function(e) {
         e.dataTransfer.effectAllowed = 'copy'
@@ -43,13 +43,13 @@ const achieve = (function() {
 
   // Create variable shortcut
   let a
-  let setVar = () => {
+  const setVar = () => {
     a = save['achievements']
   }
 
-  let findPongo = () => {
+  const findPongo = () => {
     $('#monkeys').mouseover((event) => {
-      achieve.alert('You Found Pongo!','+10% Speed to Monkeys')
+      achieve.alert('You Found Pongo!', '+10% Speed to Monkeys')
       a['findPongo'] = true
       $(this).unbind(event)
     })
@@ -59,15 +59,15 @@ const achieve = (function() {
     // Animation for fading in and then out an alert box
     alert: (title, desc) => {
       $('.achievementWindow').removeClass('achBehind').addClass('achInFront')
-    	$('#achieve').fadeTo(500, 0.9)
-    	$('#achieveTitle').text(title)
-    	$('#achieveDesc').text('Perk: ' + desc)
+      $('#achieve').fadeTo(500, 0.9)
+      $('#achieveTitle').text(title)
+      $('#achieveDesc').text('Perk: ' + desc)
 
       // After 7 seconds, fades the window back out
-    	window.setTimeout(() => {
-    	   $('#achieve').fadeTo(500, 0)
-         $('.achievementWindow').removeClass('achInFront').addClass('achBehind')
-    	}, 7000)
+      window.setTimeout(() => {
+        $('#achieve').fadeTo(500, 0)
+        $('.achievementWindow').removeClass('achInFront').addClass('achBehind')
+      }, 7000)
     },
 
     setup: () => {
@@ -77,6 +77,6 @@ const achieve = (function() {
       ach.fire()
     },
 
-    check: () => { ach.fire() }
+    check: () => { ach.fire() },
   }
 }())

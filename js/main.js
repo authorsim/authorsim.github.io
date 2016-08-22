@@ -53,7 +53,7 @@ let GameMenu = React.createClass({
           </a>
           <ul className="dropdown-menu">
             <li>
-              <a href="#statistics" aria-controls="statistics" role="tab" data-toggle="tab">Statistics</a>
+              <a href="#changelog" aria-controls="changelog" role="tab" data-toggle="tab">Changelog</a>
             </li>
             <li>
               <a href="#options" aria-controls="options" role="tab" data-toggle="tab">Options</a>
@@ -96,6 +96,7 @@ let GameField = React.createClass({
 
         </div>
         <OptionsPanel />
+        <ChangelogPanel />
       </div>
     )
   }
@@ -511,7 +512,7 @@ let StaffSlot = React.createClass({
               null :
               <div id={'staffExpBar' + this.props.slot} className="progress">
                 <div className="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="50" aria-valuemin="10" aria-valuemax="100" style={expBar}>
-                  <span>{prettify(this.props.staff.exp,2)} / {this.props.staff.nextExp}</span>
+                  <span>{prettify(this.props.staff.exp,2)} / {prettify(this.props.staff.nextExp)}</span>
                 </div>
               </div>
             }
@@ -646,6 +647,23 @@ let OptionsPanel = React.createClass({
       <div role="tabpanel" className="tab-pane fade" id="options">
         <div className="row">
           <button onClick={this.delSave} className="btn btn-lg btn-danger">Delete Save</button>
+        </div>
+      </div>
+    )
+  }
+})
+
+let ChangelogPanel = React.createClass({
+  render: function() {
+    return (
+      <div role="tabpanel" className="tab-pane fade" id="changelog">
+        <div className="row">
+          <div className="col-sm-12">
+            <h1>V0.4.3</h1>
+            <ul>
+              <li></li>
+            </ul>
+          </div>
         </div>
       </div>
     )

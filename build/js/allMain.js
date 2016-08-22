@@ -149,8 +149,8 @@
 	            null,
 	            _react2.default.createElement(
 	              'a',
-	              { href: '#statistics', 'aria-controls': 'statistics', role: 'tab', 'data-toggle': 'tab' },
-	              'Statistics'
+	              { href: '#changelog', 'aria-controls': 'changelog', role: 'tab', 'data-toggle': 'tab' },
+	              'Changelog'
 	            )
 	          ),
 	          _react2.default.createElement(
@@ -211,7 +211,8 @@
 	      _react2.default.createElement(StaffPanel, { save: this.state.save }),
 	      _react2.default.createElement(AchievementPanel, null),
 	      _react2.default.createElement('div', { role: 'tabpanel', className: 'tab-pane fade', id: 'statistics' }),
-	      _react2.default.createElement(OptionsPanel, null)
+	      _react2.default.createElement(OptionsPanel, null),
+	      _react2.default.createElement(ChangelogPanel, null)
 	    );
 	  }
 	});
@@ -748,7 +749,7 @@
 	              null,
 	              prettify(this.props.staff.exp, 2),
 	              ' / ',
-	              this.props.staff.nextExp
+	              prettify(this.props.staff.nextExp)
 	            )
 	          )
 	        )
@@ -969,6 +970,35 @@
 	          'button',
 	          { onClick: this.delSave, className: 'btn btn-lg btn-danger' },
 	          'Delete Save'
+	        )
+	      )
+	    );
+	  }
+	});
+
+	var ChangelogPanel = _react2.default.createClass({
+	  displayName: 'ChangelogPanel',
+
+	  render: function render() {
+	    return _react2.default.createElement(
+	      'div',
+	      { role: 'tabpanel', className: 'tab-pane fade', id: 'changelog' },
+	      _react2.default.createElement(
+	        'div',
+	        { className: 'row' },
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'col-sm-12' },
+	          _react2.default.createElement(
+	            'h1',
+	            null,
+	            'V0.4.3'
+	          ),
+	          _react2.default.createElement(
+	            'ul',
+	            null,
+	            _react2.default.createElement('li', null)
+	          )
 	        )
 	      )
 	    );

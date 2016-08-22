@@ -3,30 +3,37 @@ const unlock = (function() {
   let unlocks = $.Callbacks()
 
   // Create shortcut variables to reduce typing
-  let u, m, l, w, s, p, c, b
-  let setVar = () => {
-    u = save['upgrades']
-    m = save['monkeys']
-    l = save['letters']
-    w = save['words']
-    s = save['sentences']
-    p = save['pages']
-    c = save['chapters']
-    b = save['books']
+  let u
+  let m
+  let l
+  let w
+  let s
+  let p
+  let c
+  let b
+  const setVar = () => {
+    u = save.upgrades
+    m = save.monkeys
+    l = save.letters
+    w = save.words
+    s = save.sentences
+    p = save.pages
+    c = save.chapters
+    b = save.books
   }
 
   //
   // Letter Unlocks
   //
 
-  let seeWords = () => {
+  const seeWords = () => {
     if (l['lifetime'] >= 10) {
-  		$('#WordsMenu').fadeIn()
+      $('#WordsMenu').fadeIn()
       unlocks.remove(seeWords)
-  	}
+    }
   }
 
-  let writeWords = () => {
+  const writeWords = () => {
     if (l['lifetime'] >= 34 && !u['writeWords']) {
       $('#WriteWords').fadeIn()
       l['availableUpgrades'] += 1
@@ -36,7 +43,7 @@ const unlock = (function() {
     }
   }
 
-  let fasterLetters = () => {
+  const fasterLetters = () => {
     if (l['lifetime'] >= 475 && !u['fasterLetters']) {
       $('#FasterLetters').fadeIn()
       l['availableUpgrades'] += 1
@@ -46,7 +53,7 @@ const unlock = (function() {
     }
   }
 
-  let efficientMonkeys = () => {
+  const efficientMonkeys = () => {
     if (l['lifetime'] >= 275 && m['total'] >= 3 && !u['efficientMonkeys']) {
       $('#EfficientMonkeys').fadeIn()
       l['availableUpgrades'] += 1
@@ -56,7 +63,7 @@ const unlock = (function() {
     }
   }
 
-  let efficientWords = () => {
+  const efficientWords = () => {
     if (l['lifetime'] >= 2300 && !u['efficientWords']) {
       $('#EfficientWords').fadeIn()
       l['availableUpgrades'] += 1
@@ -70,14 +77,14 @@ const unlock = (function() {
   // Word Unlocks
   //
 
-  let seeSentences = () => {
+  const seeSentences = () => {
     if (w['lifetime'] >= 113) {
-  		$('#SentencesMenu').fadeIn()
+      $('#SentencesMenu').fadeIn()
       unlocks.remove(seeSentences)
-  	}
+    }
   }
 
-  let writeSentences = () => {
+  const writeSentences = () => {
     if (w['lifetime'] >= 200 && !u[['writeSentences']]) {
       $('#WriteSentences').fadeIn()
       w['availableUpgrades'] += 1
@@ -87,7 +94,7 @@ const unlock = (function() {
     }
   }
 
-  let fasterWords = () => {
+  const fasterWords = () => {
     if (w['lifetime'] >= 45 && !u['fasterWords']) {
       $('#FasterWords').fadeIn()
       w['availableUpgrades'] += 1
@@ -101,14 +108,14 @@ const unlock = (function() {
   // Sentence Unlocks
   //
 
-  let seePages = () => {
+  const seePages = () => {
     if (s['lifetime'] >= 113) {
       $('#PagesMenu').fadeIn()
       unlocks.remove(seePages)
     }
   }
 
-  let fasterSentences = () => {
+  const fasterSentences = () => {
     if (s['lifetime'] >= 35 && !u['fasterSentences']) {
       $('#FasterSentences').fadeIn()
       s['availableUpgrades'] += 1
@@ -122,7 +129,7 @@ const unlock = (function() {
   // Page Unlocks
   //
 
-  let seeChapters = () => {
+  const seeChapters = () => {
     if (p['lifetime'] >= 200) {
       $('#ChaptersMenu').fadeIn()
       unlocks.remove(seeChapters)
@@ -133,7 +140,7 @@ const unlock = (function() {
   // Chapter Unlocks
   //
 
-  let seeBooks = () => {
+  const seeBooks = () => {
     if (c['lifetime'] >= 143) {
       $('#BooksMenu').fadeIn()
       unlocks.remove(seeBooks)
@@ -144,7 +151,7 @@ const unlock = (function() {
   return {
     // Initial setup of callback object with all functions
     // Fires onLoad
-    setup: function() {
+    setup: () => {
       setVar()
       // Includes functions in callback object
       unlocks.add(setVar)

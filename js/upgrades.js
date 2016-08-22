@@ -3,25 +3,31 @@ const upgrade = (function() {
   let upgrades = $.Callbacks()
 
   // Create shortcut variables to reduce typing
-  let u, l, w, s, p, c, b
-  let setVar = () => {
-    u = save['upgrades']
-    m = save['monkeys']
-    l = save['letters']
-    w = save['words']
-    s = save['sentences']
-    p = save['pages']
-    c = save['chapters']
-    b = save['books']
+  let u
+  let l
+  let w
+  let s
+  let p
+  let c
+  let b
+  const setVar = () => {
+    u = save.upgrades
+    m = save.monkeys
+    l = save.letters
+    w = save.words
+    s = save.sentences
+    p = save.pages
+    c = save.chapters
+    b = save.books
   }
 
-  let upgradeError = () => {
-    return errorAlert('Oh dear...','You are too poor to purchase this upgrade.')
+  const upgradeError = () => {
+    return errorAlert('Oh dear...', 'You are too poor to purchase this upgrade.')
   }
 
   return {
     // Checks regularly to fade in icon if upgrades are purchaseable
-    check: function() {
+    check: () => {
       setVar()
       // If there are upgrades, fade in the icon
       if (l['availableUpgrades'] !== 0) {
@@ -52,13 +58,13 @@ const upgrade = (function() {
         $('#BooksUpgradeAvailable').fadeOut()
       }
     },
-    setup: function() {
+    setup: () => {
       setVar()
       if (u['writeWords']) { $('#wordsManualSection').fadeIn() }
       if (u['writeSentences']) { $('#sentencesManualSection').fadeIn() }
     },
 
-    writeWords: function() {
+    writeWords: () => {
       setVar()
       if (l['total'] >= 34 && !u['writeWords']) {
         $('#WriteWords').fadeOut()        // Fade out button
@@ -71,7 +77,7 @@ const upgrade = (function() {
       }
     },
 
-    writeSentences: function() {
+    writeSentences: () => {
       setVar()
       if (w['total'] >= 30 && !u['writeSentences']) {
         $('#WriteSentences').fadeOut()
@@ -84,7 +90,7 @@ const upgrade = (function() {
       }
     },
 
-    fasterLetters: function() {
+    fasterLetters: () => {
       setVar()
       if (l['total'] >= 175 && !u['fasterLetters']) {
         $('#FasterLetters').fadeOut()
@@ -98,7 +104,7 @@ const upgrade = (function() {
       }
     },
 
-    efficientMonkeys: function() {
+    efficientMonkeys: () => {
       setVar()
       if (l['total'] >= 75 && !u['efficientMonkeys']) {
         $('#EfficientMonkeys').fadeOut()
@@ -112,7 +118,7 @@ const upgrade = (function() {
       }
     },
 
-    fasterWords: function() {
+    fasterWords: () => {
       setVar()
       if (w['total'] >= 25 && !u['fasterWords']) {
         $('#FasterWords').fadeOut()
@@ -126,7 +132,7 @@ const upgrade = (function() {
       }
     },
 
-    fasterSentences: function() {
+    fasterSentences: () => {
       setVar()
       if (s['total'] >= 25 && !u['fasterSentences']) {
         $('#FasterSentences').fadeOut()
@@ -140,7 +146,7 @@ const upgrade = (function() {
       }
     },
 
-    efficientWords: function() {
+    efficientWords: () => {
       setVar()
       if (l['total'] >= 1450 && !u['efficientWords']) {
         $('#EfficientWords').fadeOut()
