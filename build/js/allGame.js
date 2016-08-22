@@ -54,7 +54,6 @@
 	*/
 
 	// Declare variables
-
 	var interval = 20;
 
 	var staff = { // Exp and Eff values for all levels of staff
@@ -254,6 +253,18 @@
 	  return active;
 	};
 
+	var disengageWriting = function disengageWriting() {
+	  units.forEach(function (cur, i, arr) {
+	    // Set all units to false
+	    save[cur]['manual'] = false;
+	    save[cur]['progress'] = 0;
+	    calcGenerating(cur);
+
+	    // Update progress bar
+	    $('#write' + cur).css('width', '0%').attr('aria-valuenow', 0);
+	  });
+	};
+
 	var startWriting = function startWriting(unit) {
 	  // If an already active unit is clicked, it disengages and stops
 	  if (unit === getActiveUnit()) {
@@ -269,18 +280,6 @@
 
 	  // Visually update the progress bar
 	  $('#write' + unit).addClass('progress-bar-striped active');
-	};
-
-	var disengageWriting = function disengageWriting() {
-	  units.forEach(function (cur, i, arr) {
-	    // Set all units to false
-	    save[cur]['manual'] = false;
-	    save[cur]['progress'] = 0;
-	    calcGenerating(cur);
-
-	    // Update progress bar
-	    $('#write' + cur).css('width', '0%').attr('aria-valuenow', 0);
-	  });
 	};
 
 	//
@@ -407,28 +406,12 @@
 	// Functions on page load (timeout, save)
 	//
 
-	window.onload = function () {
-	  units.forEach(function (cv, i, arr) {
-	    calcGenerating(cv);
-	  });
-	  load();
-	  timeout();
-	  unlock.setup();
-	  upgrade.setup();
-	  achieve.setup();
-	};
-
 	function timeout() {
 	  window.setTimeout(function () {
 	    localStorage.setItem('save', JSON.stringify(save));
 	    timeout();
 	  }, 5000);
 	}
-
-	// Fires before the page unloads
-	window.onbeforeunload = function (event) {
-	  localStorage.setItem('save', JSON.stringify(save));
-	};
 
 	var load = function load() {
 	  if (localStorage.getItem('save') !== null) {
@@ -445,6 +428,22 @@
 	    save.staff = savegame.staff;
 	    save.achievements = savegame.achievements;
 	  }
+	};
+
+	window.onload = function () {
+	  units.forEach(function (cv, i, arr) {
+	    calcGenerating(cv);
+	  });
+	  load();
+	  timeout();
+	  unlock.setup();
+	  upgrade.setup();
+	  achieve.setup();
+	};
+
+	// Fires before the page unloads
+	window.onbeforeunload = function (event) {
+	  localStorage.setItem('save', JSON.stringify(save));
 	};
 
 	var delSave = function delSave() {

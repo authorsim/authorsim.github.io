@@ -1,6 +1,6 @@
-const upgrade = (function() {
+const upgrade = (() => {
   // Create callback objects
-  let upgrades = $.Callbacks()
+  const upgrades = $.Callbacks()
 
   // Create shortcut variables to reduce typing
   let u
@@ -36,10 +36,10 @@ const upgrade = (function() {
           p['availableUpgrades'] +
           c['availableUpgrades'] +
           b['availableUpgrades'] !== 0) {
-            $('#upgradeAvailable').fadeIn()
-          } else {
-            $('#upgradeAvailable').fadeOut()
-          }
+        $('#upgradeAvailable').fadeIn()
+      } else {
+        $('#upgradeAvailable').fadeOut()
+      }
       // If there are upgrades, fade in the icon
       if (l['availableUpgrades'] !== 0) {
         $('#LettersUpgradeAvailable').fadeIn()
@@ -108,7 +108,7 @@ const upgrade = (function() {
         u['fasterLetters'] = true
         l['total'] -= 175
         l['availableUpgrades'] -= 1
-        l['timer'] = l['timer'] * 0.5
+        l['timer'] *= 0.5
         calcGenerating('letters')
       } else if (l['total'] < 175) {
         upgradeError()
@@ -178,7 +178,7 @@ const upgrade = (function() {
         u['fasterWords'] = true
         w['total'] -= 25
         w['availableUpgrades'] -= 1
-        w['timer'] = w['timer'] * 0.7
+        w['timer'] *= 0.7
         calcGenerating('words')
       } else if (w['total'] < 25) {
         upgradeError()
@@ -192,7 +192,7 @@ const upgrade = (function() {
         u['fasterSentences'] = true
         s['total'] -= 25
         s['availableUpgrades'] -= 1
-        s['timer'] = s['timer'] * 0.75
+        s['timer'] *= 0.75
         calcGenerating('sentences')
       } else if (s['total'] < 25) {
         upgradeError()
@@ -206,7 +206,7 @@ const upgrade = (function() {
         u['efficientWords'] = true
         l['total'] -= 1450
         l['availableUpgrades'] -= 1
-        w['cost'] = w['cost'] * 0.9
+        w['cost'] *= 0.9
         calcGenerating('words')
       } else if (l['total'] < 1450) {
         upgradeError()
@@ -241,4 +241,4 @@ const upgrade = (function() {
       }
     },
   }
-}())
+})()

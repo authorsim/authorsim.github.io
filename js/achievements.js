@@ -1,4 +1,4 @@
-const achieve = (function() {
+const achieve = (function () {
   //
   // Drag and Drop
   //
@@ -7,11 +7,11 @@ const achieve = (function() {
     // Define droppable areas
     const activePerks = document.querySelectorAll('.activePerk')
     for (let i = 0; i < activePerks.length; i++) {
-      activePerks[i].addEventListener('dragover', function(e){
+      activePerks[i].addEventListener('dragover', (e) => {
         e.preventDefault()
         e.dataTransfer.effectAllowed = 'copy'
       }, false)
-      activePerks[i].addEventListener('drop', function(e){
+      activePerks[i].addEventListener('drop', (e) => {
         e.preventDefault()
         let counter = 0
         for (let i = 0; i < activePerks.length; i++) {
@@ -26,20 +26,20 @@ const achieve = (function() {
 
     const perks = document.querySelectorAll('.achievement')
     for (let i = 0; i < perks.length; i++) {
-      perks[i].addEventListener('dragstart', function(e) {
+      perks[i].addEventListener('dragstart', (e) => {
         e.dataTransfer.effectAllowed = 'copy'
         e.dataTransfer.setData('text/html', e.target.innerHTML)
-        e.dataTransfer.setDragImage(e.target,50,50)
+        e.dataTransfer.setDragImage(e.target, 50, 50)
       }, false)
-      perks[i].addEventListener('dragenter', function(e) {
+      perks[i].addEventListener('dragenter', (e) => {
         e.preventDefault()
         return true
       }, false)
     }
-	}
+  }
 
   // Create callback object
-  let ach = $.Callbacks()
+  const ach = $.Callbacks()
 
   // Create variable shortcut
   let a

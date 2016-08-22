@@ -1,5 +1,3 @@
-'use strict'
-
 /*
 // Import other game JS files
 require('./staff.js')
@@ -146,10 +144,10 @@ if (typeof save === 'undefined') { init() }
 // Writing calculation pieces
 //
 
-let calcUsing = (unit) => {
+const calcUsing = (unit) => {
   let p = ''
-  let c = save[unit]
-  units.forEach( (cv, i, arr) => {
+  const c = save[unit]
+  units.forEach((cv, i, arr) => {
     if (cv === unit) {
       p = arr[i - 1]
     }
@@ -159,7 +157,7 @@ let calcUsing = (unit) => {
     prev += c['cost'] / c['timer'] * c['multiplier']
   }
   for (let i = 1; i < 10; i++) { // Check staff writing
-    let staff = save['staff']['s' + i]
+    const staff = save['staff']['s' + i]
     if (staff && staff['writing'] === unit) {
       prev += (1 / c['timer'] * c['cost']) / staff['eff'] * staff['speed'] / 2
     }
@@ -190,11 +188,25 @@ const calcGenerating = (unit) => {
 
 const getActiveUnit = () => {
   let active = ''
-  units.reduce( (pv, cv, i, a) => { // Checks all manual to see if true
-    let cur = save[cv]['manual']
+  units.reduce((pv, cv, i, a) => { // Checks all manual to see if true
+    const cur = save[cv]['manual']
     if (cur) { active = cv } // If a value is true, return it
-  },0)
+  }, 0)
   return active
+}
+
+const disengageWriting = () => {
+  units.forEach((cur, i, arr) => {
+    // Set all units to false
+    save[cur]['manual'] = false
+    save[cur]['progress'] = 0
+    calcGenerating(cur)
+
+    // Update progress bar
+    $('#write' + cur)
+      .css('width', '0%')
+      .attr('aria-valuenow', 0)
+  })
 }
 
 const startWriting = (unit) => {
@@ -211,29 +223,15 @@ const startWriting = (unit) => {
   calcGenerating(unit)
 
   // Visually update the progress bar
-	$('#write' + unit)
+  $('#write' + unit)
     .addClass('progress-bar-striped active')
-}
-
-let disengageWriting = () => {
-  units.forEach((cur, i, arr) => {
-    // Set all units to false
-    save[cur]['manual'] = false
-    save[cur]['progress'] = 0
-    calcGenerating(cur)
-
-    // Update progress bar
-    $('#write' + cur)
-      .css('width', '0%')
-      .attr('aria-valuenow', 0)
-  })
 }
 
 //
 // Number prettifier for displaying
 //
 
-const nLog = Math.log(10);
+const nLog = Math.log(10)
 const nArray = ['', 'k', 'M', 'B', 'T', 'Qa',
               'Qi', 'Sx', 'Sp', 'Oc', 'No',
               'Dc', 'UnD', 'DuD', 'TrD', 'QaD',
@@ -267,9 +265,9 @@ const prettify = (n, d) => {
 //
 
 const incrementLetters = (num) => {
-  let l = save.letters
-  let m = save.monkeys
-  let equation = ((m['total'] * m['multiplier']) / (1000 / interval)) * num
+  const l = save.letters
+  const m = save.monkeys
+  const equation = ((m['total'] * m['multiplier']) / (1000 / interval)) * num
   l['total'] += equation
   l['lifetime'] += equation
 }
@@ -282,7 +280,7 @@ const writing = (num) => { // Manual writing
   $('#write' + getActiveUnit())
     .css('width', curr['progress'] + '%')
     .attr('aria-valuenow', curr['progress'])
-  units.reduce( (pv, cv, i, arr) => {
+  units.reduce((pv, cv, i, arr) => {
     if (cv === 'letters' && save[cv] === curr) {
       curr['progress'] += (100 / ((curr['timer']) * (1000 / interval)) * num)
       while (curr['progress'] >= 100) {
@@ -312,8 +310,8 @@ const staffWriting = (num) => {
     if (staff && staff['writing'] !== 'none') { // Checks if staff member exists and is writing
       for (let j = 0; j < units.length; j++) { // Loops all the units in the specified slot
         if (units[j] === staff['writing']) {
-          let unit = save[units[j]]
-          let pUnit = save[units[j - 1]]
+          const unit = save[units[j]]
+          const pUnit = save[units[j - 1]]
           if (pUnit['total'] >= unit['cost']) { // Checks if you can afford to create a unit
             // Increments the progress bar
             staff['progress'] += 100 / (unit['timer'] / staff['speed'] * 2) / (1000 / interval) * num
@@ -344,42 +342,26 @@ const staffWriting = (num) => {
 //
 // Configurable error popup
 //
-let errorAlert = (title, desc) => {
-	$('#error').fadeTo(500, 0.8)
-	$('#errorTitle').text(title)
-	$('#errorDesc').text(desc)
+const errorAlert = (title, desc) => {
+  $('#error').fadeTo(500, 0.8)
+  $('#errorTitle').text(title)
+  $('#errorDesc').text(desc)
 
   // After 7 seconds, fades the window back out
-	window.setTimeout(() => {
-	   $('#error').fadeTo(500, 0)
-	}, 7000)
+  window.setTimeout(() => {
+    $('#error').fadeTo(500, 0)
+  }, 7000)
 }
 
 //
 // Functions on page load (timeout, save)
 //
 
-window.onload = function() {
-  units.forEach( (cv, i, arr) => {
-    calcGenerating(cv)
-  })
-  load()
-	timeout()
-  unlock.setup()
-  upgrade.setup()
-  achieve.setup()
-}
-
 function timeout() {
-	window.setTimeout(function(){
-		localStorage.setItem('save',JSON.stringify(save))
-		timeout()
-	}, 5000)
-}
-
-// Fires before the page unloads
-window.onbeforeunload = function(event) {
-  localStorage.setItem('save',JSON.stringify(save))
+  window.setTimeout(() => {
+    localStorage.setItem('save', JSON.stringify(save))
+    timeout()
+  }, 5000)
 }
 
 const load = () => {
@@ -397,6 +379,22 @@ const load = () => {
     save.staff = savegame.staff
     save.achievements = savegame.achievements
   }
+}
+
+window.onload = () => {
+  units.forEach((cv, i, arr) => {
+    calcGenerating(cv)
+  })
+  load()
+  timeout()
+  unlock.setup()
+  upgrade.setup()
+  achieve.setup()
+}
+
+// Fires before the page unloads
+window.onbeforeunload = (event) => {
+  localStorage.setItem('save', JSON.stringify(save))
 }
 
 const delSave = () => {
