@@ -24,7 +24,7 @@ let Header = React.createClass({
     return (
       <div className="row" id="header">
       	<h1>Author Simulator</h1>
-      	<p>version 0.4.1 -- Achievement system & more upgrades!</p>
+      	<p>version 0.4.2</p>
       </div>
     )
   }
@@ -659,8 +659,9 @@ let ChangelogPanel = React.createClass({
       <div role="tabpanel" className="tab-pane fade" id="changelog">
         <div className="row">
           <div className="col-sm-12">
-            <h1>V0.4.3</h1>
+            <h3>V0.4.2</h3>
             <ul>
+              <li>Added changelog panel. (thanks <a href="https://www.reddit.com/user/Simon662">/u/Simon662</a>)</li>
               <li></li>
             </ul>
           </div>

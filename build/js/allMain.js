@@ -92,7 +92,7 @@
 	      _react2.default.createElement(
 	        'p',
 	        null,
-	        'version 0.4.1 -- Achievement system & more upgrades!'
+	        'version 0.4.2'
 	      )
 	    );
 	  }
@@ -990,13 +990,24 @@
 	          'div',
 	          { className: 'col-sm-12' },
 	          _react2.default.createElement(
-	            'h1',
+	            'h3',
 	            null,
-	            'V0.4.3'
+	            'V0.4.2'
 	          ),
 	          _react2.default.createElement(
 	            'ul',
 	            null,
+	            _react2.default.createElement(
+	              'li',
+	              null,
+	              'Added changelog panel. (thanks ',
+	              _react2.default.createElement(
+	                'a',
+	                { href: 'https://www.reddit.com/user/Simon662' },
+	                '/u/Simon662'
+	              ),
+	              ')'
+	            ),
 	            _react2.default.createElement('li', null)
 	          )
 	        )
