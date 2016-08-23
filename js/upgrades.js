@@ -122,7 +122,7 @@ const upgrade = (() => {
         u['efficientMonkeys'] = true
         l['total'] -= 75
         l['availableUpgrades'] -= 1
-        m['multiplier'] += 0.1
+        m['multiplier'] *= 1.1
         calcGenerating('letters')
       } else if (l['total'] < 75) {
         upgradeError()
@@ -136,7 +136,7 @@ const upgrade = (() => {
         u['monkeyIntelligenceI'] = true
         l['total'] -= 350
         l['availableUpgrades'] -= 1
-        m['multiplier'] += 0.2
+        m['multiplier'] *= 1.2
         calcGenerating('letters')
       } else if (l['total'] < 350) {
         upgradeError()
@@ -150,7 +150,7 @@ const upgrade = (() => {
         u['monkeyIntelligenceII'] = true
         l['total'] -= 775
         l['availableUpgrades'] -= 1
-        m['multiplier'] += 0.25
+        m['multiplier'] *= 1.25
         calcGenerating('letters')
       } else if (l['total'] < 775) {
         upgradeError()
@@ -164,7 +164,7 @@ const upgrade = (() => {
         u['monkeyIntelligenceBreakthrough'] = true
         l['total'] -= 2200
         l['availableUpgrades'] -= 1
-        m['multiplier'] += 1.00
+        m['multiplier'] *= 2.00
         calcGenerating('letters')
       } else if (l['total'] < 2200) {
         upgradeError()
@@ -220,7 +220,7 @@ const upgrade = (() => {
         u['wordWhiz'] = true
         w['total'] -= 100
         w['availableUpgrades'] -= 1
-        w['multiplier'] += 0.15
+        w['multiplier'] *= 1.15
         calcGenerating('words')
       } else if (w['total'] < 100) {
         upgradeError()
@@ -234,9 +234,80 @@ const upgrade = (() => {
         u['smarterLetters'] = true
         l['total'] -= 500
         l['availableUpgrades'] -= 1
-        l['multiplier'] += 0.1
+        l['multiplier'] *= 1.1
         calcGenerating('words')
       } else if (l['total'] < 500) {
+        upgradeError()
+      }
+    },
+
+    higherLearning: () => {
+      setVar()
+      if (s['total'] >= 105 && !u['higherLearning']) {
+        $('#HigherLearning').fadeOut()
+        u['higherLearning'] = true
+        s['total'] -= 105
+        s['availableUpgrades'] -= 1
+        w['multiplier'] *= 1.15
+        calcGenerating('words')
+      } else if (s['total'] < 105) {
+        upgradeError()
+      }
+    },
+
+    wordOfWisdom: () => {
+      setVar()
+      if (w['total'] >= 550 && !u['wordOfWisdom']) {
+        $('#WordOfWisdom').fadeOut()
+        u['wordOfWisdom'] = true
+        w['total'] -= 550
+        w['availableUpgrades'] -= 1
+        w['multiplier'] *= 1.50
+        calcGenerating('words')
+      } else if (w['total'] < 550) {
+        upgradeError()
+      }
+    },
+
+    tooManyLetters: () => {
+      setVar()
+      if (l['total'] >= 5000 && !u['tooManyLetters']) {
+        $('#TooManyLetters').fadeOut()
+        u['tooManyLetters'] = true
+        l['total'] -= 5000
+        l['availableUpgrades'] -= 1
+        w['multiplier'] *= 3.00
+        calcGenerating('words')
+      } else if (l['total'] < 5000) {
+        upgradeError()
+      }
+    },
+
+    longerSentences: () => {
+      setVar()
+      if (s['total'] >= 150 && !u['longerSentences']) {
+        $('#LongerSentences').fadeOut()
+        u['longerSentences'] = true
+        s['total'] -= 150
+        s['availableUpgrades'] -= 1
+        s['cost'] *= 1.10
+        s['multiplier'] *= 1.50
+        calcGenerating('sentences')
+      } else if (s['total'] < 150) {
+        upgradeError()
+      }
+    },
+
+    gettingTheHangOfIt: () => {
+      setVar()
+      if (w['total'] >= 300 && !u['gettingTheHangOfIt']) {
+        $('#GettingTheHangOfIt').fadeOut()
+        u['gettingTheHangOfIt'] = true
+        w['total'] -= 300
+        w['availableUpgrades'] -= 1
+        w['timer'] *= 0.50
+        calcGenerating('words')
+      } else if (w['total'] < 300) {
         upgradeError()
       }
     },

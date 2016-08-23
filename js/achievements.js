@@ -47,6 +47,7 @@ const achieve = (function () {
     a = save['achievements']
   }
 
+/*
   const findPongo = () => {
     $('#monkeys').mouseover((event) => {
       achieve.alert('You Found Pongo!', '+10% Speed to Monkeys')
@@ -54,6 +55,7 @@ const achieve = (function () {
       $(this).unbind(event)
     })
   }
+*/
 
   return {
     // Animation for fading in and then out an alert box

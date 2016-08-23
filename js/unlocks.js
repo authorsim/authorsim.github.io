@@ -105,11 +105,21 @@ const unlock = (function () {
 
   const monkeyIntelligenceBreakthrough = () => {
     if (l['lifetime'] >= 4000 && m['total'] >= 20 && !u['monkeyIntelligenceBreakthrough']) {
-      $('#monkeyIntelligenceBreakthrough').fadeIn()
+      $('#MonkeyIntelligenceBreakthrough').fadeIn()
       l['availableUpgrades'] += 1
       unlocks.remove(monkeyIntelligenceBreakthrough)
     } else if (u['monkeyIntelligenceBreakthrough']) {
       unlocks.remove(monkeyIntelligenceBreakthrough)
+    }
+  }
+
+  const tooManyLetters = () => {
+    if (l['lifetime'] >= 20000 && !u['tooManyLetters']) {
+      $('#TooManyLetters').fadeIn()
+      l['availableUpgrades'] += 1
+      unlocks.remove(tooManyLetters)
+    } else if (u['tooManyLetters']) {
+      unlocks.remove(tooManyLetters)
     }
   }
 
@@ -154,6 +164,26 @@ const unlock = (function () {
     }
   }
 
+  const wordOfWisdom = () => {
+    if (w['lifetime'] >= 950 && !u['wordOfWisdom']) {
+      $('#WordOfWisdom').fadeIn()
+      w['availableUpgrades'] += 1
+      unlocks.remove(wordOfWisdom)
+    } else if (u['wordOfWisdom']) {
+      unlocks.remove(wordOfWisdom)
+    }
+  }
+
+  const gettingTheHangOfIt = () => {
+    if (w['lifetime'] >= 600 && !u['gettingTheHangOfIt']) {
+      $('#GettingTheHangOfIt').fadeIn()
+      w['availableUpgrades'] += 1
+      unlocks.remove(gettingTheHangOfIt)
+    } else if (u['gettingTheHangOfIt']) {
+      unlocks.remove(gettingTheHangOfIt)
+    }
+  }
+
   //
   // Sentence Unlocks
   //
@@ -166,12 +196,32 @@ const unlock = (function () {
   }
 
   const fasterSentences = () => {
-    if (s['lifetime'] >= 35 && !u['fasterSentences']) {
+    if (s['lifetime'] >= 39 && !u['fasterSentences']) {
       $('#FasterSentences').fadeIn()
       s['availableUpgrades'] += 1
       unlocks.remove(fasterSentences)
     } else if (u['fasterSentences']) {
       unlocks.remove(fasterSentences)
+    }
+  }
+
+  const higherLearning = () => {
+    if (s['lifetime'] >= 9 && !u['higherLearning']) {
+      $('#HigherLearning').fadeIn()
+      s['availableUpgrades'] += 1
+      unlocks.remove(higherLearning)
+    } else if (u['higherLearning']) {
+      unlocks.remove(higherLearning)
+    }
+  }
+
+  const longerSentences = () => {
+    if (s['lifetime'] >= 300 && !u['longerSentences']) {
+      $('#LongerSentences').fadeIn()
+      s['availableUpgrades'] += 1
+      unlocks.remove(longerSentences)
+    } else if (u['longerSentences']) {
+      unlocks.remove(longerSentences)
     }
   }
 
@@ -221,6 +271,10 @@ const unlock = (function () {
       unlocks.add(monkeyIntelligenceBreakthrough)
       unlocks.add(smarterLetters)
       unlocks.add(wordWhiz)
+      unlocks.add(higherLearning)
+      unlocks.add(wordOfWisdom)
+      unlocks.add(tooManyLetters)
+      unlocks.add(gettingTheHangOfIt)
 
       // Sets upgrade counting variables to 0
       l['availableUpgrades'] = 0

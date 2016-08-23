@@ -131,6 +131,11 @@ const init = () => {
                 monkeyIntelligenceBreakthrough: false,
                 wordWhiz: false,
                 smarterLetters: false,
+                higherLearning: false,
+                wordOfWisdom: false,
+                tooManyLetters: false,
+                longerSentences: false,
+                gettingTheHangOfIt: false,
     },
     achievements: { findPongo: false,
     },
@@ -157,9 +162,9 @@ const calcUsing = (unit) => {
     prev += c['cost'] / c['timer'] * c['multiplier']
   }
   for (let i = 1; i < 10; i++) { // Check staff writing
-    const staff = save['staff']['s' + i]
-    if (staff && staff['writing'] === unit) {
-      prev += (1 / c['timer'] * c['cost']) / staff['eff'] * staff['speed'] / 2
+    const s = save['staff']['s' + i]
+    if (s && s['writing'] === unit) {
+      prev += ((1 / c['timer'] * c['cost']) / s['eff'] * s['speed'] / 2) * c['multiplier']
     }
   }
   save[p]['using'] = prev
@@ -172,13 +177,13 @@ const calcGenerating = (unit) => {
     g += 1 / c['timer'] * c['multiplier']
   }
   for (let i = 1; i < 10; i++) { // Check staff writing
-    const staff = save['staff']['s' + i]
-    if (staff && staff['writing'] === unit) {
-      g += (1 / c['timer'] * c['multiplier']) * staff['speed'] / 2
+    const s = save['staff']['s' + i]
+    if (s && s['writing'] === unit) {
+      g += (1 / c['timer'] * c['multiplier']) * s['speed'] / 2
     }
   }
   if (unit === 'letters') { // Do letters-specific things
-    g += save.monkeys.total * save.monkeys.multiplier
+    g += save.monkeys.total * save.monkeys.multiplier * c['multiplier']
   }
   if (unit !== 'letters') { // Do non-letters things
     calcUsing(unit)
@@ -306,29 +311,29 @@ const writing = (num) => { // Manual writing
 
 const staffWriting = (num) => {
   for (let i = 1; i < 10; i++) { // Loops through all the staff slots
-    const staff = save['staff']['s' + i]
-    if (staff && staff['writing'] !== 'none') { // Checks if staff member exists and is writing
+    const s = save['staff']['s' + i]
+    if (s && s['writing'] !== 'none') { // Checks if staff member exists and is writing
       for (let j = 0; j < units.length; j++) { // Loops all the units in the specified slot
-        if (units[j] === staff['writing']) {
+        if (units[j] === s['writing']) {
           const unit = save[units[j]]
           const pUnit = save[units[j - 1]]
           if (pUnit['total'] >= unit['cost']) { // Checks if you can afford to create a unit
             // Increments the progress bar
-            staff['progress'] += 100 / (unit['timer'] / staff['speed'] * 2) / (1000 / interval) * num
-            if (staff['progress'] >= 100) { // When the progress bar gets full, run calc
+            s['progress'] += 100 / (unit['timer'] / s['speed'] * 2) / (1000 / interval) * num
+            if (s['progress'] >= 100) { // When the progress bar gets full, run calc
               // Deduct cost from previous unit
-              pUnit['total'] -= unit['cost'] / staff['eff'] * unit['multiplier']
+              pUnit['total'] -= unit['cost'] / s['eff'] * unit['multiplier']
 
               // Increment active unit
               unit['total'] += 1 * unit['multiplier']
               unit['lifetime'] += 1 * unit['multiplier']
 
               // Reset progress bar and exp
-              staff['progress'] -= 100
-              staff['exp'] += unit['timer'] / 2
+              s['progress'] -= 100
+              s['exp'] += unit['timer'] / 2
 
               // Checks for staff level up
-              if (staff['exp'] >= staff['nextExp'] && staff['level'] < staff['maxLevel']) {
+              if (s['exp'] >= s['nextExp'] && s['level'] < s['maxLevel']) {
                 levelUp(i)
               }
             }

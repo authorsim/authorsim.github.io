@@ -286,7 +286,7 @@ let UnitPanelLettersUpgrade = React.createClass({
         />
         <UnitPanelUpgradeItem
           upgradeName="Faster Letters"
-          desc="Write letters 50% faster when manually writing."
+          desc="Write letters 50% faster."
           func={upgrade.fasterLetters}
           cost="175 Letters"
         />
@@ -326,6 +326,12 @@ let UnitPanelLettersUpgrade = React.createClass({
           func={upgrade.monkeyIntelligenceBreakthrough}
           cost="2,200 Letters"
         />
+        <UnitPanelUpgradeItem
+          upgradeName="Too Many Letters"
+          desc="Write 200% more words."
+          func={upgrade.tooManyLetters}
+          cost="5,000 Letters"
+        />
       </div>
     )
   }
@@ -343,7 +349,7 @@ let UnitPanelWordsUpgrade = React.createClass({
         />
         <UnitPanelUpgradeItem
           upgradeName="Faster Words"
-          desc="Write words 30% faster when manually writing."
+          desc="Write words 30% faster."
           func={upgrade.fasterWords}
           cost="25 Words"
         />
@@ -352,6 +358,18 @@ let UnitPanelWordsUpgrade = React.createClass({
           desc="Write 15% more words."
           func={upgrade.wordWhiz}
           cost="100 Words"
+        />
+        <UnitPanelUpgradeItem
+          upgradeName="Getting The Hang Of It"
+          desc="Write words 50% faster."
+          func={upgrade.gettingTheHangOfIt}
+          cost="300 Words"
+        />
+        <UnitPanelUpgradeItem
+          upgradeName="Word Of Wisdom"
+          desc="Write 50% more words."
+          func={upgrade.wordOfWisdom}
+          cost="550 Words"
         />
       </div>
     )
@@ -364,9 +382,21 @@ let UnitPanelSentencesUpgrade = React.createClass({
       <div className="col-sm-5">
         <UnitPanelUpgradeItem
           upgradeName="Faster Sentences"
-          desc="Write sentences 25% faster when manually writing."
+          desc="Write sentences 25% faster."
           func={upgrade.fasterSentences}
           cost="25 Sentences"
+        />
+        <UnitPanelUpgradeItem
+          upgradeName="Higher Learning"
+          desc="Write 15% more words."
+          func={upgrade.higherLearning}
+          cost="105 Sentences"
+        />
+        <UnitPanelUpgradeItem
+          upgradeName="Longer Sentences"
+          desc="Sentences cost 10% more but write 50% more."
+          func={upgrade.longerSentences}
+          cost="150 Sentences"
         />
       </div>
     )

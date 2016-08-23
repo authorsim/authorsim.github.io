@@ -177,7 +177,12 @@
 	      monkeyIntelligenceII: false,
 	      monkeyIntelligenceBreakthrough: false,
 	      wordWhiz: false,
-	      smarterLetters: false
+	      smarterLetters: false,
+	      higherLearning: false,
+	      wordOfWisdom: false,
+	      tooManyLetters: false,
+	      longerSentences: false,
+	      gettingTheHangOfIt: false
 	    },
 	    achievements: { findPongo: false
 	    }
@@ -208,9 +213,9 @@
 	  }
 	  for (var i = 1; i < 10; i++) {
 	    // Check staff writing
-	    var _staff = save['staff']['s' + i];
-	    if (_staff && _staff['writing'] === unit) {
-	      prev += 1 / c['timer'] * c['cost'] / _staff['eff'] * _staff['speed'] / 2;
+	    var s = save['staff']['s' + i];
+	    if (s && s['writing'] === unit) {
+	      prev += 1 / c['timer'] * c['cost'] / s['eff'] * s['speed'] / 2 * c['multiplier'];
 	    }
 	  }
 	  save[p]['using'] = prev;
@@ -225,14 +230,14 @@
 	  }
 	  for (var i = 1; i < 10; i++) {
 	    // Check staff writing
-	    var _staff2 = save['staff']['s' + i];
-	    if (_staff2 && _staff2['writing'] === unit) {
-	      g += 1 / c['timer'] * c['multiplier'] * _staff2['speed'] / 2;
+	    var s = save['staff']['s' + i];
+	    if (s && s['writing'] === unit) {
+	      g += 1 / c['timer'] * c['multiplier'] * s['speed'] / 2;
 	    }
 	  }
 	  if (unit === 'letters') {
 	    // Do letters-specific things
-	    g += save.monkeys.total * save.monkeys.multiplier;
+	    g += save.monkeys.total * save.monkeys.multiplier * c['multiplier'];
 	  }
 	  if (unit !== 'letters') {
 	    // Do non-letters things
@@ -351,33 +356,33 @@
 	var staffWriting = function staffWriting(num) {
 	  for (var i = 1; i < 10; i++) {
 	    // Loops through all the staff slots
-	    var _staff3 = save['staff']['s' + i];
-	    if (_staff3 && _staff3['writing'] !== 'none') {
+	    var s = save['staff']['s' + i];
+	    if (s && s['writing'] !== 'none') {
 	      // Checks if staff member exists and is writing
 	      for (var j = 0; j < units.length; j++) {
 	        // Loops all the units in the specified slot
-	        if (units[j] === _staff3['writing']) {
+	        if (units[j] === s['writing']) {
 	          var unit = save[units[j]];
 	          var pUnit = save[units[j - 1]];
 	          if (pUnit['total'] >= unit['cost']) {
 	            // Checks if you can afford to create a unit
 	            // Increments the progress bar
-	            _staff3['progress'] += 100 / (unit['timer'] / _staff3['speed'] * 2) / (1000 / interval) * num;
-	            if (_staff3['progress'] >= 100) {
+	            s['progress'] += 100 / (unit['timer'] / s['speed'] * 2) / (1000 / interval) * num;
+	            if (s['progress'] >= 100) {
 	              // When the progress bar gets full, run calc
 	              // Deduct cost from previous unit
-	              pUnit['total'] -= unit['cost'] / _staff3['eff'] * unit['multiplier'];
+	              pUnit['total'] -= unit['cost'] / s['eff'] * unit['multiplier'];
 
 	              // Increment active unit
 	              unit['total'] += 1 * unit['multiplier'];
 	              unit['lifetime'] += 1 * unit['multiplier'];
 
 	              // Reset progress bar and exp
-	              _staff3['progress'] -= 100;
-	              _staff3['exp'] += unit['timer'] / 2;
+	              s['progress'] -= 100;
+	              s['exp'] += unit['timer'] / 2;
 
 	              // Checks for staff level up
-	              if (_staff3['exp'] >= _staff3['nextExp'] && _staff3['level'] < _staff3['maxLevel']) {
+	              if (s['exp'] >= s['nextExp'] && s['level'] < s['maxLevel']) {
 	                levelUp(i);
 	              }
 	            }
