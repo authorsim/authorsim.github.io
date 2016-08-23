@@ -50,16 +50,19 @@ const levelUp = (slot) => {
     $('#staffExpBar' + slot).hide()
     return
   }
+  if (staff['level'] >= staff['maxLevel']) {
+    $('#staffExpBar' + slot).hide()
+    $('#staffProgressArea' + slot).hide()
+    $('#staffGraduate' + slot).show()
+    staff['writing'] = 'none'
+    return
+  }
   staff['level'] += 1
   staff['exp'] = 0
   staff['eff'] += 0.05
   staff['speed'] += 0.30
   staff['nextExp'] = ((staff['nextExp'] * 2) * 1.3)
-  if (staff['level'] === staff['maxLevel']) {
-    $('#staffExpBar' + slot).hide()
-    $('#staffProgressArea' + slot).hide()
-    $('#staffGraduate' + slot).show()
-  }
+
   calcGenerating(staff['writing'])
 }
 

@@ -176,16 +176,8 @@
 	          'div',
 	          { id: 'error', className: 'menuAlert' },
 	          _react2.default.createElement('span', { className: 'glyphicon glyphicon-exclamation-sign menuAlertGlyphicon' }),
-	          _react2.default.createElement(
-	            'span',
-	            { id: 'errorTitle', className: 'menuAlertTitle' },
-	            'Whoa!'
-	          ),
-	          _react2.default.createElement(
-	            'span',
-	            { id: 'errorDesc' },
-	            'Looks like you earned an achievement!'
-	          )
+	          _react2.default.createElement('span', { id: 'errorTitle', className: 'menuAlertTitle' }),
+	          _react2.default.createElement('span', { id: 'errorDesc' })
 	        )
 	      )
 	    );
@@ -206,7 +198,7 @@
 	    });
 	  },
 	  componentDidMount: function componentDidMount() {
-	    setInterval(this.updateSave, 50);
+	    setInterval(this.updateSave, 100);
 	  },
 	  render: function render() {
 	    return _react2.default.createElement(
@@ -412,7 +404,7 @@
 	            'Writing ',
 	            this.props.unit.unit,
 	            ' by hand takes ',
-	            prettify(this.props.unit.timer / this.props.unit.multiplier, 2),
+	            prettify(this.props.unit.timer, 2),
 	            ' seconds.'
 	          )
 	        ),
@@ -530,7 +522,7 @@
 	        cost: '5,000 Letters'
 	      }),
 	      _react2.default.createElement(UnitPanelUpgradeItem, {
-	        upgradeName: 'MonkeyGlasses',
+	        upgradeName: 'Monkey Glasses',
 	        desc: 'Monkeys write 150% faster.',
 	        func: upgrade.monkeyGlasses,
 	        cost: '3,400 Letters'

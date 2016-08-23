@@ -65,8 +65,8 @@ let GameMenu = React.createClass({
         <li role="presentation" className="navbar-right">
           <div id="error" className="menuAlert">
             <span className="glyphicon glyphicon-exclamation-sign menuAlertGlyphicon"></span>
-            <span id="errorTitle" className="menuAlertTitle">Whoa!</span>
-            <span id="errorDesc">Looks like you earned an achievement!</span>
+            <span id="errorTitle" className="menuAlertTitle"></span>
+            <span id="errorDesc"></span>
           </div>
         </li>
       </ul>
@@ -86,7 +86,7 @@ let GameField = React.createClass({
     })
   },
   componentDidMount: function() {
-    setInterval(this.updateSave, 50)
+    setInterval(this.updateSave, 100)
   },
   render: function () {
     return (
@@ -235,7 +235,7 @@ let UnitDetailsPanel = React.createClass({
         <div id={this.props.unit.unit + "ManualSection"} className="row">
         <hr />
           <div className="col-sm-12">
-            <p>Writing {this.props.unit.unit} by hand takes {prettify(this.props.unit.timer / this.props.unit.multiplier, 2)} seconds.
+            <p>Writing {this.props.unit.unit} by hand takes {prettify(this.props.unit.timer, 2)} seconds.
             </p>
           </div>
           <div className="col-sm-8 col-sm-offset-2">
@@ -333,7 +333,7 @@ let UnitPanelLettersUpgrade = React.createClass({
           cost="5,000 Letters"
         />
         <UnitPanelUpgradeItem
-          upgradeName="MonkeyGlasses"
+          upgradeName="Monkey Glasses"
           desc="Monkeys write 150% faster."
           func={upgrade.monkeyGlasses}
           cost="3,400 Letters"

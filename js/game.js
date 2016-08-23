@@ -330,7 +330,7 @@ const staffWriting = (num) => {
           if (pUnit['total'] >= unit['cost']) { // Checks if you can afford to create a unit
             // Increments the progress bar
             s['progress'] += 100 / (unit['timer'] / s['speed'] * 2) / (1000 / interval) * num
-            if (s['progress'] >= 100) { // When the progress bar gets full, run calc
+            while (s['progress'] >= 100) { // When the progress bar gets full, run calc
               // Deduct cost from previous unit
               pUnit['total'] -= unit['cost'] / s['eff'] * unit['multiplier']
 
@@ -343,7 +343,7 @@ const staffWriting = (num) => {
               s['exp'] += unit['timer'] / 2
 
               // Checks for staff level up
-              if (s['exp'] >= s['nextExp'] && s['level'] < s['maxLevel']) {
+              if (s['exp'] >= s['nextExp'] || s['level'] >= s['maxLevel']) {
                 levelUp(i)
               }
             }
