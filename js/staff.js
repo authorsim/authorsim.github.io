@@ -6,7 +6,7 @@ const staffNames = [
 ]
 
 const hireStaff = (slot) => {
-  const name = staffNames[Math.floor(Math.random()*staffNames.length)]
+  const name = staffNames[Math.floor(Math.random() * staffNames.length)]
   const cost = Math.pow(slot, 2.3) * 50
   if (save.words.total >= cost) {
     save.words.total -= cost
@@ -16,6 +16,7 @@ const hireStaff = (slot) => {
       name: name,
       prestige: 1,
       level: 1,
+      skillPoint: 0,
       maxLevel: 4,
       exp: 0,
       nextExp: staff.prestige1.maxExp,
@@ -31,7 +32,7 @@ const hireStaff = (slot) => {
 const buyMonkey = () => {
   const words = save.words
   const monkeys = save.monkeys
-  if (words['total'] >= monkeys['cost']){
+  if (words['total'] >= monkeys['cost']) {
     words['total'] -= monkeys['cost']
     monkeys['total'] += 1
     monkeys['lifetime'] += 1
@@ -63,10 +64,12 @@ const levelUp = (slot) => {
 }
 
 const staffGraduate = (slot) => {
-  let cur = save['staff']['s' + slot]
-  let curPrestige = cur['prestige']
-  let newPrestige = curPrestige + 1
-  let newStats = staff['prestige' + newPrestige]
+  const cur = save['staff']['s' + slot]
+  const curPrestige = cur['prestige']
+  const newPrestige = curPrestige + 1
+  const newStats = staff['prestige' + newPrestige]
+
+  // Update all stats
   cur['level'] = 1
   cur['maxLevel'] = newStats['maxLevel']
   cur['exp'] = 0
@@ -75,14 +78,27 @@ const staffGraduate = (slot) => {
   cur['speed'] = newStats['speed']
   cur['progress'] = 0
   cur['prestige'] += 1
+  cur['skillPoint'] += 1
 
+  // Re-show/hide UI elements
   $('#staffExpBar' + slot).show()
   $('#staffProgressArea' + slot).show()
   $('#staffGraduate' + slot).hide()
 }
 
+const assignSkill = (slot) => {
+  const cur = save['staff']['s' + slot]
+  if (cur.skillPoint > 0) {
+    $('#staffProgressArea' + slot).hide()
+    $('#staffGradBonusArea' + slot).show()
+    // If he clicks faster, do something here and subtract skillpoint.
+
+    // If he clicks efficient, do the math here and subtract skillpoint.
+  }
+}
+
 const disengageStaff = (slot) => {
-  units.forEach( (cv, i, arr) => {
+  units.forEach((cv, i, arr) => {
     // Update visually
     $('#staff' + cv + slot)
       .removeClass('active btn-success')

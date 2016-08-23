@@ -591,6 +591,9 @@ let StaffSlot = React.createClass({
   graduate: function() {
     staffGraduate(this.props.slot)
   },
+  assignSkill: function() {
+    assignSkill(this.props.slot)
+  },
   componentDidMount: function() {
     for (let i = 1; i < 10; i++) {
       let staff = save['staff']['s' + i]
@@ -613,11 +616,15 @@ let StaffSlot = React.createClass({
 
     return (
       <div className="col-sm-4 staff-stat">
-          <div className="col-sm-9">
+          <div className="col-sm-7">
             <h4>{this.props.staff.name}</h4>
           </div>
-          <div className="col-sm-3">
-
+          <div className="col-sm-5">
+            {this.props.staff.skillPoint > 0 ?
+              <button id={'staffSkillPoint' + this.props.slot} onClick={this.assignSkill} type="button" className="btn btn-success btn-md">
+                Assign Skillpoint
+              </button> : null
+            }
           </div>
           <div className="col-sm-12">
             <strong>Education:</strong> {this.getEducation()}
@@ -644,9 +651,24 @@ let StaffSlot = React.createClass({
           </div>
         <div className="col-sm-12">
           <div id={'staffGraduate' + this.props.slot} className="graduate">
-            <button onClick={this.graduate} type="button" className="btn btn-success btn-lg">
+            <button onClick={this.graduate} type="button" data-tip="+1 Skill Point" className="btn btn-success btn-lg">
               Graduate
             </button>
+          </div>
+          <div id={'staffGradBonusArea' + this.props.slot} className="gradBonus text-center">
+            <i>Perk lasts only for current education level.</i>
+            <div className="row">
+              <div className="col-sm-6">
+                <button id={"bonusPerk1_" + this.props.slot} type="button" className="btn btn-success btn-md">
+                  +50% Faster
+                </button>
+              </div>
+              <div className="col-sm-6">
+                <button id={"bonusPerk2_" + this.props.slot} type="button" className="btn btn-success btn-md">
+                  +50% Efficient
+                </button>
+              </div>
+            </div>
           </div>
           <div id={"staffProgressArea" + this.props.slot}>
             <div className="col-sm-8 col-sm-offset-2 col-centered">

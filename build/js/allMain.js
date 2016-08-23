@@ -807,6 +807,19 @@
 	  graduate: function graduate() {
 	    staffGraduate(this.props.slot);
 	  },
+	  assignSkill: function (_assignSkill) {
+	    function assignSkill() {
+	      return _assignSkill.apply(this, arguments);
+	    }
+
+	    assignSkill.toString = function () {
+	      return _assignSkill.toString();
+	    };
+
+	    return assignSkill;
+	  }(function () {
+	    assignSkill(this.props.slot);
+	  }),
 	  componentDidMount: function componentDidMount() {
 	    for (var i = 1; i < 10; i++) {
 	      var staff = save['staff']['s' + i];
@@ -830,14 +843,22 @@
 	      { className: 'col-sm-4 staff-stat' },
 	      _react2.default.createElement(
 	        'div',
-	        { className: 'col-sm-9' },
+	        { className: 'col-sm-7' },
 	        _react2.default.createElement(
 	          'h4',
 	          null,
 	          this.props.staff.name
 	        )
 	      ),
-	      _react2.default.createElement('div', { className: 'col-sm-3' }),
+	      _react2.default.createElement(
+	        'div',
+	        { className: 'col-sm-5' },
+	        this.props.staff.skillPoint > 0 ? _react2.default.createElement(
+	          'button',
+	          { id: 'staffSkillPoint' + this.props.slot, onClick: this.assignSkill, type: 'button', className: 'btn btn-success btn-md' },
+	          'Assign Skillpoint'
+	        ) : null
+	      ),
 	      _react2.default.createElement(
 	        'div',
 	        { className: 'col-sm-12' },
@@ -909,8 +930,39 @@
 	          { id: 'staffGraduate' + this.props.slot, className: 'graduate' },
 	          _react2.default.createElement(
 	            'button',
-	            { onClick: this.graduate, type: 'button', className: 'btn btn-success btn-lg' },
+	            { onClick: this.graduate, type: 'button', 'data-tip': '+1 Skill Point', className: 'btn btn-success btn-lg' },
 	            'Graduate'
+	          )
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          { id: 'staffGradBonusArea' + this.props.slot, className: 'gradBonus text-center' },
+	          _react2.default.createElement(
+	            'i',
+	            null,
+	            'Perk lasts only for current education level.'
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'row' },
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'col-sm-6' },
+	              _react2.default.createElement(
+	                'button',
+	                { id: "bonusPerk1_" + this.props.slot, type: 'button', className: 'btn btn-success btn-md' },
+	                '+50% Faster'
+	              )
+	            ),
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'col-sm-6' },
+	              _react2.default.createElement(
+	                'button',
+	                { id: "bonusPerk2_" + this.props.slot, type: 'button', className: 'btn btn-success btn-md' },
+	                '+50% Efficient'
+	              )
+	            )
 	          )
 	        ),
 	        _react2.default.createElement(

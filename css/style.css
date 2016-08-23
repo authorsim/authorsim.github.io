@@ -46,6 +46,10 @@
   display: none;
 }
 
+.gradBonus {
+  display: none;
+}
+
 .activePerk {
   text-align: center;
   border: 1px dotted #000;
