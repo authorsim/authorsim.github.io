@@ -799,18 +799,18 @@
 	  graduate: function graduate() {
 	    staffGraduate(this.props.slot);
 	  },
-	  assignSkill: function (_assignSkill) {
-	    function assignSkill() {
-	      return _assignSkill.apply(this, arguments);
+	  chooseSkill: function (_chooseSkill) {
+	    function chooseSkill() {
+	      return _chooseSkill.apply(this, arguments);
 	    }
 
-	    assignSkill.toString = function () {
-	      return _assignSkill.toString();
+	    chooseSkill.toString = function () {
+	      return _chooseSkill.toString();
 	    };
 
-	    return assignSkill;
+	    return chooseSkill;
 	  }(function () {
-	    assignSkill(this.props.slot);
+	    chooseSkill(this.props.slot);
 	  }),
 	  componentDidMount: function componentDidMount() {
 	    for (var i = 1; i < 10; i++) {
@@ -847,8 +847,8 @@
 	        { className: 'col-sm-5' },
 	        this.props.staff.skillPoint > 0 ? _react2.default.createElement(
 	          'button',
-	          { id: 'staffSkillPoint' + this.props.slot, onClick: this.assignSkill, type: 'button', className: 'btn btn-success btn-md' },
-	          'Assign Skillpoint'
+	          { id: 'staffSkillPoint' + this.props.slot, onClick: this.chooseSkill, type: 'button', className: 'btn btn-success btn-md' },
+	          'Choose Skill'
 	        ) : null
 	      ),
 	      _react2.default.createElement(
@@ -929,11 +929,6 @@
 	        _react2.default.createElement(
 	          'div',
 	          { id: 'staffGradBonusArea' + this.props.slot, className: 'gradBonus text-center' },
-	          _react2.default.createElement(
-	            'i',
-	            null,
-	            'Perk lasts only for current education level.'
-	          ),
 	          _react2.default.createElement(
 	            'div',
 	            { className: 'row' },
@@ -1213,6 +1208,11 @@
 	              'li',
 	              null,
 	              'Re-wrote some upgrades to calculate bonuses properly.'
+	            ),
+	            _react2.default.createElement(
+	              'li',
+	              null,
+	              'Added staff skillpoints. Get an extra boost on level up!'
 	            )
 	          )
 	        )

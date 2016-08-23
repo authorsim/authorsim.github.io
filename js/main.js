@@ -591,8 +591,8 @@ let StaffSlot = React.createClass({
   graduate: function() {
     staffGraduate(this.props.slot)
   },
-  assignSkill: function() {
-    assignSkill(this.props.slot)
+  chooseSkill: function() {
+    chooseSkill(this.props.slot)
   },
   componentDidMount: function() {
     for (let i = 1; i < 10; i++) {
@@ -621,8 +621,8 @@ let StaffSlot = React.createClass({
           </div>
           <div className="col-sm-5">
             {this.props.staff.skillPoint > 0 ?
-              <button id={'staffSkillPoint' + this.props.slot} onClick={this.assignSkill} type="button" className="btn btn-success btn-md">
-                Assign Skillpoint
+              <button id={'staffSkillPoint' + this.props.slot} onClick={this.chooseSkill} type="button" className="btn btn-success btn-md">
+                Choose Skill
               </button> : null
             }
           </div>
@@ -656,7 +656,6 @@ let StaffSlot = React.createClass({
             </button>
           </div>
           <div id={'staffGradBonusArea' + this.props.slot} className="gradBonus text-center">
-            <i>Perk lasts only for current education level.</i>
             <div className="row">
               <div className="col-sm-6">
                 <button id={"bonusPerk1_" + this.props.slot} type="button" className="btn btn-success btn-md">
@@ -811,6 +810,7 @@ let ChangelogPanel = React.createClass({
               <li>Unit multipliers now work properly.</li>
               <li>LOTS new upgrades!</li>
               <li>Re-wrote some upgrades to calculate bonuses properly.</li>
+              <li>Added staff skillpoints. Get an extra boost on level up!</li>
             </ul>
           </div>
         </div>

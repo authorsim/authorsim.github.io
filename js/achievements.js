@@ -74,7 +74,7 @@ const achieve = (function () {
 
     setup: () => {
       setVar()
-      if (!a['findPongo']) { ach.add(findPongo) }
+      // if (!a['findPongo']) { ach.add(findPongo) }
       ach.add(setListeners)
       ach.fire()
     },

@@ -20,8 +20,8 @@ const hireStaff = (slot) => {
       maxLevel: 4,
       exp: 0,
       nextExp: staff.prestige1.maxExp,
-      eff: staff.prestige1.eff,
-      speed: staff.prestige1.speed,
+      eff: 0.95,
+      speed: 1.05,
       progress: 0,
     }
   } else {
@@ -54,6 +54,9 @@ const levelUp = (slot) => {
     $('#staffExpBar' + slot).hide()
     $('#staffProgressArea' + slot).hide()
     $('#staffGraduate' + slot).show()
+    $('#staff' + staff['writing'] + slot)
+      .removeClass('btn-success active')
+      .addClass('btn-primary')
     staff['writing'] = 'none'
     return
   }
@@ -61,7 +64,7 @@ const levelUp = (slot) => {
   staff['exp'] = 0
   staff['eff'] += 0.05
   staff['speed'] += 0.30
-  staff['nextExp'] = ((staff['nextExp'] * 2) * 1.3)
+  staff['nextExp'] *= 2.6
 
   calcGenerating(staff['writing'])
 }
@@ -77,8 +80,6 @@ const staffGraduate = (slot) => {
   cur['maxLevel'] = newStats['maxLevel']
   cur['exp'] = 0
   cur['nextExp'] = newStats['maxExp']
-  cur['eff'] = newStats['eff']
-  cur['speed'] = newStats['speed']
   cur['progress'] = 0
   cur['prestige'] += 1
   cur['skillPoint'] += 1
@@ -89,14 +90,31 @@ const staffGraduate = (slot) => {
   $('#staffGraduate' + slot).hide()
 }
 
-const assignSkill = (slot) => {
+const chooseSkill = (slot) => {
   const cur = save['staff']['s' + slot]
   if (cur.skillPoint > 0) {
-    $('#staffProgressArea' + slot).hide()
-    $('#staffGradBonusArea' + slot).show()
-    // If he clicks faster, do something here and subtract skillpoint.
+    $('#staffProgressArea' + slot).toggle()
+    $('#staffGradBonusArea' + slot).toggle()
 
-    // If he clicks efficient, do the math here and subtract skillpoint.
+    // Perk of +50% speed
+    $('#bonusPerk1_' + slot).text('+50% Speed').show().click(() => {
+      if (cur.skillPoint > 0) {
+        cur['speed'] *= 1.50
+        cur['skillPoint'] -= 1
+        $('#staffProgressArea' + slot).toggle()
+        $('#staffGradBonusArea' + slot).toggle()
+      }
+    })
+
+    // Perk of +50% efficiency
+    $('#bonusPerk2_' + slot).text('+50% Efficiency').show().click(() => {
+      if (cur.skillPoint > 0) {
+        cur['eff'] *= 1.50
+        cur['skillPoint'] -= 1
+        $('#staffProgressArea' + slot).toggle()
+        $('#staffGradBonusArea' + slot).toggle()
+      }
+    })
   }
 }
 

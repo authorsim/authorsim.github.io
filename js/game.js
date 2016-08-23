@@ -9,11 +9,11 @@ require('./upgrades.js')
 const interval = 20
 
 const staff = { // Exp and Eff values for all levels of staff
-  prestige1: { maxLevel: 4, maxExp: 150, eff: 0.950, speed: 1.05 },
-  prestige2: { maxLevel: 5, maxExp: 200, eff: 1.10, speed: 1.95 },
-  prestige3: { maxLevel: 6, maxExp: 250, eff: 1.30, speed: 3.15 },
-  prestige4: { maxLevel: 8, maxExp: 300, eff: 1.55, speed: 4.65 },
-  prestige5: { maxLevel: 10, maxExp: 350, eff: 1.90, speed: 6.75 },
+  prestige1: { maxLevel: 4, maxExp: 150 },
+  prestige2: { maxLevel: 5, maxExp: 200 },
+  prestige3: { maxLevel: 6, maxExp: 250 },
+  prestige4: { maxLevel: 8, maxExp: 300 },
+  prestige5: { maxLevel: 10, maxExp: 350 },
 }
 
 const units = ['letters', 'words', 'sentences',
