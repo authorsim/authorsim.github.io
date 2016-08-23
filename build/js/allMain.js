@@ -92,7 +92,7 @@
 	      _react2.default.createElement(
 	        'p',
 	        null,
-	        'version 0.4.2'
+	        'version 0.5.0'
 	      )
 	    );
 	  }
@@ -528,6 +528,12 @@
 	        desc: 'Write 200% more words.',
 	        func: upgrade.tooManyLetters,
 	        cost: '5,000 Letters'
+	      }),
+	      _react2.default.createElement(UnitPanelUpgradeItem, {
+	        upgradeName: 'MonkeyGlasses',
+	        desc: 'Monkeys write 150% faster.',
+	        func: upgrade.monkeyGlasses,
+	        cost: '3,400 Letters'
 	      })
 	    );
 	  }
@@ -569,6 +575,12 @@
 	        desc: 'Write 50% more words.',
 	        func: upgrade.wordOfWisdom,
 	        cost: '550 Words'
+	      }),
+	      _react2.default.createElement(UnitPanelUpgradeItem, {
+	        upgradeName: 'Sticks And Stones',
+	        desc: 'Words cost 20% more but generate 50% more.',
+	        func: upgrade.sticksAndStones,
+	        cost: '1,100 Words'
 	      })
 	    );
 	  }
@@ -1097,7 +1109,7 @@
 	          _react2.default.createElement(
 	            'h3',
 	            null,
-	            'V0.4.2'
+	            'V0.5.0'
 	          ),
 	          _react2.default.createElement(
 	            'ul',
@@ -1117,6 +1129,16 @@
 	              'li',
 	              null,
 	              'Unit multipliers now work properly.'
+	            ),
+	            _react2.default.createElement(
+	              'li',
+	              null,
+	              '12 new upgrades!'
+	            ),
+	            _react2.default.createElement(
+	              'li',
+	              null,
+	              'Re-wrote some upgrades to calculate bonuses properly.'
 	            )
 	          )
 	        )

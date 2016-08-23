@@ -182,7 +182,9 @@
 	      wordOfWisdom: false,
 	      tooManyLetters: false,
 	      longerSentences: false,
-	      gettingTheHangOfIt: false
+	      gettingTheHangOfIt: false,
+	      sticksAndStones: false,
+	      monkeyGlasses: false
 	    },
 	    achievements: { findPongo: false
 	    }

@@ -235,7 +235,7 @@ const upgrade = (() => {
         l['total'] -= 500
         l['availableUpgrades'] -= 1
         l['multiplier'] *= 1.1
-        calcGenerating('words')
+        calcGenerating('letters')
       } else if (l['total'] < 500) {
         upgradeError()
       }
@@ -308,6 +308,35 @@ const upgrade = (() => {
         w['timer'] *= 0.50
         calcGenerating('words')
       } else if (w['total'] < 300) {
+        upgradeError()
+      }
+    },
+
+    sticksAndStones: () => {
+      setVar()
+      if (w['total'] >= 1100 && !u['sticksAndStones']) {
+        $('#SticksAndStones').fadeOut()
+        u['sticksAndStones'] = true
+        w['total'] -= 1100
+        w['availableUpgrades'] -= 1
+        w['cost'] *= 1.20
+        w['multiplier'] *= 1.50
+        calcGenerating('words')
+      } else if (w['total'] < 1100) {
+        upgradeError()
+      }
+    },
+
+    monkeyGlasses: () => {
+      setVar()
+      if (l['total'] >= 3400 && !u['monkeyGlasses']) {
+        $('#MonkeyGlasses').fadeOut()
+        u['monkeyGlasses'] = true
+        l['total'] -= 3400
+        l['availableUpgrades'] -= 1
+        m['multiplier'] *= 2.50
+        calcGenerating('letters')
+      } else if (l['total'] < 3400) {
         upgradeError()
       }
     },

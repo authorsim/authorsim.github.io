@@ -136,6 +136,8 @@ const init = () => {
                 tooManyLetters: false,
                 longerSentences: false,
                 gettingTheHangOfIt: false,
+                sticksAndStones: false,
+                monkeyGlasses: false,
     },
     achievements: { findPongo: false,
     },

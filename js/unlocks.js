@@ -114,12 +114,22 @@ const unlock = (function () {
   }
 
   const tooManyLetters = () => {
-    if (l['lifetime'] >= 20000 && !u['tooManyLetters']) {
+    if (l['total'] >= 20000 && !u['tooManyLetters']) {
       $('#TooManyLetters').fadeIn()
       l['availableUpgrades'] += 1
       unlocks.remove(tooManyLetters)
     } else if (u['tooManyLetters']) {
       unlocks.remove(tooManyLetters)
+    }
+  }
+
+  const monkeyGlasses = () => {
+    if (l['lifetime'] >= 20000 && m['total'] >= 28 && !u['monkeyGlasses']) {
+      $('#MonkeyGlasses').fadeIn()
+      l['availableUpgrades'] += 1
+      unlocks.remove(monkeyGlasses)
+    } else if (u['monkeyGlasses']) {
+      unlocks.remove(monkeyGlasses)
     }
   }
 
@@ -181,6 +191,16 @@ const unlock = (function () {
       unlocks.remove(gettingTheHangOfIt)
     } else if (u['gettingTheHangOfIt']) {
       unlocks.remove(gettingTheHangOfIt)
+    }
+  }
+
+  const sticksAndStones = () => {
+    if (w['lifetime'] >= 1600 && !u['sticksAndStones']) {
+      $('#SticksAndStones').fadeIn()
+      w['availableUpgrades'] += 1
+      unlocks.remove(sticksAndStones)
+    } else if (u['sticksAndStones']) {
+      unlocks.remove(sticksAndStones)
     }
   }
 
@@ -275,6 +295,8 @@ const unlock = (function () {
       unlocks.add(wordOfWisdom)
       unlocks.add(tooManyLetters)
       unlocks.add(gettingTheHangOfIt)
+      unlocks.add(sticksAndStones)
+      unlocks.add(monkeyGlasses)
 
       // Sets upgrade counting variables to 0
       l['availableUpgrades'] = 0

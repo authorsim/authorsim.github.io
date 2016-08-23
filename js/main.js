@@ -24,7 +24,7 @@ let Header = React.createClass({
     return (
       <div className="row" id="header">
       	<h1>Author Simulator</h1>
-      	<p>version 0.4.2</p>
+      	<p>version 0.5.0</p>
       </div>
     )
   }
@@ -332,6 +332,12 @@ let UnitPanelLettersUpgrade = React.createClass({
           func={upgrade.tooManyLetters}
           cost="5,000 Letters"
         />
+        <UnitPanelUpgradeItem
+          upgradeName="MonkeyGlasses"
+          desc="Monkeys write 150% faster."
+          func={upgrade.monkeyGlasses}
+          cost="3,400 Letters"
+        />
       </div>
     )
   }
@@ -370,6 +376,12 @@ let UnitPanelWordsUpgrade = React.createClass({
           desc="Write 50% more words."
           func={upgrade.wordOfWisdom}
           cost="550 Words"
+        />
+        <UnitPanelUpgradeItem
+          upgradeName="Sticks And Stones"
+          desc="Words cost 20% more but generate 50% more."
+          func={upgrade.sticksAndStones}
+          cost="1,100 Words"
         />
       </div>
     )
@@ -741,10 +753,12 @@ let ChangelogPanel = React.createClass({
       <div role="tabpanel" className="tab-pane fade" id="changelog">
         <div className="row">
           <div className="col-sm-12">
-            <h3>V0.4.2</h3>
+            <h3>V0.5.0</h3>
             <ul>
               <li>Added changelog panel. (thanks <a href="https://www.reddit.com/user/Simon662">/u/Simon662</a>)</li>
               <li>Unit multipliers now work properly.</li>
+              <li>12 new upgrades!</li>
+              <li>Re-wrote some upgrades to calculate bonuses properly.</li>
             </ul>
           </div>
         </div>
