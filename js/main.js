@@ -410,6 +410,12 @@ let UnitPanelSentencesUpgrade = React.createClass({
           func={upgrade.longerSentences}
           cost="150 Sentences"
         />
+        <UnitPanelUpgradeItem
+          upgradeName="Even Faster Sentences"
+          desc="Write sentences 50% faster."
+          func={upgrade.evenFasterSentences}
+          cost="85 Sentences"
+        />
       </div>
     )
   }

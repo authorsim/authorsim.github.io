@@ -340,5 +340,19 @@ const upgrade = (() => {
         upgradeError()
       }
     },
+
+    evenFasterSentences: () => {
+      setVar()
+      if (s['total'] >= 85 && !u['evenFasterSentences']) {
+        $('#EvenFasterSentences').fadeOut()
+        u['evenFasterSentences'] = true
+        s['total'] -= 85
+        s['availableUpgrades'] -= 1
+        s['timer'] *= 0.50
+        calcGenerating('sentences')
+      } else if (s['total'] < 85) {
+        upgradeError()
+      }
+    },
   }
 })()

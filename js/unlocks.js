@@ -225,6 +225,16 @@ const unlock = (function () {
     }
   }
 
+  const evenFasterSentences = () => {
+    if (s['lifetime'] >= 95 && !u['evenFasterSentences']) {
+      $('#EvenFasterSentences').fadeIn()
+      s['availableUpgrades'] += 1
+      unlocks.remove(evenFasterSentences)
+    } else if (u['evenFasterSentences']) {
+      unlocks.remove(evenFasterSentences)
+    }
+  }
+
   const higherLearning = () => {
     if (s['lifetime'] >= 9 && !u['higherLearning']) {
       $('#HigherLearning').fadeIn()
@@ -275,28 +285,38 @@ const unlock = (function () {
       setVar()
       // Includes functions in callback object
       unlocks.add(setVar)
+      // Letter Unlocks
       unlocks.add(seeWords)
-      unlocks.add(seeSentences)
-      unlocks.add(seePages)
-      unlocks.add(seeChapters)
-      unlocks.add(seeBooks)
       unlocks.add(writeWords)
-      unlocks.add(writeSentences)
-
       unlocks.add(fasterLetters)
-      unlocks.add(fasterWords)
       unlocks.add(efficientMonkeys)
       unlocks.add(monkeyIntelligenceI)
       unlocks.add(monkeyIntelligenceII)
       unlocks.add(monkeyIntelligenceBreakthrough)
       unlocks.add(smarterLetters)
-      unlocks.add(wordWhiz)
-      unlocks.add(higherLearning)
-      unlocks.add(wordOfWisdom)
       unlocks.add(tooManyLetters)
+      unlocks.add(monkeyGlasses)
+
+      // Word Unlocks
+      unlocks.add(seeSentences)
+      unlocks.add(writeSentences)
+      unlocks.add(fasterWords)
+      unlocks.add(wordWhiz)
+      unlocks.add(wordOfWisdom)
       unlocks.add(gettingTheHangOfIt)
       unlocks.add(sticksAndStones)
-      unlocks.add(monkeyGlasses)
+
+      // Sentence Unlocks
+      unlocks.add(seePages)
+      unlocks.add(fasterSentences)
+      unlocks.add(evenFasterSentences)
+      unlocks.add(higherLearning)
+
+      // Page Unlocks
+      unlocks.add(seeChapters)
+
+      // Chapter Unlocks
+      unlocks.add(seeBooks)
 
       // Sets upgrade counting variables to 0
       l['availableUpgrades'] = 0

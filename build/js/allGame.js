@@ -184,7 +184,8 @@
 	      longerSentences: false,
 	      gettingTheHangOfIt: false,
 	      sticksAndStones: false,
-	      monkeyGlasses: false
+	      monkeyGlasses: false,
+	      evenFasterSentences: false
 	    },
 	    achievements: { findPongo: false
 	    }

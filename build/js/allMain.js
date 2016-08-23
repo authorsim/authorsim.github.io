@@ -610,6 +610,12 @@
 	        desc: 'Sentences cost 10% more but write 50% more.',
 	        func: upgrade.longerSentences,
 	        cost: '150 Sentences'
+	      }),
+	      _react2.default.createElement(UnitPanelUpgradeItem, {
+	        upgradeName: 'Even Faster Sentences',
+	        desc: 'Write sentences 50% faster.',
+	        func: upgrade.evenFasterSentences,
+	        cost: '85 Sentences'
 	      })
 	    );
 	  }
