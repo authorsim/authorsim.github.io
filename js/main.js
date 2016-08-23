@@ -736,6 +736,9 @@ let AchievementPanel = React.createClass({
     return (
       <div role="tabpanel" className="tab-pane fade" id="achievements">
         <div className="row">
+          <div className="col-sm-12 text-center">
+            <h3>Work In Progress...</h3>
+          </div>
           <div className="col-sm-4 activePerk">
             Active Perk #1
           </div>

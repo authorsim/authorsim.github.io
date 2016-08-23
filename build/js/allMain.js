@@ -1058,6 +1058,15 @@
 	        { className: 'row' },
 	        _react2.default.createElement(
 	          'div',
+	          { className: 'col-sm-12 text-center' },
+	          _react2.default.createElement(
+	            'h3',
+	            null,
+	            'Work In Progress...'
+	          )
+	        ),
+	        _react2.default.createElement(
+	          'div',
 	          { className: 'col-sm-4 activePerk' },
 	          'Active Perk #1'
 	        ),
