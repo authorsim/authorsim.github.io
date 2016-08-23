@@ -117,7 +117,7 @@
 	      using: 0,
 	      multiplier: 1,
 	      lifetime: 0,
-	      timer: 300,
+	      timer: 60,
 	      progress: 0,
 	      availableUpgrades: 0,
 	      cost: 17
@@ -129,6 +129,7 @@
 	      using: 0,
 	      multiplier: 1,
 	      lifetime: 0,
+	      timer: 240,
 	      progress: 0,
 	      availableUpgrades: 0,
 	      cost: 20
@@ -140,6 +141,7 @@
 	      using: 0,
 	      multiplier: 1,
 	      lifetime: 0,
+	      timer: 600,
 	      progress: 0,
 	      availableUpgrades: 0,
 	      cost: 25
@@ -150,6 +152,7 @@
 	      generating: 0,
 	      multiplier: 1,
 	      lifetime: 0,
+	      timer: 1200,
 	      proress: 0,
 	      availableUpgrades: 0,
 	      cost: 3
@@ -168,6 +171,7 @@
 	    },
 	    upgrades: { writeWords: false,
 	      writeSentences: false,
+	      writePages: false,
 	      fasterLetters: false,
 	      efficientMonkeys: false,
 	      fasterWords: false,
@@ -185,7 +189,10 @@
 	      gettingTheHangOfIt: false,
 	      sticksAndStones: false,
 	      monkeyGlasses: false,
-	      evenFasterSentences: false
+	      evenFasterSentences: false,
+	      letterTradeoff: false,
+	      commonKnowledge: false,
+	      repeatingPatterns: false
 	    },
 	    achievements: { findPongo: false
 	    }

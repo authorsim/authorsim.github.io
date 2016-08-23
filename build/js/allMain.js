@@ -594,6 +594,12 @@
 	      'div',
 	      { className: 'col-sm-5' },
 	      _react2.default.createElement(UnitPanelUpgradeItem, {
+	        upgradeName: 'Write Pages',
+	        desc: 'Allows you to write pages manually.',
+	        func: upgrade.writePages,
+	        cost: '50 Sentences'
+	      }),
+	      _react2.default.createElement(UnitPanelUpgradeItem, {
 	        upgradeName: 'Faster Sentences',
 	        desc: 'Write sentences 25% faster.',
 	        func: upgrade.fasterSentences,
@@ -616,6 +622,24 @@
 	        desc: 'Write sentences 50% faster.',
 	        func: upgrade.evenFasterSentences,
 	        cost: '85 Sentences'
+	      }),
+	      _react2.default.createElement(UnitPanelUpgradeItem, {
+	        upgradeName: 'Letter Tradeoff',
+	        desc: 'Generate 10% fewer letters and 30% more sentences.',
+	        func: upgrade.letterTradeoff,
+	        cost: '125 Sentences'
+	      }),
+	      _react2.default.createElement(UnitPanelUpgradeItem, {
+	        upgradeName: 'Common Knowledge',
+	        desc: 'Write pages 50% faster.',
+	        func: upgrade.commonKnowledge,
+	        cost: '210 Sentences'
+	      }),
+	      _react2.default.createElement(UnitPanelUpgradeItem, {
+	        upgradeName: 'Repeating Patterns',
+	        desc: 'Write 35% more sentences 25% faster.',
+	        func: upgrade.repeatingPatterns,
+	        cost: '500 Sentences'
 	      })
 	    );
 	  }
@@ -1139,7 +1163,7 @@
 	            _react2.default.createElement(
 	              'li',
 	              null,
-	              '12 new upgrades!'
+	              'LOTS new upgrades!'
 	            ),
 	            _react2.default.createElement(
 	              'li',

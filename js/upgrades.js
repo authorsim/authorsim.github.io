@@ -73,6 +73,7 @@ const upgrade = (() => {
       setVar()
       if (u['writeWords']) { $('#wordsManualSection').fadeIn() }
       if (u['writeSentences']) { $('#sentencesManualSection').fadeIn() }
+      if (u['writePages']) { $('#pagesManualSection').fadeIn() }
     },
 
     writeWords: () => {
@@ -97,6 +98,19 @@ const upgrade = (() => {
         w['availableUpgrades'] -= 1
         $('#sentencesManualSection').fadeIn()
       } else if (w['total'] < 30) {
+        upgradeError()
+      }
+    },
+
+    writePages: () => {
+      setVar()
+      if (s['total'] >= 50 && !u['writePages']) {
+        $('#WritePages').fadeOut()
+        u['writePages'] = true
+        s['total'] -= 50
+        s['availableUpgrades'] -= 1
+        $('#pagesManualSection').fadeIn()
+      } else if (w['total'] < 50) {
         upgradeError()
       }
     },
@@ -351,6 +365,51 @@ const upgrade = (() => {
         s['timer'] *= 0.50
         calcGenerating('sentences')
       } else if (s['total'] < 85) {
+        upgradeError()
+      }
+    },
+
+    letterTradeoff: () => {
+      setVar()
+      if (s['total'] >= 125 && !u['letterTradeoff']) {
+        $('#LetterTradeoff').fadeOut()
+        u['letterTradeoff'] = true
+        s['total'] -= 125
+        s['availableUpgrades'] -= 1
+        l['multiplier'] *= 0.90
+        s['multiplier'] *= 1.30
+        calcGenerating('sentences')
+        calcGenerating('letters')
+      } else if (s['total'] < 125) {
+        upgradeError()
+      }
+    },
+
+    commonKnowledge: () => {
+      setVar()
+      if (s['total'] >= 210 && !u['commonKnowledge']) {
+        $('#CommonKnowledge').fadeOut()
+        u['commonKnowledge'] = true
+        s['total'] -= 210
+        s['availableUpgrades'] -= 1
+        p['timer'] *= 0.50
+        calcGenerating('pages')
+      } else if (s['total'] < 210) {
+        upgradeError()
+      }
+    },
+
+    repeatingPatterns: () => {
+      setVar()
+      if (s['total'] >= 500 && !u['repeatingPatterns']) {
+        $('#RepeatingPatterns').fadeOut()
+        u['repeatingPatterns'] = true
+        s['total'] -= 500
+        s['availableUpgrades'] -= 1
+        s['multiplier'] *= 1.35
+        s['timer'] *= 0.75
+        calcGenerating('sentences')
+      } else if (s['total'] < 500) {
         upgradeError()
       }
     },

@@ -392,6 +392,12 @@ let UnitPanelSentencesUpgrade = React.createClass({
   render: function() {
     return (
       <div className="col-sm-5">
+      <UnitPanelUpgradeItem
+        upgradeName="Write Pages"
+        desc="Allows you to write pages manually."
+        func={upgrade.writePages}
+        cost="50 Sentences"
+      />
         <UnitPanelUpgradeItem
           upgradeName="Faster Sentences"
           desc="Write sentences 25% faster."
@@ -415,6 +421,24 @@ let UnitPanelSentencesUpgrade = React.createClass({
           desc="Write sentences 50% faster."
           func={upgrade.evenFasterSentences}
           cost="85 Sentences"
+        />
+        <UnitPanelUpgradeItem
+          upgradeName="Letter Tradeoff"
+          desc="Generate 10% fewer letters and 30% more sentences."
+          func={upgrade.letterTradeoff}
+          cost="125 Sentences"
+        />
+        <UnitPanelUpgradeItem
+          upgradeName="Common Knowledge"
+          desc="Write pages 50% faster."
+          func={upgrade.commonKnowledge}
+          cost="210 Sentences"
+        />
+        <UnitPanelUpgradeItem
+          upgradeName="Repeating Patterns"
+          desc="Write 35% more sentences 25% faster."
+          func={upgrade.repeatingPatterns}
+          cost="500 Sentences"
         />
       </div>
     )
@@ -763,7 +787,7 @@ let ChangelogPanel = React.createClass({
             <ul>
               <li>Added changelog panel. (thanks <a href="https://www.reddit.com/user/Simon662">/u/Simon662</a>)</li>
               <li>Unit multipliers now work properly.</li>
-              <li>12 new upgrades!</li>
+              <li>LOTS new upgrades!</li>
               <li>Re-wrote some upgrades to calculate bonuses properly.</li>
             </ul>
           </div>

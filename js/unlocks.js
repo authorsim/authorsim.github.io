@@ -215,6 +215,16 @@ const unlock = (function () {
     }
   }
 
+  const writePages = () => {
+    if (s['lifetime'] >= 223 && !u['writePages']) {
+      $('#WritePages').fadeIn()
+      s['availableUpgrades'] += 1
+      unlocks.remove(writePages)
+    } else if (u['writePages']) {
+      unlocks.remove(writePages)
+    }
+  }
+
   const fasterSentences = () => {
     if (s['lifetime'] >= 39 && !u['fasterSentences']) {
       $('#FasterSentences').fadeIn()
@@ -246,12 +256,42 @@ const unlock = (function () {
   }
 
   const longerSentences = () => {
-    if (s['lifetime'] >= 300 && !u['longerSentences']) {
+    if (s['lifetime'] >= 265 && !u['longerSentences']) {
       $('#LongerSentences').fadeIn()
       s['availableUpgrades'] += 1
       unlocks.remove(longerSentences)
     } else if (u['longerSentences']) {
       unlocks.remove(longerSentences)
+    }
+  }
+
+  const letterTradeoff = () => {
+    if (s['lifetime'] >= 325 && !u['letterTradeoff']) {
+      $('#LetterTradeoff').fadeIn()
+      s['availableUpgrades'] += 1
+      unlocks.remove(letterTradeoff)
+    } else if (u['letterTradeoff']) {
+      unlocks.remove(letterTradeoff)
+    }
+  }
+
+  const commonKnowledge = () => {
+    if (p['lifetime'] >= 1 && !u['commonKnowledge']) {
+      $('#CommonKnowledge').fadeIn()
+      s['availableUpgrades'] += 1
+      unlocks.remove(commonKnowledge)
+    } else if (u['commonKnowledge']) {
+      unlocks.remove(commonKnowledge)
+    }
+  }
+
+  const repeatingPatterns = () => {
+    if (s['lifetime'] >= 785 && !u['repeatingPatterns']) {
+      $('#RepeatingPatterns').fadeIn()
+      s['availableUpgrades'] += 1
+      unlocks.remove(repeatingPatterns)
+    } else if (u['repeatingPatterns']) {
+      unlocks.remove(repeatingPatterns)
     }
   }
 
@@ -308,9 +348,14 @@ const unlock = (function () {
 
       // Sentence Unlocks
       unlocks.add(seePages)
+      unlocks.add(writePages)
       unlocks.add(fasterSentences)
       unlocks.add(evenFasterSentences)
+      unlocks.add(longerSentences)
       unlocks.add(higherLearning)
+      unlocks.add(letterTradeoff)
+      unlocks.add(commonKnowledge)
+      unlocks.add(repeatingPatterns)
 
       // Page Unlocks
       unlocks.add(seeChapters)
