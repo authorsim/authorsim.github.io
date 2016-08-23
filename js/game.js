@@ -181,6 +181,15 @@ const calcUsing = (unit) => {
 }
 
 const calcGenerating = (unit) => {
+  if (unit === 'all') {
+    calcGenerating('letters')
+    calcGenerating('words')
+    calcGenerating('sentences')
+    calcGenerating('pages')
+    calcGenerating('chapters')
+    calcGenerating('books')
+    return
+  }
   const c = save[unit]
   let g = 0
   if (c['manual']) { // Check manual writing

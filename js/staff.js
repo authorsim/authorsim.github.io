@@ -141,12 +141,9 @@ const startStaffWriting = (unit, slot) => {
     return
   }
   // Otherwise, stop everything then activate the clicked one
-  const oldUnit = save['staff']['s' + slot]['writing']
-
   disengageStaff(slot)
-  calcGenerating(oldUnit)
   save['staff']['s' + slot]['writing'] = unit
-  calcGenerating(unit)
+  calcGenerating('all')
 
   // Update the button
   $('#staff' + unit + slot)

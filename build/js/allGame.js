@@ -232,6 +232,15 @@
 	};
 
 	var calcGenerating = function calcGenerating(unit) {
+	  if (unit === 'all') {
+	    calcGenerating('letters');
+	    calcGenerating('words');
+	    calcGenerating('sentences');
+	    calcGenerating('pages');
+	    calcGenerating('chapters');
+	    calcGenerating('books');
+	    return;
+	  }
 	  var c = save[unit];
 	  var g = 0;
 	  if (c['manual']) {
