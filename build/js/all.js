@@ -1175,6 +1175,35 @@
 	          _react2.default.createElement(
 	            'h3',
 	            null,
+	            'V0.6.0'
+	          ),
+	          _react2.default.createElement(
+	            'ul',
+	            null,
+	            _react2.default.createElement(
+	              'li',
+	              null,
+	              'Fixed rounding error when trying to purchase monkeys.'
+	            ),
+	            _react2.default.createElement(
+	              'li',
+	              null,
+	              'Staff continue to write even while they can graduate (although it does not show).'
+	            ),
+	            _react2.default.createElement(
+	              'li',
+	              null,
+	              'Hid the game variables to prevent cheating.'
+	            ),
+	            _react2.default.createElement(
+	              'li',
+	              null,
+	              'Staff now properly re-calculate \'generating\' and \'using\' when switching jobs.'
+	            )
+	          ),
+	          _react2.default.createElement(
+	            'h3',
+	            null,
 	            'V0.5.0'
 	          ),
 	          _react2.default.createElement(
@@ -23914,7 +23943,7 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.delSave = exports.errorAlert = exports.prettify = exports.startWriting = exports.calcGenerating = exports.setBonus = exports.subtractTotal = exports.setAvailUpgrades = exports.getAch = exports.getUpgrade = exports.save = undefined;
+	exports.delSave = exports.errorAlert = exports.prettify = exports.startWriting = exports.calcGenerating = exports.setBonus = exports.subtractTotal = exports.setAvailUpgrades = exports.getAch = exports.getUpgrade = exports.save = exports.units = undefined;
 
 	var _staff = __webpack_require__(188);
 
@@ -23935,15 +23964,7 @@
 	// Declare variables
 	var interval = 20;
 
-	var staff = { // Exp and Eff values for all levels of staff
-	  prestige1: { maxLevel: 4, maxExp: 150 },
-	  prestige2: { maxLevel: 5, maxExp: 200 },
-	  prestige3: { maxLevel: 6, maxExp: 250 },
-	  prestige4: { maxLevel: 8, maxExp: 300 },
-	  prestige5: { maxLevel: 10, maxExp: 350 }
-	};
-
-	var units = ['letters', 'words', 'sentences', 'pages', 'chapters', 'books', 'series'];
+	var units = exports.units = ['letters', 'words', 'sentences', 'pages', 'chapters', 'books', 'series'];
 
 	var save = exports.save = void 0;
 	var init = function init() {
@@ -24428,6 +24449,14 @@
 
 	var _game = __webpack_require__(187);
 
+	var staff = { // Exp and Eff values for all levels of staff
+	  prestige1: { maxLevel: 4, maxExp: 150 },
+	  prestige2: { maxLevel: 5, maxExp: 200 },
+	  prestige3: { maxLevel: 6, maxExp: 250 },
+	  prestige4: { maxLevel: 8, maxExp: 300 },
+	  prestige5: { maxLevel: 10, maxExp: 350 }
+	};
+
 	var staffNames = ['Miranda', 'Joey', 'Bob', 'Jonathan', 'Christopher', 'Krista', 'Cameron', 'Frank', 'Alfonso', 'Kerry', 'Don', 'Clint', 'Janice', 'Phyllis', 'Andrew', 'Todd', 'Clancy', 'Ronald', 'Zach', 'Bartholomew', 'Cindy', 'Nancy', 'Jan', 'Will', 'Olivia', 'Sophie', 'Emily', 'Jake', 'Alex', 'James', 'Charles'];
 
 	var hireStaff = exports.hireStaff = function hireStaff(slot) {
@@ -24540,7 +24569,7 @@
 	};
 
 	var disengageStaff = function disengageStaff(slot) {
-	  units.forEach(function (cv, i, arr) {
+	  _game.units.forEach(function (cv, i, arr) {
 	    // Update visually
 	    $('#staff' + cv + slot).removeClass('active btn-success').addClass('btn-primary');
 	    $('#staffprogress' + slot).removeClass('progress-bar-striped active');

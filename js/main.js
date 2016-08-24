@@ -807,6 +807,13 @@ let ChangelogPanel = React.createClass({
       <div role="tabpanel" className="tab-pane fade" id="changelog">
         <div className="row">
           <div className="col-sm-12">
+            <h3>V0.6.0</h3>
+            <ul>
+              <li>Fixed rounding error when trying to purchase monkeys.</li>
+              <li>Staff continue to write even while they can graduate (although it does not show).</li>
+              <li>Hid the game variables to prevent cheating.</li>
+              <li>Staff now properly re-calculate 'generating' and 'using' when switching jobs.</li>
+            </ul>
             <h3>V0.5.0</h3>
             <ul>
               <li>Added changelog panel. (thanks <a href="https://www.reddit.com/user/Simon662">/u/Simon662</a>)</li>

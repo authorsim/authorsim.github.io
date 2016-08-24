@@ -6,15 +6,7 @@ import achieve from './achievements.js'
 // Declare variables
 const interval = 20
 
-const staff = { // Exp and Eff values for all levels of staff
-  prestige1: { maxLevel: 4, maxExp: 150 },
-  prestige2: { maxLevel: 5, maxExp: 200 },
-  prestige3: { maxLevel: 6, maxExp: 250 },
-  prestige4: { maxLevel: 8, maxExp: 300 },
-  prestige5: { maxLevel: 10, maxExp: 350 },
-}
-
-const units = ['letters', 'words', 'sentences',
+export const units = ['letters', 'words', 'sentences',
                 'pages', 'chapters', 'books', 'series']
 
 export let save
