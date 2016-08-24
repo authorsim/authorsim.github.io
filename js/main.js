@@ -28,7 +28,7 @@ let Header = React.createClass({
     return (
       <div className="row" id="header">
       	<h1>Author Simulator</h1>
-      	<p>version 0.5.0</p>
+      	<p>version 0.6.0</p>
       </div>
     )
   }
@@ -813,6 +813,7 @@ let ChangelogPanel = React.createClass({
               <li>Staff continue to write even while they can graduate (although it does not show).</li>
               <li>Hid the game variables to prevent cheating.</li>
               <li>Staff now properly re-calculate 'generating' and 'using' when switching jobs.</li>
+              <li>If you have issues, <b>please delete your save!</b></li>
             </ul>
             <h3>V0.5.0</h3>
             <ul>
