@@ -1,9 +1,12 @@
+import { save, calcGenerating, setUpgrade } from './game.js'
+
 const upgrade = (() => {
   // Create callback objects
   const upgrades = $.Callbacks()
 
   // Create shortcut variables to reduce typing
   let u
+  let m
   let l
   let w
   let s
@@ -80,8 +83,8 @@ const upgrade = (() => {
       setVar()
       if (l['total'] >= 34 && !u['writeWords']) {
         $('#WriteWords').fadeOut()        // Fade out button
-        u['writeWords'] = true            // Set upgrade to purchased
-        l['total'] -= 34                 // Deduct cost
+        setUpgrade('writeWords')          // Set upgrade to purchased
+        l['total'] -= 34                  // Deduct cost
         l['availableUpgrades'] -= 1       // Deduct purchaseable upgrade
         $('#wordsManualSection').fadeIn() // Fade in purchased section
       } else if (l['total'] < 34) {
@@ -93,7 +96,7 @@ const upgrade = (() => {
       setVar()
       if (w['total'] >= 30 && !u['writeSentences']) {
         $('#WriteSentences').fadeOut()
-        u['writeSentences'] = true
+        setUpgrade('writeSentences')
         w['total'] -= 30
         w['availableUpgrades'] -= 1
         $('#sentencesManualSection').fadeIn()
@@ -106,7 +109,7 @@ const upgrade = (() => {
       setVar()
       if (s['total'] >= 50 && !u['writePages']) {
         $('#WritePages').fadeOut()
-        u['writePages'] = true
+        setUpgrade('writePages')
         s['total'] -= 50
         s['availableUpgrades'] -= 1
         $('#pagesManualSection').fadeIn()
@@ -119,7 +122,7 @@ const upgrade = (() => {
       setVar()
       if (l['total'] >= 175 && !u['fasterLetters']) {
         $('#FasterLetters').fadeOut()
-        u['fasterLetters'] = true
+        setUpgrade('fasterLetters')
         l['total'] -= 175
         l['availableUpgrades'] -= 1
         l['timer'] *= 0.5
@@ -133,7 +136,7 @@ const upgrade = (() => {
       setVar()
       if (l['total'] >= 75 && !u['efficientMonkeys']) {
         $('#EfficientMonkeys').fadeOut()
-        u['efficientMonkeys'] = true
+        setUpgrade('efficientMonkeys')
         l['total'] -= 75
         l['availableUpgrades'] -= 1
         m['multiplier'] *= 1.1
@@ -147,7 +150,7 @@ const upgrade = (() => {
       setVar()
       if (l['total'] >= 350 && !u['monkeyIntelligenceI']) {
         $('#MonkeyIntelligenceI').fadeOut()
-        u['monkeyIntelligenceI'] = true
+        setUpgrade('monkeyIntelligenceI')
         l['total'] -= 350
         l['availableUpgrades'] -= 1
         m['multiplier'] *= 1.2
@@ -161,7 +164,7 @@ const upgrade = (() => {
       setVar()
       if (l['total'] >= 775 && !u['monkeyIntelligenceII']) {
         $('#MonkeyIntelligenceII').fadeOut()
-        u['monkeyIntelligenceII'] = true
+        setUpgrade('monkeyIntelligenceII')
         l['total'] -= 775
         l['availableUpgrades'] -= 1
         m['multiplier'] *= 1.25
@@ -175,7 +178,7 @@ const upgrade = (() => {
       setVar()
       if (l['total'] >= 2200 && !u['monkeyIntelligenceBreakthrough']) {
         $('#MonkeyIntelligenceBreakthrough').fadeOut()
-        u['monkeyIntelligenceBreakthrough'] = true
+        setUpgrade('monkeyIntelligenceBreakthrough')
         l['total'] -= 2200
         l['availableUpgrades'] -= 1
         m['multiplier'] *= 2.00
@@ -189,7 +192,7 @@ const upgrade = (() => {
       setVar()
       if (w['total'] >= 25 && !u['fasterWords']) {
         $('#FasterWords').fadeOut()
-        u['fasterWords'] = true
+        setUpgrade('fasterWords')
         w['total'] -= 25
         w['availableUpgrades'] -= 1
         w['timer'] *= 0.7
@@ -203,7 +206,7 @@ const upgrade = (() => {
       setVar()
       if (s['total'] >= 25 && !u['fasterSentences']) {
         $('#FasterSentences').fadeOut()
-        u['fasterSentences'] = true
+        setUpgrade('fasterSentences')
         s['total'] -= 25
         s['availableUpgrades'] -= 1
         s['timer'] *= 0.75
@@ -217,7 +220,7 @@ const upgrade = (() => {
       setVar()
       if (l['total'] >= 1450 && !u['efficientWords']) {
         $('#EfficientWords').fadeOut()
-        u['efficientWords'] = true
+        setUpgrade('efficientWords')
         l['total'] -= 1450
         l['availableUpgrades'] -= 1
         w['cost'] *= 0.9
@@ -231,7 +234,7 @@ const upgrade = (() => {
       setVar()
       if (w['total'] >= 100 && !u['wordWhiz']) {
         $('#WordWhiz').fadeOut()
-        u['wordWhiz'] = true
+        setUpgrade('wordWhiz')
         w['total'] -= 100
         w['availableUpgrades'] -= 1
         w['multiplier'] *= 1.15
@@ -245,7 +248,7 @@ const upgrade = (() => {
       setVar()
       if (l['total'] >= 500 && !u['smarterLetters']) {
         $('#SmarterLetters').fadeOut()
-        u['smarterLetters'] = true
+        setUpgrade('smarterLetters')
         l['total'] -= 500
         l['availableUpgrades'] -= 1
         l['multiplier'] *= 1.1
@@ -259,7 +262,7 @@ const upgrade = (() => {
       setVar()
       if (s['total'] >= 105 && !u['higherLearning']) {
         $('#HigherLearning').fadeOut()
-        u['higherLearning'] = true
+        setUpgrade('higherLearning')
         s['total'] -= 105
         s['availableUpgrades'] -= 1
         w['multiplier'] *= 1.15
@@ -273,7 +276,7 @@ const upgrade = (() => {
       setVar()
       if (w['total'] >= 550 && !u['wordOfWisdom']) {
         $('#WordOfWisdom').fadeOut()
-        u['wordOfWisdom'] = true
+        setUpgrade('wordOfWisdom')
         w['total'] -= 550
         w['availableUpgrades'] -= 1
         w['multiplier'] *= 1.50
@@ -287,7 +290,7 @@ const upgrade = (() => {
       setVar()
       if (l['total'] >= 5000 && !u['tooManyLetters']) {
         $('#TooManyLetters').fadeOut()
-        u['tooManyLetters'] = true
+        setUpgrade('tooManyLetters')
         l['total'] -= 5000
         l['availableUpgrades'] -= 1
         w['multiplier'] *= 3.00
@@ -301,7 +304,7 @@ const upgrade = (() => {
       setVar()
       if (s['total'] >= 150 && !u['longerSentences']) {
         $('#LongerSentences').fadeOut()
-        u['longerSentences'] = true
+        setUpgrade('longerSentences')
         s['total'] -= 150
         s['availableUpgrades'] -= 1
         s['cost'] *= 1.10
@@ -316,7 +319,7 @@ const upgrade = (() => {
       setVar()
       if (w['total'] >= 300 && !u['gettingTheHangOfIt']) {
         $('#GettingTheHangOfIt').fadeOut()
-        u['gettingTheHangOfIt'] = true
+        setUpgrade('gettingTheHangOfIt')
         w['total'] -= 300
         w['availableUpgrades'] -= 1
         w['timer'] *= 0.50
@@ -330,7 +333,7 @@ const upgrade = (() => {
       setVar()
       if (w['total'] >= 1100 && !u['sticksAndStones']) {
         $('#SticksAndStones').fadeOut()
-        u['sticksAndStones'] = true
+        setUpgrade('sticksAndStones')
         w['total'] -= 1100
         w['availableUpgrades'] -= 1
         w['cost'] *= 1.20
@@ -345,7 +348,7 @@ const upgrade = (() => {
       setVar()
       if (l['total'] >= 3400 && !u['monkeyGlasses']) {
         $('#MonkeyGlasses').fadeOut()
-        u['monkeyGlasses'] = true
+        setUpgrade('monkeyGlasses')
         l['total'] -= 3400
         l['availableUpgrades'] -= 1
         m['multiplier'] *= 2.50
@@ -359,7 +362,7 @@ const upgrade = (() => {
       setVar()
       if (s['total'] >= 85 && !u['evenFasterSentences']) {
         $('#EvenFasterSentences').fadeOut()
-        u['evenFasterSentences'] = true
+        setUpgrade('evenFasterSentences')
         s['total'] -= 85
         s['availableUpgrades'] -= 1
         s['timer'] *= 0.50
@@ -373,7 +376,7 @@ const upgrade = (() => {
       setVar()
       if (s['total'] >= 125 && !u['letterTradeoff']) {
         $('#LetterTradeoff').fadeOut()
-        u['letterTradeoff'] = true
+        setUpgrade('letterTradeoff')
         s['total'] -= 125
         s['availableUpgrades'] -= 1
         l['multiplier'] *= 0.90
@@ -389,7 +392,7 @@ const upgrade = (() => {
       setVar()
       if (s['total'] >= 210 && !u['commonKnowledge']) {
         $('#CommonKnowledge').fadeOut()
-        u['commonKnowledge'] = true
+        setUpgrade('commonKnowledge')
         s['total'] -= 210
         s['availableUpgrades'] -= 1
         p['timer'] *= 0.50
@@ -403,7 +406,7 @@ const upgrade = (() => {
       setVar()
       if (s['total'] >= 500 && !u['repeatingPatterns']) {
         $('#RepeatingPatterns').fadeOut()
-        u['repeatingPatterns'] = true
+        setUpgrade('repeatingPatterns')
         s['total'] -= 500
         s['availableUpgrades'] -= 1
         s['multiplier'] *= 1.35
@@ -415,3 +418,4 @@ const upgrade = (() => {
     },
   }
 })()
+export default upgrade

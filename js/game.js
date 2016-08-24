@@ -1,9 +1,7 @@
-/*
-// Import other game JS files
-require('./staff.js')
-require('./achievements.js')
-require('./upgrades.js')
-*/
+import { levelUp } from './staff.js'
+import unlock from './unlocks.js'
+import upgrade from './upgrades.js'
+import achieve from './achievements.js'
 
 // Declare variables
 const interval = 20
@@ -19,7 +17,7 @@ const staff = { // Exp and Eff values for all levels of staff
 const units = ['letters', 'words', 'sentences',
                 'pages', 'chapters', 'books', 'series']
 
-let save
+export let save
 const init = () => {
   save = {
     monkeys: { total: 0,
@@ -27,7 +25,6 @@ const init = () => {
                 cost: 1,
                 lifetime: 0,
     },
-    active: 'letters',
     letters: { unit: 'letters',
                 total: 0,
                 manual: false,
@@ -152,6 +149,10 @@ const init = () => {
   }
 }
 
+export const setUpgrade = (upg) => {
+  save.upgrades[upg] = true
+}
+
 // If the save object doesn't yet exist, create it.
 if (typeof save === 'undefined') { init() }
 
@@ -180,7 +181,7 @@ const calcUsing = (unit) => {
   save[p]['using'] = prev
 }
 
-const calcGenerating = (unit) => {
+export const calcGenerating = (unit) => {
   if (unit === 'all') {
     calcGenerating('letters')
     calcGenerating('words')
@@ -233,7 +234,7 @@ const disengageWriting = () => {
   })
 }
 
-const startWriting = (unit) => {
+export const startWriting = (unit) => {
   // If an already active unit is clicked, it disengages and stops
   if (unit === getActiveUnit()) {
     disengageWriting()
@@ -271,7 +272,7 @@ const floor = (n) => {
 }
 
 // Function borrowed from /r/incrementalgames
-const prettify = (n, d) => {
+export const prettify = (n, d) => {
   const l = (floor(Math.log(Math.abs(n)) / nLog) <= 0) ?
             0 :
               floor(Math.log(Math.abs(n)) / nLog)
@@ -421,7 +422,7 @@ window.onbeforeunload = (event) => {
   localStorage.setItem('save', JSON.stringify(save))
 }
 
-const delSave = () => {
+export const delSave = () => {
   $('#confirmpopMessage').text('Are you sure you want to delete your save?')
   $('.pop').fadeIn()
   $('.confirmpopopacity').fadeIn()

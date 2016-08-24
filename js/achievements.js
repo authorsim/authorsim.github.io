@@ -1,3 +1,4 @@
+import { save } from './game.js'
 const achieve = (function () {
   //
   // Drag and Drop
@@ -82,3 +83,5 @@ const achieve = (function () {
     check: () => { ach.fire() },
   }
 }())
+
+export default achieve

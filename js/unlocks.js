@@ -1,3 +1,5 @@
+import { save } from './game.js'
+
 const unlock = (function () {
   // Create callback object
   const unlocks = $.Callbacks()
@@ -379,3 +381,5 @@ const unlock = (function () {
     check: () => { unlocks.fire() },
   }
 }())
+
+export default unlock

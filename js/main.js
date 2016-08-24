@@ -2,6 +2,10 @@ import React from 'react'
 import {render} from 'react-dom'
 import Tooltip from 'react-tooltip'
 require('./bootstrap.min.js')
+import { save, startWriting, prettify, delSave } from './game.js'
+import { chooseSkill, startStaffWriting, staffGraduate, buyMonkey, hireStaff } from './staff.js'
+import upgrade from './upgrades.js'
+import achieve from './achievements.js'
 
 let AuthorSim = React.createClass({
   render: () => {
@@ -750,11 +754,7 @@ let AchievementPanel = React.createClass({
           </div>
         </div>
         <div className="row">
-          {save.achievements.findPongo ?
-            <AchievementItem
-              achName="You Found Pongo"
-              achPerk="+10% speed to monkeys." /> :
-            <FadedAchievementItem />}
+          <FadedAchievementItem />
         </div>
       </div>
     )

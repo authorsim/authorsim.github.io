@@ -1,3 +1,5 @@
+import { save, calcGenerating } from './game.js'
+
 const staffNames = [
   'Miranda', 'Joey', 'Bob', 'Jonathan', 'Christopher', 'Krista', 'Cameron',
   'Frank', 'Alfonso', 'Kerry', 'Don', 'Clint', 'Janice', 'Phyllis', 'Andrew',
@@ -5,7 +7,7 @@ const staffNames = [
   'Will', 'Olivia', 'Sophie', 'Emily', 'Jake', 'Alex', 'James', 'Charles',
 ]
 
-const hireStaff = (slot) => {
+export const hireStaff = (slot) => {
   const name = staffNames[Math.floor(Math.random() * staffNames.length)]
   const cost = Math.pow(slot, 2.3) * 50
   if (save.words.total >= cost) {
@@ -29,7 +31,7 @@ const hireStaff = (slot) => {
   }
 }
 
-const buyMonkey = () => {
+export const buyMonkey = () => {
   const words = save.words
   const monkeys = save.monkeys
   if (words['total'] >= monkeys['cost']) {
@@ -44,7 +46,7 @@ const buyMonkey = () => {
   calcGenerating('letters')
 }
 
-const levelUp = (slot) => {
+export const levelUp = (slot) => {
   const staff = save['staff']['s' + slot]
   if (staff['level'] === 10) {
     $('#staffExpBar' + slot).hide()
@@ -69,7 +71,7 @@ const levelUp = (slot) => {
   calcGenerating(staff['writing'])
 }
 
-const staffGraduate = (slot) => {
+export const staffGraduate = (slot) => {
   const cur = save['staff']['s' + slot]
   const curPrestige = cur['prestige']
   const newPrestige = curPrestige + 1
@@ -90,7 +92,7 @@ const staffGraduate = (slot) => {
   $('#staffGraduate' + slot).hide()
 }
 
-const chooseSkill = (slot) => {
+export const chooseSkill = (slot) => {
   const cur = save['staff']['s' + slot]
   if (cur.skillPoint > 0) {
     $('#staffProgressArea' + slot).toggle()
@@ -133,7 +135,7 @@ const disengageStaff = (slot) => {
   save['staff']['s' + slot]['progress'] = 0
 }
 
-const startStaffWriting = (unit, slot) => {
+export const startStaffWriting = (unit, slot) => {
   // If unit is already being worked on, it stops it
   if (unit === save['staff']['s' + slot]['writing']) {
     disengageStaff(slot)
