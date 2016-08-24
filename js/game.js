@@ -295,16 +295,17 @@ const nArray = ['', 'k', 'M', 'B', 'T', 'Qa',
               'QiD', 'SeD', 'SpD', 'OcD', 'NoD',
               'Vi', 'UnV']
 
-// If the number is greater than x.999, ceil it, otherwise floor it
+// If the number is greater than x.9991, ceil it, otherwise floor it
 // Deals with some floating point weirdness in JS
 const floor = (n) => {
-  return (Math.abs(Math.abs(n) - Math.abs(Math.floor(n))) >= 0.999999991) ?
+  return (Math.abs(Math.abs(n) - Math.abs(Math.floor(n))) >= 0.999999999991) ?
             ((n >= 0) ? Math.ceil(n) : Math.floor(n)) :
               ((n >= 0) ? Math.floor(n) : Math.ceil(n))
 }
 
 // Function borrowed from /r/incrementalgames
 export const prettify = (n, d) => {
+  // l is the number of decimal places
   const l = (floor(Math.log(Math.abs(n)) / nLog) <= 0) ?
             0 :
               floor(Math.log(Math.abs(n)) / nLog)
@@ -314,7 +315,7 @@ export const prettify = (n, d) => {
   const r = (Math.abs(n) < 1000) ?
             ((typeof d === 'number') ? n.toFixed(d) : floor(n)) :
               (floor(n / (Math.pow(10, floor(l / 3) * 3 - p))) / Math.pow(10, p))
-  return (r + nArray[floor(l / 3)] + ((floor(r) === 42) ? '~' : '')) || 'Infinite'
+  return (r + nArray[floor(l / 3)]) || 'Infinite'
 }
 
 //
@@ -396,10 +397,8 @@ const staffWriting = (num) => {
   }
 }
 
-//
-// Configurable error popup
-//
-const errorAlert = (title, desc) => {
+// Error popup in menu bar
+export const errorAlert = (title, desc) => {
   $('#error').fadeTo(500, 0.8)
   $('#errorTitle').text(title)
   $('#errorDesc').text(desc)

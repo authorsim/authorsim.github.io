@@ -1,5 +1,5 @@
 import { save, calcGenerating, getUpgrade, setAvailUpgrades,
-  setBonus, subtractTotal } from './game.js'
+  setBonus, subtractTotal, errorAlert } from './game.js'
 
 const upgrade = (() => {
   // Create callback objects

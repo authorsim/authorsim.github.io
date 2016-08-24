@@ -23914,7 +23914,7 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.delSave = exports.prettify = exports.startWriting = exports.calcGenerating = exports.setBonus = exports.subtractTotal = exports.setAvailUpgrades = exports.getAch = exports.getUpgrade = exports.save = undefined;
+	exports.delSave = exports.errorAlert = exports.prettify = exports.startWriting = exports.calcGenerating = exports.setBonus = exports.subtractTotal = exports.setAvailUpgrades = exports.getAch = exports.getUpgrade = exports.save = undefined;
 
 	var _staff = __webpack_require__(188);
 
@@ -24227,18 +24227,19 @@
 	var nLog = Math.log(10);
 	var nArray = ['', 'k', 'M', 'B', 'T', 'Qa', 'Qi', 'Sx', 'Sp', 'Oc', 'No', 'Dc', 'UnD', 'DuD', 'TrD', 'QaD', 'QiD', 'SeD', 'SpD', 'OcD', 'NoD', 'Vi', 'UnV'];
 
-	// If the number is greater than x.999, ceil it, otherwise floor it
+	// If the number is greater than x.9991, ceil it, otherwise floor it
 	// Deals with some floating point weirdness in JS
 	var floor = function floor(n) {
-	  return Math.abs(Math.abs(n) - Math.abs(Math.floor(n))) >= 0.999999991 ? n >= 0 ? Math.ceil(n) : Math.floor(n) : n >= 0 ? Math.floor(n) : Math.ceil(n);
+	  return Math.abs(Math.abs(n) - Math.abs(Math.floor(n))) >= 0.999999999991 ? n >= 0 ? Math.ceil(n) : Math.floor(n) : n >= 0 ? Math.floor(n) : Math.ceil(n);
 	};
 
 	// Function borrowed from /r/incrementalgames
 	var prettify = exports.prettify = function prettify(n, d) {
+	  // l is the number of decimal places
 	  var l = floor(Math.log(Math.abs(n)) / nLog) <= 0 ? 0 : floor(Math.log(Math.abs(n)) / nLog);
 	  var p = l % 3 === 0 ? 2 : (l - 1) % 3 === 0 ? 1 : 0;
 	  var r = Math.abs(n) < 1000 ? typeof d === 'number' ? n.toFixed(d) : floor(n) : floor(n / Math.pow(10, floor(l / 3) * 3 - p)) / Math.pow(10, p);
-	  return r + nArray[floor(l / 3)] + (floor(r) === 42 ? '~' : '') || 'Infinite';
+	  return r + nArray[floor(l / 3)] || 'Infinite';
 	};
 
 	//
@@ -24326,10 +24327,8 @@
 	  }
 	};
 
-	//
-	// Configurable error popup
-	//
-	var errorAlert = function errorAlert(title, desc) {
+	// Error popup in menu bar
+	var errorAlert = exports.errorAlert = function errorAlert(title, desc) {
 	  $('#error').fadeTo(500, 0.8);
 	  $('#errorTitle').text(title);
 	  $('#errorDesc').text(desc);
@@ -24451,7 +24450,7 @@
 	      progress: 0
 	    };
 	  } else {
-	    errorAlert('This is embarrassing...', 'You can\'t afford that staff member.');
+	    (0, _game.errorAlert)('This is embarrassing...', 'You can\'t afford that staff member.');
 	  }
 	};
 
@@ -24462,10 +24461,10 @@
 	    words['total'] -= monkeys['cost'];
 	    monkeys['total'] += 1;
 	    monkeys['lifetime'] += 1;
-	    monkeys['cost'] = (monkeys['cost'] + 2) * 1.06;
+	    monkeys['cost'] = Math.floor((monkeys['cost'] + 2) * 1.06);
 	    $('#monkeyCost').text(monkeys['cost']);
 	  } else {
-	    errorAlert('Whoops.', 'That monkey is too costly for you.');
+	    (0, _game.errorAlert)('Whoops.', 'That monkey is too costly for you.');
 	  }
 	  (0, _game.calcGenerating)('letters');
 	};
@@ -24480,8 +24479,6 @@
 	    $('#staffExpBar' + slot).hide();
 	    $('#staffProgressArea' + slot).hide();
 	    $('#staffGraduate' + slot).show();
-	    $('#staff' + staff['writing'] + slot).removeClass('btn-success active').addClass('btn-primary');
-	    staff['writing'] = 'none';
 	    return;
 	  }
 	  staff['level'] += 1;
@@ -25008,7 +25005,7 @@
 	  };
 
 	  var upgradeError = function upgradeError() {
-	    return errorAlert('Oh dear...', 'You are too poor to purchase this upgrade.');
+	    return (0, _game.errorAlert)('Oh dear...', 'You are too poor to purchase this upgrade.');
 	  };
 
 	  return {

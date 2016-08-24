@@ -1,4 +1,4 @@
-import { save, calcGenerating } from './game.js'
+import { save, calcGenerating, errorAlert } from './game.js'
 
 const staffNames = [
   'Miranda', 'Joey', 'Bob', 'Jonathan', 'Christopher', 'Krista', 'Cameron',
@@ -38,7 +38,7 @@ export const buyMonkey = () => {
     words['total'] -= monkeys['cost']
     monkeys['total'] += 1
     monkeys['lifetime'] += 1
-    monkeys['cost'] = (monkeys['cost'] + 2) * 1.06
+    monkeys['cost'] = Math.floor((monkeys['cost'] + 2) * 1.06)
     $('#monkeyCost').text(monkeys['cost'])
   } else {
     errorAlert('Whoops.', 'That monkey is too costly for you.')
@@ -56,10 +56,6 @@ export const levelUp = (slot) => {
     $('#staffExpBar' + slot).hide()
     $('#staffProgressArea' + slot).hide()
     $('#staffGraduate' + slot).show()
-    $('#staff' + staff['writing'] + slot)
-      .removeClass('btn-success active')
-      .addClass('btn-primary')
-    staff['writing'] = 'none'
     return
   }
   staff['level'] += 1
