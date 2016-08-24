@@ -1,4 +1,5 @@
-import { save, calcGenerating, setUpgrade } from './game.js'
+import { save, calcGenerating, getUpgrade, setAvailUpgrades,
+  setBonus, subtractTotal } from './game.js'
 
 const upgrade = (() => {
   // Create callback objects
@@ -33,386 +34,386 @@ const upgrade = (() => {
     check: () => {
       setVar()
       // If there are any upgrades, fade in global icon
-      if (l['availableUpgrades'] +
-          w['availableUpgrades'] +
-          s['availableUpgrades'] +
-          p['availableUpgrades'] +
-          c['availableUpgrades'] +
-          b['availableUpgrades'] !== 0) {
+      if (l.availableUpgrades +
+          w.availableUpgrades +
+          s.availableUpgrades +
+          p.availableUpgrades +
+          c.availableUpgrades +
+          b.availableUpgrades !== 0) {
         $('#upgradeAvailable').fadeIn()
       } else {
         $('#upgradeAvailable').fadeOut()
       }
       // If there are upgrades, fade in the icon
-      if (l['availableUpgrades'] !== 0) {
+      if (l.availableUpgrades !== 0) {
         $('#LettersUpgradeAvailable').fadeIn()
-      } if (w['availableUpgrades'] !== 0) {
+      } if (w.availableUpgrades !== 0) {
         $('#WordsUpgradeAvailable').fadeIn()
-      } if (s['availableUpgrades'] !== 0) {
+      } if (s.availableUpgrades !== 0) {
         $('#SentencesUpgradeAvailable').fadeIn()
-      } if (p['availableUpgrades'] !== 0) {
+      } if (p.availableUpgrades !== 0) {
         $('#PagesUpgradeAvailable').fadeIn()
-      } if (c['availableUpgrades'] !== 0) {
+      } if (c.availableUpgrades !== 0) {
         $('#ChaptersUpgradeAvailable').fadeIn()
-      } if (b['availableUpgrades'] !== 0) {
+      } if (b.availableUpgrades !== 0) {
         $('#BooksUpgradeAvailable').fadeIn()
       }
       // If there are no upgrades, fade out the icon
-      if (l['availableUpgrades'] === 0) {
+      if (l.availableUpgrades === 0) {
         $('#LettersUpgradeAvailable').fadeOut()
-      } if (w['availableUpgrades'] === 0) {
+      } if (w.availableUpgrades === 0) {
         $('#WordsUpgradeAvailable').fadeOut()
-      } if (s['availableUpgrades'] === 0) {
+      } if (s.availableUpgrades === 0) {
         $('#SentencesUpgradeAvailable').fadeOut()
-      } if (p['availableUpgrades'] === 0) {
+      } if (p.availableUpgrades === 0) {
         $('#PagesUpgradeAvailable').fadeOut()
-      } if (c['availableUpgrades'] === 0) {
+      } if (c.availableUpgrades === 0) {
         $('#ChaptersUpgradeAvailable').fadeOut()
-      } if (b['availableUpgrades'] === 0) {
+      } if (b.availableUpgrades === 0) {
         $('#BooksUpgradeAvailable').fadeOut()
       }
     },
     setup: () => {
       setVar()
-      if (u['writeWords']) { $('#wordsManualSection').fadeIn() }
-      if (u['writeSentences']) { $('#sentencesManualSection').fadeIn() }
-      if (u['writePages']) { $('#pagesManualSection').fadeIn() }
+      if (u.writeWords) { $('#wordsManualSection').fadeIn() }
+      if (u.writeSentences) { $('#sentencesManualSection').fadeIn() }
+      if (u.writePages) { $('#pagesManualSection').fadeIn() }
     },
 
     writeWords: () => {
       setVar()
-      if (l['total'] >= 34 && !u['writeWords']) {
+      if (l.total >= 34 && !u.writeWords) {
         $('#WriteWords').fadeOut()        // Fade out button
-        setUpgrade('writeWords')          // Set upgrade to purchased
-        l['total'] -= 34                  // Deduct cost
-        l['availableUpgrades'] -= 1       // Deduct purchaseable upgrade
+        getUpgrade('writeWords')          // Set upgrade to purchased
+        subtractTotal('letters', 34)      // Deduct cost
+        setAvailUpgrades('letters', '-')     // Deduct purchaseable upgrade
         $('#wordsManualSection').fadeIn() // Fade in purchased section
-      } else if (l['total'] < 34) {
+      } else if (l.total < 34) {
         upgradeError()
       }
     },
 
     writeSentences: () => {
       setVar()
-      if (w['total'] >= 30 && !u['writeSentences']) {
+      if (w.total >= 30 && !u.writeSentences) {
         $('#WriteSentences').fadeOut()
-        setUpgrade('writeSentences')
-        w['total'] -= 30
-        w['availableUpgrades'] -= 1
+        getUpgrade('writeSentences')
+        subtractTotal('words', 30)
+        setAvailUpgrades('words', '-')
         $('#sentencesManualSection').fadeIn()
-      } else if (w['total'] < 30) {
+      } else if (w.total < 30) {
         upgradeError()
       }
     },
 
     writePages: () => {
       setVar()
-      if (s['total'] >= 50 && !u['writePages']) {
+      if (s.total >= 50 && !u.writePages) {
         $('#WritePages').fadeOut()
-        setUpgrade('writePages')
-        s['total'] -= 50
-        s['availableUpgrades'] -= 1
+        getUpgrade('writePages')
+        subtractTotal('sentences', 50)
+        setAvailUpgrades('sentences', '-')
         $('#pagesManualSection').fadeIn()
-      } else if (w['total'] < 50) {
+      } else if (w.total < 50) {
         upgradeError()
       }
     },
 
     fasterLetters: () => {
       setVar()
-      if (l['total'] >= 175 && !u['fasterLetters']) {
+      if (l.total >= 175 && !u.fasterLetters) {
         $('#FasterLetters').fadeOut()
-        setUpgrade('fasterLetters')
-        l['total'] -= 175
-        l['availableUpgrades'] -= 1
-        l['timer'] *= 0.5
+        getUpgrade('fasterLetters')
+        subtractTotal('letters', 175)
+        setAvailUpgrades('letters', '-')
+        setBonus('letters', 'timer', 0.5)
         calcGenerating('letters')
-      } else if (l['total'] < 175) {
+      } else if (l.total < 175) {
         upgradeError()
       }
     },
 
     efficientMonkeys: () => {
       setVar()
-      if (l['total'] >= 75 && !u['efficientMonkeys']) {
+      if (l.total >= 75 && !u.efficientMonkeys) {
         $('#EfficientMonkeys').fadeOut()
-        setUpgrade('efficientMonkeys')
-        l['total'] -= 75
-        l['availableUpgrades'] -= 1
-        m['multiplier'] *= 1.1
+        getUpgrade('efficientMonkeys')
+        subtractTotal('letters', 75)
+        setAvailUpgrades('letters', '-')
+        setBonus('monkeys', 'multiplier', 1.1)
         calcGenerating('letters')
-      } else if (l['total'] < 75) {
+      } else if (l.total < 75) {
         upgradeError()
       }
     },
 
     monkeyIntelligenceI: () => {
       setVar()
-      if (l['total'] >= 350 && !u['monkeyIntelligenceI']) {
+      if (l.total >= 350 && !u.monkeyIntelligenceI) {
         $('#MonkeyIntelligenceI').fadeOut()
-        setUpgrade('monkeyIntelligenceI')
-        l['total'] -= 350
-        l['availableUpgrades'] -= 1
-        m['multiplier'] *= 1.2
+        getUpgrade('monkeyIntelligenceI')
+        subtractTotal('letters', 350)
+        setAvailUpgrades('letters', '-')
+        setBonus('monkeys', 'multiplier', 1.2)
         calcGenerating('letters')
-      } else if (l['total'] < 350) {
+      } else if (l.total < 350) {
         upgradeError()
       }
     },
 
     monkeyIntelligenceII: () => {
       setVar()
-      if (l['total'] >= 775 && !u['monkeyIntelligenceII']) {
+      if (l.total >= 775 && !u.monkeyIntelligenceII) {
         $('#MonkeyIntelligenceII').fadeOut()
-        setUpgrade('monkeyIntelligenceII')
-        l['total'] -= 775
-        l['availableUpgrades'] -= 1
-        m['multiplier'] *= 1.25
+        getUpgrade('monkeyIntelligenceII')
+        subtractTotal('letters', 775)
+        setAvailUpgrades('letters', '-')
+        setBonus('monkeys', 'multiplier', 1.25)
         calcGenerating('letters')
-      } else if (l['total'] < 775) {
+      } else if (l.total < 775) {
         upgradeError()
       }
     },
 
     monkeyIntelligenceBreakthrough: () => {
       setVar()
-      if (l['total'] >= 2200 && !u['monkeyIntelligenceBreakthrough']) {
+      if (l.total >= 2200 && !u.monkeyIntelligenceBreakthrough) {
         $('#MonkeyIntelligenceBreakthrough').fadeOut()
-        setUpgrade('monkeyIntelligenceBreakthrough')
-        l['total'] -= 2200
-        l['availableUpgrades'] -= 1
-        m['multiplier'] *= 2.00
+        getUpgrade('monkeyIntelligenceBreakthrough')
+        subtractTotal('letters', 2200)
+        setAvailUpgrades('letters', '-')
+        setBonus('monkeys', 'multiplier', 2.0)
         calcGenerating('letters')
-      } else if (l['total'] < 2200) {
+      } else if (l.total < 2200) {
         upgradeError()
       }
     },
 
     fasterWords: () => {
       setVar()
-      if (w['total'] >= 25 && !u['fasterWords']) {
+      if (w.total >= 25 && !u.fasterWords) {
         $('#FasterWords').fadeOut()
-        setUpgrade('fasterWords')
-        w['total'] -= 25
-        w['availableUpgrades'] -= 1
-        w['timer'] *= 0.7
+        getUpgrade('fasterWords')
+        subtractTotal('words', 25)
+        setAvailUpgrades('words', '-')
+        setBonus('words', 'timer', 0.7)
         calcGenerating('words')
-      } else if (w['total'] < 25) {
+      } else if (w.total < 25) {
         upgradeError()
       }
     },
 
     fasterSentences: () => {
       setVar()
-      if (s['total'] >= 25 && !u['fasterSentences']) {
+      if (s.total >= 25 && !u.fasterSentences) {
         $('#FasterSentences').fadeOut()
-        setUpgrade('fasterSentences')
-        s['total'] -= 25
-        s['availableUpgrades'] -= 1
-        s['timer'] *= 0.75
+        getUpgrade('fasterSentences')
+        subtractTotal('sentences', 25)
+        setAvailUpgrades('sentences', '-')
+        setBonus('sentences', 'timer', 0.75)
         calcGenerating('sentences')
-      } else if (s['total'] < 25) {
+      } else if (s.total < 25) {
         upgradeError()
       }
     },
 
     efficientWords: () => {
       setVar()
-      if (l['total'] >= 1450 && !u['efficientWords']) {
+      if (l.total >= 1450 && !u.efficientWords) {
         $('#EfficientWords').fadeOut()
-        setUpgrade('efficientWords')
-        l['total'] -= 1450
-        l['availableUpgrades'] -= 1
-        w['cost'] *= 0.9
+        getUpgrade('efficientWords')
+        subtractTotal('letters', 1450)
+        setAvailUpgrades('letters', '-')
+        setBonus('words', 'cost', 0.9)
         calcGenerating('words')
-      } else if (l['total'] < 1450) {
+      } else if (l.total < 1450) {
         upgradeError()
       }
     },
 
     wordWhiz: () => {
       setVar()
-      if (w['total'] >= 100 && !u['wordWhiz']) {
+      if (w.total >= 100 && !u.wordWhiz) {
         $('#WordWhiz').fadeOut()
-        setUpgrade('wordWhiz')
-        w['total'] -= 100
-        w['availableUpgrades'] -= 1
-        w['multiplier'] *= 1.15
+        getUpgrade('wordWhiz')
+        subtractTotal('words', 100)
+        setAvailUpgrades('words', '-')
+        setBonus('words', 'multiplier', 1.15)
         calcGenerating('words')
-      } else if (w['total'] < 100) {
+      } else if (w.total < 100) {
         upgradeError()
       }
     },
 
     smarterLetters: () => {
       setVar()
-      if (l['total'] >= 500 && !u['smarterLetters']) {
+      if (l.total >= 500 && !u.smarterLetters) {
         $('#SmarterLetters').fadeOut()
-        setUpgrade('smarterLetters')
-        l['total'] -= 500
-        l['availableUpgrades'] -= 1
-        l['multiplier'] *= 1.1
+        getUpgrade('smarterLetters')
+        subtractTotal('letters', 500)
+        setAvailUpgrades('letters', '-')
+        setBonus('letters', 'multiplier', 1.1)
         calcGenerating('letters')
-      } else if (l['total'] < 500) {
+      } else if (l.total < 500) {
         upgradeError()
       }
     },
 
     higherLearning: () => {
       setVar()
-      if (s['total'] >= 105 && !u['higherLearning']) {
+      if (s.total >= 105 && !u.higherLearning) {
         $('#HigherLearning').fadeOut()
-        setUpgrade('higherLearning')
-        s['total'] -= 105
-        s['availableUpgrades'] -= 1
-        w['multiplier'] *= 1.15
+        getUpgrade('higherLearning')
+        subtractTotal('sentences', 105)
+        setAvailUpgrades('sentences', '-')
+        setBonus('words', 'multiplier', 1.15)
         calcGenerating('words')
-      } else if (s['total'] < 105) {
+      } else if (s.total < 105) {
         upgradeError()
       }
     },
 
     wordOfWisdom: () => {
       setVar()
-      if (w['total'] >= 550 && !u['wordOfWisdom']) {
+      if (w.total >= 550 && !u.wordOfWisdom) {
         $('#WordOfWisdom').fadeOut()
-        setUpgrade('wordOfWisdom')
-        w['total'] -= 550
-        w['availableUpgrades'] -= 1
-        w['multiplier'] *= 1.50
+        getUpgrade('wordOfWisdom')
+        subtractTotal('words', 550)
+        setAvailUpgrades('words', '-')
+        setBonus('words', 'multiplier', 1.5)
         calcGenerating('words')
-      } else if (w['total'] < 550) {
+      } else if (w.total < 550) {
         upgradeError()
       }
     },
 
     tooManyLetters: () => {
       setVar()
-      if (l['total'] >= 5000 && !u['tooManyLetters']) {
+      if (l.total >= 5000 && !u.tooManyLetters) {
         $('#TooManyLetters').fadeOut()
-        setUpgrade('tooManyLetters')
-        l['total'] -= 5000
-        l['availableUpgrades'] -= 1
-        w['multiplier'] *= 3.00
+        getUpgrade('tooManyLetters')
+        subtractTotal('letters', 5000)
+        setAvailUpgrades('letters', '-')
+        setBonus('words', 'multiplier', 3.0)
         calcGenerating('words')
-      } else if (l['total'] < 5000) {
+      } else if (l.total < 5000) {
         upgradeError()
       }
     },
 
     longerSentences: () => {
       setVar()
-      if (s['total'] >= 150 && !u['longerSentences']) {
+      if (s.total >= 150 && !u.longerSentences) {
         $('#LongerSentences').fadeOut()
-        setUpgrade('longerSentences')
-        s['total'] -= 150
-        s['availableUpgrades'] -= 1
-        s['cost'] *= 1.10
-        s['multiplier'] *= 1.50
+        getUpgrade('longerSentences')
+        subtractTotal('sentences', 150)
+        setAvailUpgrades('sentences', '-')
+        setBonus('sentences', 'cost', 1.1)
+        setBonus('sentences', 'multiplier', 1.5)
         calcGenerating('sentences')
-      } else if (s['total'] < 150) {
+      } else if (s.total < 150) {
         upgradeError()
       }
     },
 
     gettingTheHangOfIt: () => {
       setVar()
-      if (w['total'] >= 300 && !u['gettingTheHangOfIt']) {
+      if (w.total >= 300 && !u.gettingTheHangOfIt) {
         $('#GettingTheHangOfIt').fadeOut()
-        setUpgrade('gettingTheHangOfIt')
-        w['total'] -= 300
-        w['availableUpgrades'] -= 1
-        w['timer'] *= 0.50
+        getUpgrade('gettingTheHangOfIt')
+        subtractTotal('words', 300)
+        setAvailUpgrades('words', '-')
+        setBonus('words', 'timer', 0.5)
         calcGenerating('words')
-      } else if (w['total'] < 300) {
+      } else if (w.total < 300) {
         upgradeError()
       }
     },
 
     sticksAndStones: () => {
       setVar()
-      if (w['total'] >= 1100 && !u['sticksAndStones']) {
+      if (w.total >= 1100 && !u.sticksAndStones) {
         $('#SticksAndStones').fadeOut()
-        setUpgrade('sticksAndStones')
-        w['total'] -= 1100
-        w['availableUpgrades'] -= 1
-        w['cost'] *= 1.20
-        w['multiplier'] *= 1.50
+        getUpgrade('sticksAndStones')
+        subtractTotal('words', 1100)
+        setAvailUpgrades('words', '-')
+        setBonus('words', 'cost', 1.2)
+        setBonus('words', 'multiplier', 1.5)
         calcGenerating('words')
-      } else if (w['total'] < 1100) {
+      } else if (w.total < 1100) {
         upgradeError()
       }
     },
 
     monkeyGlasses: () => {
       setVar()
-      if (l['total'] >= 3400 && !u['monkeyGlasses']) {
+      if (l.total >= 3400 && !u.monkeyGlasses) {
         $('#MonkeyGlasses').fadeOut()
-        setUpgrade('monkeyGlasses')
-        l['total'] -= 3400
-        l['availableUpgrades'] -= 1
-        m['multiplier'] *= 2.50
+        getUpgrade('monkeyGlasses')
+        subtractTotal('letters', 3400)
+        setAvailUpgrades('letters', '-')
+        setBonus('monkeys', 'multiplier', 2.5)
         calcGenerating('letters')
-      } else if (l['total'] < 3400) {
+      } else if (l.total < 3400) {
         upgradeError()
       }
     },
 
     evenFasterSentences: () => {
       setVar()
-      if (s['total'] >= 85 && !u['evenFasterSentences']) {
+      if (s.total >= 85 && !u.evenFasterSentences) {
         $('#EvenFasterSentences').fadeOut()
-        setUpgrade('evenFasterSentences')
-        s['total'] -= 85
-        s['availableUpgrades'] -= 1
-        s['timer'] *= 0.50
+        getUpgrade('evenFasterSentences')
+        subtractTotal('sentences', 85)
+        setAvailUpgrades('sentences', '-')
+        setBonus('sentences', 'timer', 0.5)
         calcGenerating('sentences')
-      } else if (s['total'] < 85) {
+      } else if (s.total < 85) {
         upgradeError()
       }
     },
 
     letterTradeoff: () => {
       setVar()
-      if (s['total'] >= 125 && !u['letterTradeoff']) {
+      if (s.total >= 125 && !u.letterTradeoff) {
         $('#LetterTradeoff').fadeOut()
-        setUpgrade('letterTradeoff')
-        s['total'] -= 125
-        s['availableUpgrades'] -= 1
-        l['multiplier'] *= 0.90
-        s['multiplier'] *= 1.30
+        getUpgrade('letterTradeoff')
+        subtractTotal('sentences', 125)
+        setAvailUpgrades('sentences', '-')
+        setBonus('letters', 'multiplier', 0.9)
+        setBonus('sentences', 'multiplier', 1.3)
         calcGenerating('sentences')
         calcGenerating('letters')
-      } else if (s['total'] < 125) {
+      } else if (s.total < 125) {
         upgradeError()
       }
     },
 
     commonKnowledge: () => {
       setVar()
-      if (s['total'] >= 210 && !u['commonKnowledge']) {
+      if (s.total >= 210 && !u.commonKnowledge) {
         $('#CommonKnowledge').fadeOut()
-        setUpgrade('commonKnowledge')
-        s['total'] -= 210
-        s['availableUpgrades'] -= 1
-        p['timer'] *= 0.50
+        getUpgrade('commonKnowledge')
+        subtractTotal('sentences', 210)
+        setAvailUpgrades('sentences', '-')
+        setBonus('pages', 'timer', 0.5)
         calcGenerating('pages')
-      } else if (s['total'] < 210) {
+      } else if (s.total < 210) {
         upgradeError()
       }
     },
 
     repeatingPatterns: () => {
       setVar()
-      if (s['total'] >= 500 && !u['repeatingPatterns']) {
+      if (s.total >= 500 && !u.repeatingPatterns) {
         $('#RepeatingPatterns').fadeOut()
-        setUpgrade('repeatingPatterns')
-        s['total'] -= 500
-        s['availableUpgrades'] -= 1
-        s['multiplier'] *= 1.35
-        s['timer'] *= 0.75
+        getUpgrade('repeatingPatterns')
+        subtractTotal('sentences', 500)
+        setAvailUpgrades('sentences', '-')
+        setBonus('sentences', 'multiplier', 1.35)
+        setBonus('sentences', 'timer', 0.75)
         calcGenerating('sentences')
-      } else if (s['total'] < 500) {
+      } else if (s.total < 500) {
         upgradeError()
       }
     },

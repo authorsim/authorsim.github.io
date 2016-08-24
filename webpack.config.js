@@ -1,11 +1,10 @@
 module.exports = {
   entry: {
-    Game: ['./js/game.js'],
     Main: ['./js/main.js'],
   },
   output: {
     path: './build/js',
-    filename: 'all[name].js',
+    filename: 'all.js',
   },
   module: {
     loaders: [

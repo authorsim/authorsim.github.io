@@ -1,4 +1,4 @@
-import { save } from './game.js'
+import { save, setAvailUpgrades } from './game.js'
 
 const unlock = (function () {
   // Create callback object
@@ -38,7 +38,7 @@ const unlock = (function () {
   const writeWords = () => {
     if (l['lifetime'] >= 34 && !u['writeWords']) {
       $('#WriteWords').fadeIn()
-      l['availableUpgrades'] += 1
+      setAvailUpgrades('letters', '+')
       unlocks.remove(writeWords)
     } else if (u['writeWords']) {
       unlocks.remove(writeWords)
@@ -48,7 +48,7 @@ const unlock = (function () {
   const fasterLetters = () => {
     if (l['lifetime'] >= 475 && !u['fasterLetters']) {
       $('#FasterLetters').fadeIn()
-      l['availableUpgrades'] += 1
+      setAvailUpgrades('letters', '+')
       unlocks.remove(fasterLetters)
     } else if (u['fasterLetters']) {
       unlocks.remove(fasterLetters)
@@ -58,7 +58,7 @@ const unlock = (function () {
   const efficientMonkeys = () => {
     if (l['lifetime'] >= 275 && m['total'] >= 3 && !u['efficientMonkeys']) {
       $('#EfficientMonkeys').fadeIn()
-      l['availableUpgrades'] += 1
+      setAvailUpgrades('letters', '+')
       unlocks.remove(efficientMonkeys)
     } else if (u['efficientMonkeys']) {
       unlocks.remove(efficientMonkeys)
@@ -68,7 +68,7 @@ const unlock = (function () {
   const monkeyIntelligenceI = () => {
     if (l['lifetime'] >= 655 && m['total'] >= 7 && !u['monkeyIntelligenceI']) {
       $('#MonkeyIntelligenceI').fadeIn()
-      l['availableUpgrades'] += 1
+      setAvailUpgrades('letters', '+')
       unlocks.remove(monkeyIntelligenceI)
     } else if (u['monkeyIntelligenceI']) {
       unlocks.remove(monkeyIntelligenceI)
@@ -78,7 +78,7 @@ const unlock = (function () {
   const smarterLetters = () => {
     if (l['lifetime'] >= 1200 && !u['smarterLetters']) {
       $('#SmarterLetters').fadeIn()
-      l['availableUpgrades'] += 1
+      setAvailUpgrades('letters', '+')
       unlocks.remove(smarterLetters)
     } else if (u['smarterLetters']) {
       unlocks.remove(smarterLetters)
@@ -88,7 +88,7 @@ const unlock = (function () {
   const monkeyIntelligenceII = () => {
     if (l['lifetime'] >= 1600 && m['total'] >= 13 && !u['monkeyIntelligenceII']) {
       $('#MonkeyIntelligenceII').fadeIn()
-      l['availableUpgrades'] += 1
+      setAvailUpgrades('letters', '+')
       unlocks.remove(monkeyIntelligenceII)
     } else if (u['monkeyIntelligenceII']) {
       unlocks.remove(monkeyIntelligenceII)
@@ -98,7 +98,7 @@ const unlock = (function () {
   const efficientWords = () => {
     if (l['lifetime'] >= 2300 && !u['efficientWords']) {
       $('#EfficientWords').fadeIn()
-      l['availableUpgrades'] += 1
+      setAvailUpgrades('letters', '+')
       unlocks.remove(efficientWords)
     } else if (u['efficientWords']) {
       unlocks.remove(efficientWords)
@@ -108,7 +108,7 @@ const unlock = (function () {
   const monkeyIntelligenceBreakthrough = () => {
     if (l['lifetime'] >= 4000 && m['total'] >= 20 && !u['monkeyIntelligenceBreakthrough']) {
       $('#MonkeyIntelligenceBreakthrough').fadeIn()
-      l['availableUpgrades'] += 1
+      setAvailUpgrades('letters', '+')
       unlocks.remove(monkeyIntelligenceBreakthrough)
     } else if (u['monkeyIntelligenceBreakthrough']) {
       unlocks.remove(monkeyIntelligenceBreakthrough)
@@ -118,7 +118,7 @@ const unlock = (function () {
   const tooManyLetters = () => {
     if (l['total'] >= 20000 && !u['tooManyLetters']) {
       $('#TooManyLetters').fadeIn()
-      l['availableUpgrades'] += 1
+      setAvailUpgrades('letters', '+')
       unlocks.remove(tooManyLetters)
     } else if (u['tooManyLetters']) {
       unlocks.remove(tooManyLetters)
@@ -128,7 +128,7 @@ const unlock = (function () {
   const monkeyGlasses = () => {
     if (l['lifetime'] >= 20000 && m['total'] >= 28 && !u['monkeyGlasses']) {
       $('#MonkeyGlasses').fadeIn()
-      l['availableUpgrades'] += 1
+      setAvailUpgrades('letters', '+')
       unlocks.remove(monkeyGlasses)
     } else if (u['monkeyGlasses']) {
       unlocks.remove(monkeyGlasses)
@@ -149,7 +149,7 @@ const unlock = (function () {
   const writeSentences = () => {
     if (w['lifetime'] >= 200 && !u[['writeSentences']]) {
       $('#WriteSentences').fadeIn()
-      w['availableUpgrades'] += 1
+      setAvailUpgrades('words', '+')
       unlocks.remove(writeSentences)
     } else if (u['writeSentences']) {
       unlocks.remove(writeSentences)
@@ -159,7 +159,7 @@ const unlock = (function () {
   const fasterWords = () => {
     if (w['lifetime'] >= 45 && !u['fasterWords']) {
       $('#FasterWords').fadeIn()
-      w['availableUpgrades'] += 1
+      setAvailUpgrades('words', '+')
       unlocks.remove(fasterWords)
     } else if (u['fasterWords']) {
       unlocks.remove(fasterWords)
@@ -169,7 +169,7 @@ const unlock = (function () {
   const wordWhiz = () => {
     if (w['lifetime'] >= 450 && !u['wordWhiz']) {
       $('#WordWhiz').fadeIn()
-      w['availableUpgrades'] += 1
+      setAvailUpgrades('words', '+')
       unlocks.remove(wordWhiz)
     } else if (u['wordWhiz']) {
       unlocks.remove(wordWhiz)
@@ -179,7 +179,7 @@ const unlock = (function () {
   const wordOfWisdom = () => {
     if (w['lifetime'] >= 950 && !u['wordOfWisdom']) {
       $('#WordOfWisdom').fadeIn()
-      w['availableUpgrades'] += 1
+      setAvailUpgrades('words', '+')
       unlocks.remove(wordOfWisdom)
     } else if (u['wordOfWisdom']) {
       unlocks.remove(wordOfWisdom)
@@ -189,7 +189,7 @@ const unlock = (function () {
   const gettingTheHangOfIt = () => {
     if (w['lifetime'] >= 600 && !u['gettingTheHangOfIt']) {
       $('#GettingTheHangOfIt').fadeIn()
-      w['availableUpgrades'] += 1
+      setAvailUpgrades('words', '+')
       unlocks.remove(gettingTheHangOfIt)
     } else if (u['gettingTheHangOfIt']) {
       unlocks.remove(gettingTheHangOfIt)
@@ -199,7 +199,7 @@ const unlock = (function () {
   const sticksAndStones = () => {
     if (w['lifetime'] >= 1600 && !u['sticksAndStones']) {
       $('#SticksAndStones').fadeIn()
-      w['availableUpgrades'] += 1
+      setAvailUpgrades('words', '+')
       unlocks.remove(sticksAndStones)
     } else if (u['sticksAndStones']) {
       unlocks.remove(sticksAndStones)
@@ -220,7 +220,7 @@ const unlock = (function () {
   const writePages = () => {
     if (s['lifetime'] >= 223 && !u['writePages']) {
       $('#WritePages').fadeIn()
-      s['availableUpgrades'] += 1
+      setAvailUpgrades('sentences', '+')
       unlocks.remove(writePages)
     } else if (u['writePages']) {
       unlocks.remove(writePages)
@@ -230,7 +230,7 @@ const unlock = (function () {
   const fasterSentences = () => {
     if (s['lifetime'] >= 39 && !u['fasterSentences']) {
       $('#FasterSentences').fadeIn()
-      s['availableUpgrades'] += 1
+      setAvailUpgrades('sentences', '+')
       unlocks.remove(fasterSentences)
     } else if (u['fasterSentences']) {
       unlocks.remove(fasterSentences)
@@ -240,7 +240,7 @@ const unlock = (function () {
   const evenFasterSentences = () => {
     if (s['lifetime'] >= 95 && !u['evenFasterSentences']) {
       $('#EvenFasterSentences').fadeIn()
-      s['availableUpgrades'] += 1
+      setAvailUpgrades('sentences', '+')
       unlocks.remove(evenFasterSentences)
     } else if (u['evenFasterSentences']) {
       unlocks.remove(evenFasterSentences)
@@ -250,7 +250,7 @@ const unlock = (function () {
   const higherLearning = () => {
     if (s['lifetime'] >= 9 && !u['higherLearning']) {
       $('#HigherLearning').fadeIn()
-      s['availableUpgrades'] += 1
+      setAvailUpgrades('sentences', '+')
       unlocks.remove(higherLearning)
     } else if (u['higherLearning']) {
       unlocks.remove(higherLearning)
@@ -260,7 +260,7 @@ const unlock = (function () {
   const longerSentences = () => {
     if (s['lifetime'] >= 265 && !u['longerSentences']) {
       $('#LongerSentences').fadeIn()
-      s['availableUpgrades'] += 1
+      setAvailUpgrades('sentences', '+')
       unlocks.remove(longerSentences)
     } else if (u['longerSentences']) {
       unlocks.remove(longerSentences)
@@ -270,7 +270,7 @@ const unlock = (function () {
   const letterTradeoff = () => {
     if (s['lifetime'] >= 325 && !u['letterTradeoff']) {
       $('#LetterTradeoff').fadeIn()
-      s['availableUpgrades'] += 1
+      setAvailUpgrades('sentences', '+')
       unlocks.remove(letterTradeoff)
     } else if (u['letterTradeoff']) {
       unlocks.remove(letterTradeoff)
@@ -280,7 +280,7 @@ const unlock = (function () {
   const commonKnowledge = () => {
     if (p['lifetime'] >= 1 && !u['commonKnowledge']) {
       $('#CommonKnowledge').fadeIn()
-      s['availableUpgrades'] += 1
+      setAvailUpgrades('sentences', '+')
       unlocks.remove(commonKnowledge)
     } else if (u['commonKnowledge']) {
       unlocks.remove(commonKnowledge)
@@ -290,7 +290,7 @@ const unlock = (function () {
   const repeatingPatterns = () => {
     if (s['lifetime'] >= 785 && !u['repeatingPatterns']) {
       $('#RepeatingPatterns').fadeIn()
-      s['availableUpgrades'] += 1
+      setAvailUpgrades('sentences', '+')
       unlocks.remove(repeatingPatterns)
     } else if (u['repeatingPatterns']) {
       unlocks.remove(repeatingPatterns)

@@ -149,8 +149,40 @@ const init = () => {
   }
 }
 
-export const setUpgrade = (upg) => {
+//
+// Functions to manipulate the save variable
+//
+
+export const getUpgrade = (upg) => {
   save.upgrades[upg] = true
+}
+
+export const getAch = (ach) => {
+  save.achievements[ach] = true
+}
+
+const setGenerating = (unit, value) => {
+  save[unit].generating = value
+}
+
+const setUsing = (unit, value) => {
+  save[unit].using = value
+}
+
+export const setAvailUpgrades = (unit, operator) => {
+  if (operator === '+') {
+    save[unit].availableUpgrades += 1
+  } else if (operator === '-') {
+    save[unit].availableUpgrades -= 1
+  }
+}
+
+export const subtractTotal = (unit, num) => {
+  save[unit].total -= num
+}
+
+export const setBonus = (unit, perk, value) => {
+  save[unit][perk] *= value
 }
 
 // If the save object doesn't yet exist, create it.
@@ -178,7 +210,7 @@ const calcUsing = (unit) => {
       prev += ((1 / c['timer'] * c['cost']) / s['eff'] * s['speed'] / 2) * c['multiplier']
     }
   }
-  save[p]['using'] = prev
+  setUsing(p, prev)
 }
 
 export const calcGenerating = (unit) => {
@@ -208,7 +240,7 @@ export const calcGenerating = (unit) => {
   if (unit !== 'letters') { // Do non-letters things
     calcUsing(unit)
   }
-  c['generating'] = g
+  setGenerating(unit, g)
 }
 
 const getActiveUnit = () => {

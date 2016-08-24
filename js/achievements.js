@@ -52,7 +52,7 @@ const achieve = (function () {
   const findPongo = () => {
     $('#monkeys').mouseover((event) => {
       achieve.alert('You Found Pongo!', '+10% Speed to Monkeys')
-      a['findPongo'] = true
+      getAch('findPongo')
       $(this).unbind(event)
     })
   }
