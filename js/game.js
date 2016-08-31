@@ -448,8 +448,10 @@ const loadGame = () => {
   if (localStorage.getItem('save') !== null) {
     const load = JSON.parse(localStorage.getItem('save'))
     // Version control system
-    if (load.ver <= '1.0.0') {
-      // Nothin
+    if (load.ver <= '1.0.0' || load.ver === 'undefined') {
+      localStorage.removeItem('save')
+      init()
+      return
     }
     save.ver = load.ver
     save.monkeys = load.monkeys
