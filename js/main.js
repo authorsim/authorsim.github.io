@@ -338,9 +338,15 @@ let UnitPanelLettersUpgrade = React.createClass({
         />
         <UnitPanelUpgradeItem
           upgradeName="Monkey Glasses"
-          desc="Monkeys write 150% faster."
+          desc="Monkeys tap out 150% more letters."
           func={upgrade.monkeyGlasses}
           cost="3,400 Letters"
+        />
+        <UnitPanelUpgradeItem
+          upgradeName="Another Finger"
+          desc="What the? Monkeys write 20% more letters."
+          func={upgrade.anotherFinger}
+          cost="8,750 Letters"
         />
       </div>
     )
@@ -387,6 +393,12 @@ let UnitPanelWordsUpgrade = React.createClass({
           func={upgrade.sticksAndStones}
           cost="1,100 Words"
         />
+        <UnitPanelUpgradeItem
+          upgradeName="Dime A Dozen"
+          desc="Write 10% more words."
+          func={upgrade.sticksAndStones}
+          cost="5,500 Words"
+        />
       </div>
     )
   }
@@ -410,7 +422,7 @@ let UnitPanelSentencesUpgrade = React.createClass({
         />
         <UnitPanelUpgradeItem
           upgradeName="Higher Learning"
-          desc="Write 15% more words."
+          desc="Write 15% more sentences."
           func={upgrade.higherLearning}
           cost="105 Sentences"
         />
@@ -453,7 +465,36 @@ let UnitPanelPagesUpgrade = React.createClass({
   render: function() {
     return (
       <div className="col-sm-5">
-
+        <UnitPanelUpgradeItem
+          upgradeName="Write Chapters"
+          desc="Allows you to write chapters manually."
+          func={upgrade.writeChapters}
+          cost="300 Pages"
+        />
+        <UnitPanelUpgradeItem
+          upgradeName="Jump Off The Page"
+          desc="Write 10% more pages."
+          func={upgrade.jumpOffThePage}
+          cost="45 Pages"
+        />
+        <UnitPanelUpgradeItem
+          upgradeName="Faster Pages"
+          desc="Write pages 20% faster."
+          func={upgrade.fasterPages}
+          cost="75 Pages"
+        />
+        <UnitPanelUpgradeItem
+          upgradeName="Smaller Margins"
+          desc="Write 25% more pages for 10% more sentences."
+          func={upgrade.smallerMargins}
+          cost="150 Pages"
+        />
+        <UnitPanelUpgradeItem
+          upgradeName="Trickle Effect"
+          desc="Write 20% more pages, 10% more sentences, 5% more words, and 2.5% more letters."
+          func={upgrade.trickleEffect}
+          cost="350 Pages"
+        />
       </div>
     )
   }
@@ -811,6 +852,7 @@ let ChangelogPanel = React.createClass({
             <ul>
               <li>Smoothed staff experience. Now includes the multiplier to give slightly more experience.</li>
               <li>Altered staff graduation skill points. Now gives flat +50% instead of multiplier.</li>
+              <li>Simple version system. Versions below 1.0 now get deleted with each new version.</li>
             </ul>
             <h3>V0.6.0</h3>
             <ul>

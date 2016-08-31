@@ -209,6 +209,20 @@ const upgrade = (() => {
       }
     },
 
+    anotherFinger: () => {
+      setVar()
+      if (l.total >= 8750 && !u.anotherFinger) {
+        $('#AnotherFinger').fadeOut()
+        getUpgrade('anotherFinger')
+        subtractTotal('letters', 8750)
+        setAvailUpgrades('letters', '-')
+        setBonus('monkeys', 'multiplier', 1.20)
+        calcGenerating('words')
+      } else if (l.total < 8750) {
+        upgradeError()
+      }
+    },
+
     //
     // Word Upgrades
     //
@@ -311,6 +325,20 @@ const upgrade = (() => {
       }
     },
 
+    dimeADozen: () => {
+      setVar()
+      if (w.total >= 5500 && !u.dimeADozen) {
+        $('#DimeADozen').fadeOut()
+        getUpgrade('dimeADozen')
+        subtractTotal('words', 5500)
+        setAvailUpgrades('words', '-')
+        setBonus('words', 'multiplier', 1.1)
+        calcGenerating('words')
+      } else if (w.total < 5500) {
+        upgradeError()
+      }
+    },
+
     //
     // Sentence Upgrades
     //
@@ -323,7 +351,7 @@ const upgrade = (() => {
         subtractTotal('sentences', 50)
         setAvailUpgrades('sentences', '-')
         $('#pagesManualSection').fadeIn()
-      } else if (w.total < 50) {
+      } else if (s.total < 50) {
         upgradeError()
       }
     },
@@ -349,7 +377,7 @@ const upgrade = (() => {
         getUpgrade('higherLearning')
         subtractTotal('sentences', 105)
         setAvailUpgrades('sentences', '-')
-        setBonus('words', 'multiplier', 1.15)
+        setBonus('sentences', 'multiplier', 1.15)
         calcGenerating('words')
       } else if (s.total < 105) {
         upgradeError()
@@ -426,6 +454,83 @@ const upgrade = (() => {
         setBonus('sentences', 'timer', 0.75)
         calcGenerating('sentences')
       } else if (s.total < 500) {
+        upgradeError()
+      }
+    },
+
+    //
+    // Page Upgrades
+    //
+
+    writeChapters: () => {
+      setVar()
+      if (p.total >= 300 && !u.writeChapters) {
+        $('#WriteChapters').fadeOut()
+        getUpgrade('writeChapters')
+        subtractTotal('pages', 300)
+        setAvailUpgrades('pages', '-')
+        $('#chaptersManualSection').fadeIn()
+      } else if (p.total < 300) {
+        upgradeError()
+      }
+    },
+
+    jumpOffThePage: () => {
+      setVar()
+      if (p.total >= 45 && !u.jumpOffThePage) {
+        $('#JumpOffThePage').fadeOut()
+        getUpgrade('jumpOffThePage')
+        subtractTotal('pages', 45)
+        setAvailUpgrades('pages', '-')
+        setBonus('pages', 'multiplier', 0.10)
+        calcGenerating('pages')
+      } else if (p.total < 45) {
+        upgradeError()
+      }
+    },
+
+    fasterPages: () => {
+      setVar()
+      if (p.total >= 75 && !u.fasterPages) {
+        $('#FasterPages').fadeOut()
+        getUpgrade('fasterPages')
+        subtractTotal('pages', 75)
+        setAvailUpgrades('pages', '-')
+        setBonus('pages', 'timer', 0.80)
+        calcGenerating('pages')
+      } else if (p.total < 75) {
+        upgradeError()
+      }
+    },
+
+    smallerMargins: () => {
+      setVar()
+      if (p.total >= 150 && !u.smallerMargins) {
+        $('#SmallerMargins').fadeOut()
+        getUpgrade('smallerMargins')
+        subtractTotal('pages', 150)
+        setAvailUpgrades('pages', '-')
+        setBonus('pages', 'multiplier', 1.25)
+        setBonus('pages', 'cost', 1.10)
+        calcGenerating('pages')
+      } else if (p.total < 150) {
+        upgradeError()
+      }
+    },
+
+    trickleEffect: () => {
+      setVar()
+      if (p.total >= 350 && !u.trickleEffect) {
+        $('#TrickleEffect').fadeOut()
+        getUpgrade('trickleEffect')
+        subtractTotal('pages', 350)
+        setAvailUpgrades('pages', '-')
+        setBonus('pages', 'multiplier', 1.20)
+        setBonus('sentences', 'multiplier', 1.10)
+        setBonus('words', 'multiplier', 1.05)
+        setBonus('letters', 'multiplier', 1.025)
+        calcGenerating('all')
+      } else if (p.total < 350) {
         upgradeError()
       }
     },

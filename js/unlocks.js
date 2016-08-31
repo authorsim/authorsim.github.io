@@ -135,6 +135,16 @@ const unlock = (function () {
     }
   }
 
+  const anotherFinger = () => {
+    if (l['lifetime'] >= 40000 && m['total'] >= 64 && !u['anotherFinger']) {
+      $('#AnotherFinger').fadeIn()
+      setAvailUpgrades('letters', '+')
+      unlocks.remove(anotherFinger)
+    } else if (u['anotherFinger']) {
+      unlocks.remove(anotherFinger)
+    }
+  }
+
   //
   // Word Unlocks
   //
@@ -203,6 +213,16 @@ const unlock = (function () {
       unlocks.remove(sticksAndStones)
     } else if (u['sticksAndStones']) {
       unlocks.remove(sticksAndStones)
+    }
+  }
+
+  const dimeADozen = () => {
+    if (w['lifetime'] >= 7600 && !u['dimeADozen']) {
+      $('#DimeADozen').fadeIn()
+      setAvailUpgrades('words', '+')
+      unlocks.remove(dimeADozen)
+    } else if (u['dimeADozen']) {
+      unlocks.remove(dimeADozen)
     }
   }
 
@@ -305,6 +325,56 @@ const unlock = (function () {
     if (p['lifetime'] >= 200) {
       $('#ChaptersMenu').fadeIn()
       unlocks.remove(seeChapters)
+    }
+  }
+
+  const writeChapters = () => {
+    if (p['lifetime'] >= 425 && !u['writeChapters']) {
+      $('#WriteChapters').fadeIn()
+      setAvailUpgrades('pages', '+')
+      unlocks.remove(writeChapters)
+    } else if (u['writeChapters']) {
+      unlocks.remove(writeChapters)
+    }
+  }
+
+  const jumpOffThePage = () => {
+    if (p['lifetime'] >= 15 && !u['jumpOffThePage']) {
+      $('#JumpOffThePage').fadeIn()
+      setAvailUpgrades('pages', '+')
+      unlocks.remove(jumpOffThePage)
+    } else if (u['jumpOffThePage']) {
+      unlocks.remove(jumpOffThePage)
+    }
+  }
+
+  const fasterPages = () => {
+    if (p['lifetime'] >= 47 && !u['fasterPages']) {
+      $('#FasterPages').fadeIn()
+      setAvailUpgrades('pages', '+')
+      unlocks.remove(fasterPages)
+    } else if (u['fasterPages']) {
+      unlocks.remove(fasterPages)
+    }
+  }
+
+  const smallerMargins = () => {
+    if (p['lifetime'] >= 180 && !u['smallerMargins']) {
+      $('#SmallerMargins').fadeIn()
+      setAvailUpgrades('pages', '+')
+      unlocks.remove(smallerMargins)
+    } else if (u['smallerMargins']) {
+      unlocks.remove(smallerMargins)
+    }
+  }
+
+  const trickleEffect = () => {
+    if (p['lifetime'] >= 350 && !u['trickleEffect']) {
+      $('#TrickleEffect').fadeIn()
+      setAvailUpgrades('pages', '+')
+      unlocks.remove(trickleEffect)
+    } else if (u['trickleEffect']) {
+      unlocks.remove(trickleEffect)
     }
   }
 
