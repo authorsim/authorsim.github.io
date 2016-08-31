@@ -448,13 +448,11 @@ const loadGame = () => {
   if (localStorage.getItem('save') !== null) {
     const load = JSON.parse(localStorage.getItem('save'))
     // Version control system
-    /*
-    if (savegame.ver <= '1.0.0') {
+    if (load.ver <= '1.0.0') {
       localStorage.removeItem('save')
       init()
-      saveGame()
+      return
     }
-    */
     save.ver = load.ver
     save.monkeys = load.monkeys
     save.letters = load.letters
