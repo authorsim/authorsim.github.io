@@ -28,7 +28,8 @@ let Header = React.createClass({
     return (
       <div className="row" id="header">
       	<h1>Author Simulator</h1>
-      	<p>version 0.6.0</p>
+        <p>version 0.6.1</p>
+        <p>This is a PROTOTYPE. Save gets deleted on page reload.</p>
       </div>
     )
   }
