@@ -143,6 +143,11 @@ const init = () => {
                 anotherFinger: false,
                 smallerMargins: false,
                 trickleEffect: false,
+                biggerFontSize: false,
+                tripleSpacing: false,
+                shareTheLove: false,
+                fasterChapters: false,
+                thirdArm: false,
     },
     achievements: { findPongo: false,
     },
@@ -383,7 +388,7 @@ const staffWriting = (num) => {
 
               // Reset progress bar and exp
               s['progress'] -= 100
-              s['exp'] += unit['timer'] * unit['multiplier'] / 2
+              s['exp'] += unit['timer'] * (unit['multiplier'] / 10) / 3
 
               // Checks for staff level up
               if (s['exp'] >= s['nextExp'] || s['level'] >= s['maxLevel']) {

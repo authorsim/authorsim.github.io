@@ -348,6 +348,12 @@ let UnitPanelLettersUpgrade = React.createClass({
           func={upgrade.anotherFinger}
           cost="8,750 Letters"
         />
+        <UnitPanelUpgradeItem
+          upgradeName="Third Arm"
+          desc="Disturbing and efficient. Monkeys write 33% more letters."
+          func={upgrade.thirdArm}
+          cost="24,000 Letters"
+        />
       </div>
     )
   }
@@ -456,6 +462,12 @@ let UnitPanelSentencesUpgrade = React.createClass({
           func={upgrade.repeatingPatterns}
           cost="500 Sentences"
         />
+        <UnitPanelUpgradeItem
+          upgradeName="Bigger Font Size"
+          desc="Hardly cheating. Write sentences 30% faster."
+          func={upgrade.biggerFontSize}
+          cost="1,350 Sentences"
+        />
       </div>
     )
   }
@@ -495,6 +507,12 @@ let UnitPanelPagesUpgrade = React.createClass({
           func={upgrade.trickleEffect}
           cost="350 Pages"
         />
+        <UnitPanelUpgradeItem
+          upgradeName="Triple Spacing"
+          desc="No one will notice. Write pages 33% faster."
+          func={upgrade.tripleSpacing}
+          cost="800 Pages"
+        />
       </div>
     )
   }
@@ -504,7 +522,18 @@ let UnitPanelChaptersUpgrade = React.createClass({
   render: function() {
     return (
       <div className="col-sm-5">
-
+        <UnitPanelUpgradeItem
+          upgradeName="Faster Chapters"
+          desc="Write chapters 30% faster."
+          func={upgrade.fasterChapters}
+          cost="3 Chapters"
+        />
+        <UnitPanelUpgradeItem
+          upgradeName="Share The Love"
+          desc="Write all units 20% faster."
+          func={upgrade.shareTheLove}
+          cost="22 Chapters"
+        />
       </div>
     )
   }
@@ -702,11 +731,11 @@ let StaffSlot = React.createClass({
           </div>
           <div id={'staffGradBonusArea' + this.props.slot} className="gradBonus text-center">
             <div className="row">
-            <div className="col-sm-6">
-              <button id={"bonusPerk2_" + this.props.slot} type="button" className="btn btn-success btn-md">
-                +50% Efficient
-              </button>
-            </div>
+              <div className="col-sm-6">
+                <button id={"bonusPerk2_" + this.props.slot} type="button" className="btn btn-success btn-md">
+                  +50% Efficient
+                </button>
+              </div>
               <div className="col-sm-6">
                 <button id={"bonusPerk1_" + this.props.slot} type="button" className="btn btn-success btn-md">
                   +50% Faster

@@ -145,6 +145,16 @@ const unlock = (function () {
     }
   }
 
+  const thirdArm = () => {
+    if (l['lifetime'] >= 70000 && m['total'] >= 100 && !u['thirdArm']) {
+      $('#ThirdArm').fadeIn()
+      setAvailUpgrades('letters', '+')
+      unlocks.remove(thirdArm)
+    } else if (u['thirdArm']) {
+      unlocks.remove(thirdArm)
+    }
+  }
+
   //
   // Word Unlocks
   //
@@ -317,6 +327,16 @@ const unlock = (function () {
     }
   }
 
+  const biggerFontSize = () => {
+    if (s['lifetime'] >= 2100 && !u['biggerFontSize']) {
+      $('#BiggerFontSize').fadeIn()
+      setAvailUpgrades('sentences', '+')
+      unlocks.remove(biggerFontSize)
+    } else if (u['biggerFontSize']) {
+      unlocks.remove(biggerFontSize)
+    }
+  }
+
   //
   // Page Unlocks
   //
@@ -378,6 +398,16 @@ const unlock = (function () {
     }
   }
 
+  const tripleSpacing = () => {
+    if (p['lifetime'] >= 550 && !u['tripleSpacing']) {
+      $('#TripleSpacing').fadeIn()
+      setAvailUpgrades('pages', '+')
+      unlocks.remove(tripleSpacing)
+    } else if (u['tripleSpacing']) {
+      unlocks.remove(tripleSpacing)
+    }
+  }
+
   //
   // Chapter Unlocks
   //
@@ -386,6 +416,26 @@ const unlock = (function () {
     if (c['lifetime'] >= 143) {
       $('#BooksMenu').fadeIn()
       unlocks.remove(seeBooks)
+    }
+  }
+
+  const fasterChapters = () => {
+    if (c['lifetime'] >= 1 && !u['fasterChapters']) {
+      $('#FasterChapters').fadeIn()
+      setAvailUpgrades('chapters', '+')
+      unlocks.remove(fasterChapters)
+    } else if (u['fasterChapters']) {
+      unlocks.remove(fasterChapters)
+    }
+  }
+
+  const shareTheLove = () => {
+    if (c['lifetime'] >= 5 && !u['shareTheLove']) {
+      $('#ShareTheLove').fadeIn()
+      setAvailUpgrades('chapters', '+')
+      unlocks.remove(shareTheLove)
+    } else if (u['shareTheLove']) {
+      unlocks.remove(shareTheLove)
     }
   }
 

@@ -217,8 +217,22 @@ const upgrade = (() => {
         subtractTotal('letters', 8750)
         setAvailUpgrades('letters', '-')
         setBonus('monkeys', 'multiplier', 1.20)
-        calcGenerating('words')
+        calcGenerating('letters')
       } else if (l.total < 8750) {
+        upgradeError()
+      }
+    },
+
+    thirdArm: () => {
+      setVar()
+      if (l.total >= 24000 && !u.thirdArm) {
+        $('#ThirdArm').fadeOut()
+        getUpgrade('thirdArm')
+        subtractTotal('letters', 24000)
+        setAvailUpgrades('letters', '-')
+        setBonus('monkeys', 'multiplier', 1.33)
+        calcGenerating('letters')
+      } else if (l.total < 24000) {
         upgradeError()
       }
     },
@@ -458,6 +472,20 @@ const upgrade = (() => {
       }
     },
 
+    biggerFontSize: () => {
+      setVar()
+      if (s.total >= 1350 && !u.biggerFontSize) {
+        $('#BiggerFontSize').fadeOut()
+        getUpgrade('biggerFontSize')
+        subtractTotal('sentences', 1350)
+        setAvailUpgrades('sentences', '-')
+        setBonus('sentences', 'timer', 0.70)
+        calcGenerating('sentences')
+      } else if (s.total < 1350) {
+        upgradeError()
+      }
+    },
+
     //
     // Page Upgrades
     //
@@ -531,6 +559,56 @@ const upgrade = (() => {
         setBonus('letters', 'multiplier', 1.025)
         calcGenerating('all')
       } else if (p.total < 350) {
+        upgradeError()
+      }
+    },
+
+    tripleSpacing: () => {
+      setVar()
+      if (p.total >= 800 && !u.tripleSpacing) {
+        $('#TripleSpacing').fadeOut()
+        getUpgrade('tripleSpacing')
+        subtractTotal('pages', 800)
+        setAvailUpgrades('pages', '-')
+        setBonus('pages', 'timer', 0.66)
+        calcGenerating('pages')
+      } else if (p.total < 800) {
+        upgradeError()
+      }
+    },
+
+    //
+    // Chapter Upgrades
+    //
+
+    fasterChapters: () => {
+      setVar()
+      if (c.total >= 3 && !u.fasterChapters) {
+        $('#FasterChapters').fadeOut()
+        getUpgrade('fasterChapters')
+        subtractTotal('chapters', 3)
+        setAvailUpgrades('chapters', '-')
+        setBonus('chapters', 'timer', 0.70)
+      } else if (c.total < 3) {
+        upgradeError()
+      }
+    },
+
+    shareTheLove: () => {
+      setVar()
+      if (c.total >= 22 && !u.shareTheLove) {
+        $('#ShareTheLove').fadeOut()
+        getUpgrade('shareTheLove')
+        subtractTotal('chapters', 22)
+        setAvailUpgrades('chapters', '-')
+        setBonus('books', 'timer', 0.80)
+        setBonus('chapters', 'timer', 0.80)
+        setBonus('pages', 'timer', 0.80)
+        setBonus('sentences', 'timer', 0.80)
+        setBonus('words', 'timer', 0.80)
+        setBonus('letters', 'timer', 0.80)
+        calcGenerating('all')
+      } else if (c.total < 22) {
         upgradeError()
       }
     },
