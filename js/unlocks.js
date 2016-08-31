@@ -458,6 +458,8 @@ const unlock = (function () {
       unlocks.add(smarterLetters)
       unlocks.add(tooManyLetters)
       unlocks.add(monkeyGlasses)
+      unlocks.add(anotherFinger)
+      unlocks.add(thirdArm)
 
       // Word Unlocks
       unlocks.add(seeSentences)
@@ -467,6 +469,7 @@ const unlock = (function () {
       unlocks.add(wordOfWisdom)
       unlocks.add(gettingTheHangOfIt)
       unlocks.add(sticksAndStones)
+      unlocks.add(dimeADozen)
 
       // Sentence Unlocks
       unlocks.add(seePages)
@@ -478,12 +481,21 @@ const unlock = (function () {
       unlocks.add(letterTradeoff)
       unlocks.add(commonKnowledge)
       unlocks.add(repeatingPatterns)
+      unlocks.add(biggerFontSize)
 
       // Page Unlocks
       unlocks.add(seeChapters)
+      unlocks.add(writeChapters)
+      unlocks.add(jumpOffThePage)
+      unlocks.add(fasterPages)
+      unlocks.add(smallerMargins)
+      unlocks.add(trickleEffect)
+      unlocks.add(tripleSpacing)
 
       // Chapter Unlocks
       unlocks.add(seeBooks)
+      unlocks.add(fasterChapters)
+      unlocks.add(shareTheLove)
 
       // Sets upgrade counting variables to 0
       l['availableUpgrades'] = 0
