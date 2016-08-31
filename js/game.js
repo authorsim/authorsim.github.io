@@ -12,6 +12,7 @@ export const units = ['letters', 'words', 'sentences',
 export let save
 const init = () => {
   save = {
+    ver: '0.6.1',
     monkeys: { total: 0,
                 multiplier: 1.0,
                 cost: 1,
@@ -405,44 +406,15 @@ export const errorAlert = (title, desc) => {
 // Functions on page load (timeout, save)
 //
 
+function saveGame() {
+  localStorage.setItem('save', JSON.stringify(save))
+}
+
 function timeout() {
   window.setTimeout(() => {
-    localStorage.setItem('save', JSON.stringify(save))
+    saveGame()
     timeout()
   }, 5000)
-}
-
-const load = () => {
-  if (localStorage.getItem('save') !== null) {
-    const savegame = JSON.parse(localStorage.getItem('save'))
-    save.monkeys = savegame.monkeys
-    save.letters = savegame.letters
-    save.words = savegame.words
-    save.sentences = savegame.sentences
-    save.pages = savegame.pages
-    save.chapters = savegame.chapters
-    save.books = savegame.books
-    save.series = savegame.series
-    save.upgrades = savegame.upgrades
-    save.staff = savegame.staff
-    save.achievements = savegame.achievements
-  }
-}
-
-window.onload = () => {
-  units.forEach((cv, i, arr) => {
-    calcGenerating(cv)
-  })
-  load()
-  timeout()
-  unlock.setup()
-  upgrade.setup()
-  achieve.setup()
-}
-
-// Fires before the page unloads
-window.onbeforeunload = (event) => {
-  localStorage.setItem('save', JSON.stringify(save))
 }
 
 export const delSave = () => {
@@ -459,6 +431,46 @@ export const delSave = () => {
     $('.confirmpopopacity').fadeOut()
   })
 }
+
+const loadGame = () => {
+  if (localStorage.getItem('save') !== null) {
+    const load = JSON.parse(localStorage.getItem('save'))
+    // Version control system
+    /*
+    if (savegame.ver <= '1.0.0') {
+      localStorage.removeItem('save')
+      init()
+      saveGame()
+    }
+    */
+    save.ver = load.ver
+    save.monkeys = load.monkeys
+    save.letters = load.letters
+    save.words = load.words
+    save.sentences = load.sentences
+    save.pages = load.pages
+    save.chapters = load.chapters
+    save.books = load.books
+    save.series = load.series
+    save.upgrades = load.upgrades
+    save.staff = load.staff
+    save.achievements = load.achievements
+  }
+}
+
+window.onload = () => {
+  units.forEach((cv, i, arr) => {
+    calcGenerating(cv)
+  })
+  loadGame()
+  timeout()
+  unlock.setup()
+  upgrade.setup()
+  achieve.setup()
+}
+
+// Fires before the page unloads
+window.onbeforeunload = (e) => { saveGame() }
 
 //
 // The loop

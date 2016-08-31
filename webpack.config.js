@@ -16,11 +16,11 @@ module.exports = {
       },
     ],
   },
-  devtool: 'cheap-module-source-map',
+  devtool: 'eval',
   plugins: [
     new webpack.DefinePlugin({
       'process.env': {
-        NODE_ENV: JSON.stringify('production'),
+        NODE_ENV: JSON.stringify('development'),
       },
     }),
     new webpack.optimize.UglifyJsPlugin({
