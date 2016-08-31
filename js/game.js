@@ -449,9 +449,7 @@ const loadGame = () => {
     const load = JSON.parse(localStorage.getItem('save'))
     // Version control system
     if (load.ver <= '1.0.0') {
-      localStorage.removeItem('save')
-      init()
-      return
+      // Nothin
     }
     save.ver = load.ver
     save.monkeys = load.monkeys
