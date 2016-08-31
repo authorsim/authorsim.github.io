@@ -395,7 +395,7 @@ let UnitPanelWordsUpgrade = React.createClass({
         />
         <UnitPanelUpgradeItem
           upgradeName="Sticks And Stones"
-          desc="Words cost 20% more but generate 50% more."
+          desc="Words hurt, I mean cost 20% more but generate 50% more."
           func={upgrade.sticksAndStones}
           cost="1,100 Words"
         />
