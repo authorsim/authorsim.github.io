@@ -702,14 +702,14 @@ let StaffSlot = React.createClass({
           </div>
           <div id={'staffGradBonusArea' + this.props.slot} className="gradBonus text-center">
             <div className="row">
+            <div className="col-sm-6">
+              <button id={"bonusPerk2_" + this.props.slot} type="button" className="btn btn-success btn-md">
+                +50% Efficient
+              </button>
+            </div>
               <div className="col-sm-6">
                 <button id={"bonusPerk1_" + this.props.slot} type="button" className="btn btn-success btn-md">
                   +50% Faster
-                </button>
-              </div>
-              <div className="col-sm-6">
-                <button id={"bonusPerk2_" + this.props.slot} type="button" className="btn btn-success btn-md">
-                  +50% Efficient
                 </button>
               </div>
             </div>
@@ -853,6 +853,8 @@ let ChangelogPanel = React.createClass({
               <li>Smoothed staff experience. Now includes the multiplier to give slightly more experience.</li>
               <li>Altered staff graduation skill points. Now gives flat +50% instead of multiplier.</li>
               <li>Simple version system. Versions below 1.0 now get deleted with each new version.</li>
+              <li>Several new upgrades.</li>
+              <li>Switched staff skill point bonuses to match the UI.</li>
             </ul>
             <h3>V0.6.0</h3>
             <ul>
