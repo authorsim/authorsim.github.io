@@ -375,7 +375,7 @@ const staffWriting = (num) => {
 
               // Reset progress bar and exp
               s['progress'] -= 100
-              s['exp'] += unit['timer'] / 2
+              s['exp'] += unit['timer'] * unit['multiplier'] / 2
 
               // Checks for staff level up
               if (s['exp'] >= s['nextExp'] || s['level'] >= s['maxLevel']) {

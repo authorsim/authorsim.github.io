@@ -105,7 +105,7 @@ export const chooseSkill = (slot) => {
     // Perk of +50% speed
     $('#bonusPerk1_' + slot).text('+50% Speed').show().click(() => {
       if (cur.skillPoint > 0) {
-        cur['speed'] *= 1.50
+        cur['speed'] += 0.50
         cur['skillPoint'] -= 1
         $('#staffProgressArea' + slot).toggle()
         $('#staffGradBonusArea' + slot).toggle()
@@ -115,7 +115,7 @@ export const chooseSkill = (slot) => {
     // Perk of +50% efficiency
     $('#bonusPerk2_' + slot).text('+50% Efficiency').show().click(() => {
       if (cur.skillPoint > 0) {
-        cur['eff'] *= 1.50
+        cur['eff'] += 0.50
         cur['skillPoint'] -= 1
         $('#staffProgressArea' + slot).toggle()
         $('#staffGradBonusArea' + slot).toggle()
