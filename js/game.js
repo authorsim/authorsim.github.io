@@ -2,6 +2,7 @@ import { levelUp } from './staff.js'
 import unlock from './unlocks.js'
 import upgrade from './upgrades.js'
 import achieve from './achievements.js'
+import tutorial from './tutorials.js'
 
 // Declare variables
 const interval = 20
@@ -100,7 +101,6 @@ const init = () => {
                 availableUpgrades: 0,
                 cost: 3,
     },
-    office: { space: 0, counter: 1 },
     staff: { s1: {},
                 s2: {},
                 s3: {},
@@ -151,6 +151,8 @@ const init = () => {
     },
     achievements: { findPongo: false,
     },
+    tutorials: { first: false,
+    },
   }
 }
 
@@ -189,9 +191,6 @@ export const subtractTotal = (unit, num) => {
 export const setBonus = (unit, perk, value) => {
   save[unit][perk] *= value
 }
-
-// If the save object doesn't yet exist, create it.
-if (typeof save === 'undefined') { init() }
 
 //
 // Writing calculation pieces
@@ -388,7 +387,7 @@ const staffWriting = (num) => {
 
               // Reset progress bar and exp
               s['progress'] -= 100
-              s['exp'] += unit['timer'] * (unit['multiplier'] / 10) / 3
+              s['exp'] += unit['timer'] * (unit['multiplier'] / 10) / 2
 
               // Checks for staff level up
               if (s['exp'] >= s['nextExp'] || s['level'] >= s['maxLevel']) {
@@ -444,6 +443,11 @@ export const delSave = () => {
   })
 }
 
+// If the save object doesn't yet exist, create it.
+if (typeof save === 'undefined') {
+  init()
+}
+
 const loadGame = () => {
   if (localStorage.getItem('save') !== null) {
     const load = JSON.parse(localStorage.getItem('save'))
@@ -477,10 +481,13 @@ window.onload = () => {
   unlock.setup()
   upgrade.setup()
   achieve.setup()
+  if (!save.tutorials.first) {
+    tutorial.first()
+  }
 }
 
 // Fires before the page unloads
-window.onbeforeunload = (e) => { saveGame() }
+window.onbeforeunload = () => { saveGame() }
 
 //
 // The loop

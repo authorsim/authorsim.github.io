@@ -6,6 +6,7 @@ import { save, startWriting, prettify, delSave } from './game.js'
 import { chooseSkill, startStaffWriting, staffGraduate, buyMonkey, hireStaff } from './staff.js'
 import upgrade from './upgrades.js'
 import achieve from './achievements.js'
+import tutorial from './tutorials.js'
 
 let AuthorSim = React.createClass({
   render: () => {
@@ -18,6 +19,7 @@ let AuthorSim = React.createClass({
 
         <ConfirmWindow />
         <AchievementWindow />
+        <TutorialWindow />
       </div>
     )
   }
@@ -26,7 +28,7 @@ let AuthorSim = React.createClass({
 let Header = React.createClass({
   render: () => {
     return (
-      <div className="row" id="header">
+      <div className="row text-center">
       	<h1>Author Simulator</h1>
         <p>version 0.6.1</p>
         <p>This is a PROTOTYPE. Saves get deleted on page reload.</p>
@@ -725,7 +727,7 @@ let StaffSlot = React.createClass({
 
           </div>
         <div className="col-sm-12">
-          <div id={'staffGraduate' + this.props.slot} className="graduate">
+          <div id={'staffGraduate' + this.props.slot} className="graduate text-center">
             <button onClick={this.graduate} type="button" data-tip="+1 Skill Point" className="btn btn-success btn-lg">
               Graduate
             </button>
@@ -805,7 +807,7 @@ let AchievementPanel = React.createClass({
     achieve.check()
   },
   componentDidMount: function() {
-    setInterval(this.update, 500)
+    setInterval(this.update, 700)
   },
   render: function() {
     return (
@@ -929,14 +931,31 @@ let ConfirmWindow = React.createClass({
 let AchievementWindow = React.createClass({
   render: function() {
     return (
-      <div className="row achievementWindow achBehind">
+      <div className="row achievementWindow centered">
     	<div className="col-sm-12">
-    		<div id="achieve" className="alert alert-dismissible alert-success fade" role="alert">
+    		<div id="achieve" className="alert alert-dismissible alert-success text-center" role="alert">
     			<button type="button" className="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
     			<span className="achieveicon glyphicon glyphicon-ok"></span>
     			<h3 id="achieveTitle">Whoa!</h3>
     			<p id="achieveDesc">Looks like you earned an achievement!</p>
     		</div>
+    	</div>
+    	</div>
+    )
+  }
+})
+
+let TutorialWindow = React.createClass({
+  componentDidMount: function() {
+    tutorial.setup()
+  },
+  render: function() {
+    return (
+      <div className="row">
+    	<div className="col-sm-12" id="tutorialWindow">
+  			<h3 id="tutorialTitle">Tutorial Header</h3>
+  			<p id="tutorialDesc">This portion explains details for this portion of the tutorial.</p>
+        <button type="button" className="btn btn-success btn-sm" id="tutorialNext">Next</button>
     	</div>
     	</div>
     )

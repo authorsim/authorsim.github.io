@@ -1,4 +1,5 @@
 import { save } from './game.js'
+
 const achieve = (function () {
   //
   // Drag and Drop
@@ -61,15 +62,13 @@ const achieve = (function () {
   return {
     // Animation for fading in and then out an alert box
     alert: (title, desc) => {
-      $('.achievementWindow').removeClass('achBehind').addClass('achInFront')
-      $('#achieve').fadeTo(500, 0.9)
+      $('.achievementWindow').animate({ left: 0 }, 1000)
       $('#achieveTitle').text(title)
       $('#achieveDesc').text('Perk: ' + desc)
 
       // After 7 seconds, fades the window back out
       window.setTimeout(() => {
-        $('#achieve').fadeTo(500, 0)
-        $('.achievementWindow').removeClass('achInFront').addClass('achBehind')
+        $('.achievementWindow').animate({ left: -10000 }, 1000)
       }, 7000)
     },
 

@@ -1,11 +1,3 @@
-#header {
-  text-align: center;
-}
-
-.alert {
-  text-align: center;
-}
-
 .btn {
   margin-top: 3px;
 }
@@ -14,15 +6,6 @@
   top: 0;
   left: 0;
   transform: translateX(50%) translateY(50%);
-}
-
-.graduate {
-  text-align: center;
-  display: none;
-}
-
-.upgrade {
-  display: none;
 }
 
 #SeriesMenu,
@@ -46,7 +29,9 @@
   display: none;
 }
 
-.gradBonus {
+.gradBonus,
+.graduate,
+.upgrade {
   display: none;
 }
 
@@ -105,17 +90,25 @@
 .achievementWindow {
   position: absolute;
   top: 70%;
-  left: 25%;
+  left: -100%;
   width: 50%;
   height: 20%;
 }
 
-.achBehind {
-  z-index: -1;
+#tutorialWindow {
+  position: absolute;
+  width: 25%;
+  background-color: #f1f1f1;
+  border: 1px solid #000;
+  border-radius: 15px;
+  opacity: 0.9;
+  left: -100%;
 }
 
-.achInFront {
-  z-index: 200;
+#tutorialNext {
+  position: absolute;
+  right: 10px;
+  top: 10px;
 }
 
 .gamestate {
