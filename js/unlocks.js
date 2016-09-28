@@ -419,6 +419,16 @@ const unlock = (function () {
     }
   }
 
+  const writeBooks = () => {
+    if (c['lifetime'] >= 15 && !u['writeBooks']) {
+      $('#WriteBooks').fadeIn()
+      setAvailUpgrades('chapters', '+')
+      unlocks.remove(writeBooks)
+    } else if (u['writeBooks']) {
+      unlocks.remove(writeBooks)
+    }
+  }
+
   const fasterChapters = () => {
     if (c['lifetime'] >= 1 && !u['fasterChapters']) {
       $('#FasterChapters').fadeIn()
@@ -494,6 +504,7 @@ const unlock = (function () {
 
       // Chapter Unlocks
       unlocks.add(seeBooks)
+      unlocks.add(writeBooks)
       unlocks.add(fasterChapters)
       unlocks.add(shareTheLove)
 

@@ -526,6 +526,12 @@ let UnitPanelChaptersUpgrade = React.createClass({
     return (
       <div className="col-sm-5">
         <UnitPanelUpgradeItem
+          upgradeName="Write Books"
+          desc="Allows you to write books manually."
+          func={upgrade.writeBooks}
+          cost="300 Chapters"
+        />
+        <UnitPanelUpgradeItem
           upgradeName="Faster Chapters"
           desc="Write chapters 30% faster."
           func={upgrade.fasterChapters}

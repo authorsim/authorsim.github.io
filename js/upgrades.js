@@ -581,6 +581,19 @@ const upgrade = (() => {
     // Chapter Upgrades
     //
 
+    writeBooks: () => {
+      setVar()
+      if (c.total >= 300 && !u.writeBooks) {
+        $('#WriteBooks').fadeOut()
+        getUpgrade('writeBooks')
+        subtractTotal('chapters', 300)
+        setAvailUpgrades('chapters', '-')
+        $('#booksManualSection').fadeIn()
+      } else if (c.total < 300) {
+        upgradeError()
+      }
+    },
+
     fasterChapters: () => {
       setVar()
       if (c.total >= 3 && !u.fasterChapters) {

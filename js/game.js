@@ -116,6 +116,7 @@ const init = () => {
                 writeSentences: false,
                 writePages: false,
                 writeChapters: false,
+                writeBooks: false,
                 fasterLetters: false,
                 efficientMonkeys: false,
                 fasterWords: false,
@@ -249,7 +250,7 @@ export const calcGenerating = (unit) => {
 
 const getActiveUnit = () => {
   let active = ''
-  units.reduce((pv, cv, i, a) => { // Checks all manual to see if true
+  units.forEach((cv, i, a) => { // Checks all manual to see if true
     const cur = save[cv]['manual']
     if (cur) { active = cv } // If a value is true, return it
   }, 0)
@@ -452,11 +453,13 @@ const loadGame = () => {
   if (localStorage.getItem('save') !== null) {
     const load = JSON.parse(localStorage.getItem('save'))
     // Version control system
+    /*
     if (load.ver <= '1.0.0' || load.ver === 'undefined') {
       localStorage.removeItem('save')
       init()
       return
     }
+    */
     save.ver = load.ver
     save.monkeys = load.monkeys
     save.letters = load.letters
@@ -469,6 +472,7 @@ const loadGame = () => {
     save.upgrades = load.upgrades
     save.staff = load.staff
     save.achievements = load.achievements
+    save.tutorials = load.tutorials
   }
 }
 
@@ -483,6 +487,7 @@ window.onload = () => {
   achieve.setup()
   if (!save.tutorials.first) {
     tutorial.first()
+    save.tutorials.first = true
   }
 }
 
