@@ -886,6 +886,11 @@ let ChangelogPanel = React.createClass({
       <div role="tabpanel" className="tab-pane fade" id="changelog">
         <div className="row">
           <div className="col-sm-12">
+            <h3>V0.7.0</h3>
+            <ul>
+              <li>You can now write books!</li>
+              <li>There is an introductory tutorial that explains how to play the game.</li>
+            </ul>
             <h3>V0.6.1</h3>
             <ul>
               <li>Smoothed staff experience. Now includes the multiplier to give slightly more experience.</li>
