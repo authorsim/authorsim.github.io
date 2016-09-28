@@ -97,18 +97,22 @@
 
 #tutorialWindow {
   position: absolute;
-  width: 25%;
+  width: 20%;
   background-color: #f1f1f1;
   border: 1px solid #000;
   border-radius: 15px;
+  padding-left: 10px;
   opacity: 0.9;
   left: -100%;
 }
 
+#tutorialNext, #tutorialTitle {
+  display: inline-block;
+}
+
 #tutorialNext {
-  position: absolute;
-  right: 10px;
-  top: 10px;
+  float: right;
+  margin: 15px;
 }
 
 .gamestate {

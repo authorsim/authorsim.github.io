@@ -951,12 +951,10 @@ let TutorialWindow = React.createClass({
   },
   render: function() {
     return (
-      <div className="row">
-    	<div className="col-sm-12" id="tutorialWindow">
+    	<div id="tutorialWindow">
   			<h3 id="tutorialTitle">Tutorial Header</h3>
-  			<p id="tutorialDesc">This portion explains details for this portion of the tutorial.</p>
         <button type="button" className="btn btn-success btn-sm" id="tutorialNext">Next</button>
-    	</div>
+      	<p id="tutorialDesc">This portion explains details for this portion of the tutorial.</p>
     	</div>
     )
   }

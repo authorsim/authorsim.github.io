@@ -2,7 +2,7 @@ const webpack = require('webpack')
 
 module.exports = {
   entry: {
-    Main: ['./js/main.js'],
+    main: ['./js/main.js'],
   },
   output: {
     path: './build/js',
@@ -29,6 +29,11 @@ module.exports = {
       compress: {
         warnings: false,
       },
+    }),
+    new webpack.ProvidePlugin({
+      $: 'jquery',
+      jQuery: 'jquery',
+      'window.jQuery': 'jquery',
     }),
   ],
 }
