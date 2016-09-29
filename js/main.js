@@ -405,7 +405,7 @@ let UnitPanelWordsUpgrade = React.createClass({
         <UnitPanelUpgradeItem
           upgradeName="Dime A Dozen"
           desc="Write 10% more words."
-          func={upgrade.sticksAndStones}
+          func={upgrade.dimeADozen}
           cost="5,500 Words"
         />
       </div>
