@@ -253,7 +253,7 @@ const getActiveUnit = () => {
   units.forEach((cv, i, a) => { // Checks all manual to see if true
     const cur = save[cv]['manual']
     if (cur) { active = cv } // If a value is true, return it
-  }, 0)
+  })
   return active
 }
 
@@ -355,6 +355,7 @@ const writing = (num) => { // Manual writing
     } else if (curr['cost'] <= save[pv]['total'] && save[cv] === curr) {
       curr['progress'] += (100 / (curr['timer'] * (1000 / interval)) * num)
       while (curr['progress'] >= 100) {
+        console.log(curr['multiplier'])
         // Increment unit and reset progress
         curr['total'] += 1 * curr['multiplier']
         curr['lifetime'] += 1 * curr['multiplier']

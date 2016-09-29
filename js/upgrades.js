@@ -510,7 +510,7 @@ const upgrade = (() => {
         getUpgrade('jumpOffThePage')
         subtractTotal('pages', 45)
         setAvailUpgrades('pages', '-')
-        setBonus('pages', 'multiplier', 0.10)
+        setBonus('pages', 'multiplier', 1.10)
         calcGenerating('pages')
       } else if (p.total < 45) {
         upgradeError()
