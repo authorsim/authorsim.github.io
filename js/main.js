@@ -30,7 +30,7 @@ let Header = React.createClass({
     return (
       <div className="row text-center">
       	<h1>Author Simulator</h1>
-        <p>version 0.6.1</p>
+        <p>version 0.7.0</p>
         <p>This is a PROTOTYPE. Saves get deleted on page reload.</p>
       </div>
     )
