@@ -236,6 +236,26 @@ const unlock = (function () {
     }
   }
 
+  const choiceWords = () => {
+    if (w['lifetime'] >= 14000 && !u['choiceWords']) {
+      $('#ChoiceWords').fadeIn()
+      setAvailUpgrades('words', '+')
+      unlocks.remove(choiceWords)
+    } else if (u['choiceWords']) {
+      unlocks.remove(choiceWords)
+    }
+  }
+
+  const gobbeldyGook = () => {
+    if (w['lifetime'] >= 26000 && !u['gobbeldyGook']) {
+      $('#GobbeldyGook').fadeIn()
+      setAvailUpgrades('words', '+')
+      unlocks.remove(gobbeldyGook)
+    } else if (u['gobbeldyGook']) {
+      unlocks.remove(gobbeldyGook)
+    }
+  }
+
   //
   // Sentence Unlocks
   //
@@ -328,12 +348,32 @@ const unlock = (function () {
   }
 
   const biggerFontSize = () => {
-    if (s['lifetime'] >= 2100 && !u['biggerFontSize']) {
+    if (s['lifetime'] >= 1900 && !u['biggerFontSize']) {
       $('#BiggerFontSize').fadeIn()
       setAvailUpgrades('sentences', '+')
       unlocks.remove(biggerFontSize)
     } else if (u['biggerFontSize']) {
       unlocks.remove(biggerFontSize)
+    }
+  }
+
+  const spinningSentences = () => {
+    if (s['lifetime'] >= 2200 && !u['spinningSentences']) {
+      $('#SpinningSentences').fadeIn()
+      setAvailUpgrades('sentences', '+')
+      unlocks.remove(spinningSentences)
+    } else if (u['spinningSentences']) {
+      unlocks.remove(spinningSentences)
+    }
+  }
+
+  const letterSpacing = () => {
+    if (s['lifetime'] >= 2500 && !u['letterSpacing']) {
+      $('#LetterSpacing').fadeIn()
+      setAvailUpgrades('sentences', '+')
+      unlocks.remove(letterSpacing)
+    } else if (u['letterSpacing']) {
+      unlocks.remove(letterSpacing)
     }
   }
 
@@ -408,6 +448,26 @@ const unlock = (function () {
     }
   }
 
+  const hugeMargins = () => {
+    if (p['lifetime'] >= 955 && !u['hugeMargins']) {
+      $('#HugeMargins').fadeIn()
+      setAvailUpgrades('pages', '+')
+      unlocks.remove(hugeMargins)
+    } else if (u['hugeMargins']) {
+      unlocks.remove(hugeMargins)
+    }
+  }
+
+  const paragraphSpacing = () => {
+    if (p['lifetime'] >= 1400 && !u['paragraphSpacing']) {
+      $('#ParagraphSpacing').fadeIn()
+      setAvailUpgrades('pages', '+')
+      unlocks.remove(paragraphSpacing)
+    } else if (u['paragraphSpacing']) {
+      unlocks.remove(paragraphSpacing)
+    }
+  }
+
   //
   // Chapter Unlocks
   //
@@ -420,7 +480,7 @@ const unlock = (function () {
   }
 
   const writeBooks = () => {
-    if (c['lifetime'] >= 15 && !u['writeBooks']) {
+    if (c['lifetime'] >= 150 && !u['writeBooks']) {
       $('#WriteBooks').fadeIn()
       setAvailUpgrades('chapters', '+')
       unlocks.remove(writeBooks)
@@ -446,6 +506,30 @@ const unlock = (function () {
       unlocks.remove(shareTheLove)
     } else if (u['shareTheLove']) {
       unlocks.remove(shareTheLove)
+    }
+  }
+
+  const chapterADay = () => {
+    if (c['lifetime'] >= 43 && !u['chapterADay']) {
+      $('#ChapterADay').fadeIn()
+      setAvailUpgrades('chapters', '+')
+      unlocks.remove(chapterADay)
+    } else if (u['chapterADay']) {
+      unlocks.remove(chapterADay)
+    }
+  }
+
+  //
+  // Book Unlocks
+  //
+
+  const researcher = () => {
+    if (b['lifetime'] >= 1 && !u['researcher']) {
+      $('#Researcher').fadeIn()
+      setAvailUpgrades('books', '+')
+      unlocks.remove(researcher)
+    } else if (u['researcher']) {
+      unlocks.remove(researcher)
     }
   }
 
@@ -480,6 +564,8 @@ const unlock = (function () {
       unlocks.add(gettingTheHangOfIt)
       unlocks.add(sticksAndStones)
       unlocks.add(dimeADozen)
+      unlocks.add(choiceWords)
+      unlocks.add(gobbeldyGook)
 
       // Sentence Unlocks
       unlocks.add(seePages)
@@ -492,6 +578,8 @@ const unlock = (function () {
       unlocks.add(commonKnowledge)
       unlocks.add(repeatingPatterns)
       unlocks.add(biggerFontSize)
+      unlocks.add(letterSpacing)
+      unlocks.add(spinningSentences)
 
       // Page Unlocks
       unlocks.add(seeChapters)
@@ -501,12 +589,18 @@ const unlock = (function () {
       unlocks.add(smallerMargins)
       unlocks.add(trickleEffect)
       unlocks.add(tripleSpacing)
+      unlocks.add(hugeMargins)
+      unlocks.add(paragraphSpacing)
 
       // Chapter Unlocks
       unlocks.add(seeBooks)
       unlocks.add(writeBooks)
       unlocks.add(fasterChapters)
       unlocks.add(shareTheLove)
+      unlocks.add(chapterADay)
+
+      // Book Unlocks
+      unlocks.add(researcher)
 
       // Sets upgrade counting variables to 0
       l['availableUpgrades'] = 0

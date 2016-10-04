@@ -160,3 +160,7 @@ export const startStaffWriting = (unit, slot) => {
   $('#staffProgress' + slot)
     .addClass('progress-bar-striped active')
 }
+
+export const startResearching = (slot) => {
+  console.log('research!')
+}

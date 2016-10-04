@@ -122,8 +122,8 @@ let UnitPanel = React.createClass({
           <div className="tab-content col-sm-3">
             <ul className="nav nav-pills nav-stacked">
               <UnitMenuItem
-                unit="Series"
-                total={this.props.save.series.total}
+                unit="Encyclopedias"
+                total={this.props.save.encyclopedias.total}
               />
               <UnitMenuItem
                 unit="Books"
@@ -176,9 +176,8 @@ let UnitPanel = React.createClass({
               unit={this.props.save.books}
               write={this.write.bind(null, this.props.save.books.unit)}
             />
-            <UnitDetailsPanel
-              unit={this.props.save.series}
-              write={this.write.bind(null, this.props.save.series.unit)}
+            <EncyclopediaPanel
+              unit={this.props.save.encyclopedias}
             />
           </div>
         </div>
@@ -258,6 +257,32 @@ let UnitDetailsPanel = React.createClass({
             <button className="btn btn-lg btn-info center-block" onClick={this.props.write}>
               Write {this.props.unit.unit}
             </button>
+          </div>
+        </div>
+      </div>
+    )
+  }
+})
+
+let EncyclopediaPanel = React.createClass({
+  render: function() {
+    return (
+      <div id={this.props.unit.unit} role="tabpanel" className="tab-pane fade">
+        <div className="row">
+          <div className="col-sm-12">
+            <p>You have {prettify(this.props.unit.total)} {this.props.unit.unit}.</p>
+            <h3>To write your next encyclopedia, you need:</h3>
+            <p>{this.props.unit.requirements.first.num}
+            {this.props.unit.requirements.first.unit}</p>
+            <p>{this.props.unit.requirements.second.num}
+            {this.props.unit.requirements.second.unit}</p>
+            <p>{this.props.unit.requirements.third.num}
+            {this.props.unit.requirements.third.unit}</p>
+          </div>
+        </div>
+        <div className="row">
+          <div className="col-sm-12">
+            <h1>Learning Opportunities</h1>
           </div>
         </div>
       </div>
@@ -408,6 +433,18 @@ let UnitPanelWordsUpgrade = React.createClass({
           func={upgrade.dimeADozen}
           cost="5,500 Words"
         />
+        <UnitPanelUpgradeItem
+          upgradeName="Choice Words"
+          desc="Write words 35% faster."
+          func={upgrade.choiceWords}
+          cost="8,050 Words"
+        />
+        <UnitPanelUpgradeItem
+          upgradeName="Gobbeldy Gook"
+          desc="Write 100% more words."
+          func={upgrade.gobbeldyGook}
+          cost="17,000 Words"
+        />
       </div>
     )
   }
@@ -471,6 +508,18 @@ let UnitPanelSentencesUpgrade = React.createClass({
           func={upgrade.biggerFontSize}
           cost="1,350 Sentences"
         />
+        <UnitPanelUpgradeItem
+          upgradeName="Spinning Sentences"
+          desc="Has anyone really been far even as decided to use even go want to do look more like? Also, write sentences twice as fast."
+          func={upgrade.spinningSentences}
+          cost="1,600 Sentences"
+        />
+        <UnitPanelUpgradeItem
+          upgradeName="Letter Spacing"
+          desc="Squeeze them a little further...perfect. Write 60% more sentences."
+          func={upgrade.letterSpacing}
+          cost="1,900 Sentences"
+        />
       </div>
     )
   }
@@ -516,6 +565,18 @@ let UnitPanelPagesUpgrade = React.createClass({
           func={upgrade.tripleSpacing}
           cost="800 Pages"
         />
+        <UnitPanelUpgradeItem
+          upgradeName="Huge Margins"
+          desc="Pushing 1.1 inches, eh? Write 25% more pages."
+          func={upgrade.hugeMargins}
+          cost="1,000 Pages"
+        />
+        <UnitPanelUpgradeItem
+          upgradeName="Paragraph Spacing"
+          desc="More space between paragraphs. Write pages 30% faster."
+          func={upgrade.paragraphSpacing}
+          cost="1,200 Pages"
+        />
       </div>
     )
   }
@@ -543,6 +604,12 @@ let UnitPanelChaptersUpgrade = React.createClass({
           func={upgrade.shareTheLove}
           cost="22 Chapters"
         />
+        <UnitPanelUpgradeItem
+          upgradeName="Chapter A Day"
+          desc="Keeps the monkeys at bay. Write pages 60% faster."
+          func={upgrade.chapterADay}
+          cost="33 Chapters"
+        />
       </div>
     )
   }
@@ -552,7 +619,12 @@ let UnitPanelBooksUpgrade = React.createClass({
   render: function() {
     return (
       <div className="col-sm-5">
-
+        <UnitPanelUpgradeItem
+          upgradeName="Researcher"
+          desc="Start research on your first encyclopedia."
+          func={upgrade.researcher}
+          cost="3 Books"
+        />
       </div>
     )
   }
@@ -671,6 +743,9 @@ let StaffSlot = React.createClass({
   startWriting: function(unit) {
     startStaffWriting(unit, this.props.slot)
   },
+  startResearching: function(unit) {
+    startResearching(this.props.slot)
+  },
   graduate: function() {
     staffGraduate(this.props.slot)
   },
@@ -770,7 +845,7 @@ let StaffSlot = React.createClass({
                 null
               }
               {this.props.staff.prestige >= 5 ?
-                <button onClick={this.startWriting.bind(null, 'series')} id={'staffseries' + this.props.slot} type="button" className="btn btn-info btn-sm" data-tip="Research">R</button> :
+                <button onClick={this.startResearching.bind(null)} id={'staffseries' + this.props.slot} type="button" className="btn btn-info btn-sm" data-tip="Research">R</button> :
                 null
               }
             </div>

@@ -78,6 +78,8 @@ const upgrade = (() => {
       if (u.writeWords) { $('#wordsManualSection').fadeIn() }
       if (u.writeSentences) { $('#sentencesManualSection').fadeIn() }
       if (u.writePages) { $('#pagesManualSection').fadeIn() }
+      if (u.writeChapters) { $('#chaptersManualSection').fadeIn() }
+      if (u.writeBooks) { $('#booksManualSection').fadeIn() }
     },
 
     //
@@ -353,6 +355,34 @@ const upgrade = (() => {
       }
     },
 
+    choiceWords: () => {
+      setVar()
+      if (w.total >= 8050 && !u.choiceWords) {
+        $('#ChoiceWords').fadeOut()
+        getUpgrade('choiceWords')
+        subtractTotal('words', 8050)
+        setAvailUpgrades('words', '-')
+        setBonus('words', 'timer', 0.65)
+        calcGenerating('words')
+      } else if (w.total < 8050) {
+        upgradeError()
+      }
+    },
+
+    gobbeldyGook: () => {
+      setVar()
+      if (w.total >= 17000 && !u.gobbeldyGook) {
+        $('#GobbeldyGook').fadeOut()
+        getUpgrade('gobbeldyGook')
+        subtractTotal('words', 17000)
+        setAvailUpgrades('words', '-')
+        setBonus('words', 'multiplier', 2.0)
+        calcGenerating('words')
+      } else if (w.total < 17000) {
+        upgradeError()
+      }
+    },
+
     //
     // Sentence Upgrades
     //
@@ -486,6 +516,34 @@ const upgrade = (() => {
       }
     },
 
+    letterSpacing: () => {
+      setVar()
+      if (s.total >= 1900 && !u.letterSpacing) {
+        $('#LetterSpacing').fadeOut()
+        getUpgrade('letterSpacing')
+        subtractTotal('sentences', 1900)
+        setAvailUpgrades('sentences', '-')
+        setBonus('sentences', 'multiplier', 1.60)
+        calcGenerating('sentences')
+      } else if (s.total < 1900) {
+        upgradeError()
+      }
+    },
+
+    spinningSentences: () => {
+      setVar()
+      if (s.total >= 1600 && !u.spinningSentences) {
+        $('#SpinningSentences').fadeOut()
+        getUpgrade('spinningSentences')
+        subtractTotal('sentences', 1600)
+        setAvailUpgrades('sentences', '-')
+        setBonus('sentences', 'multiplier', 2.00)
+        calcGenerating('sentences')
+      } else if (s.total < 1600) {
+        upgradeError()
+      }
+    },
+
     //
     // Page Upgrades
     //
@@ -577,6 +635,34 @@ const upgrade = (() => {
       }
     },
 
+    hugeMargins: () => {
+      setVar()
+      if (p.total >= 1000 && !u.hugeMargins) {
+        $('#HugeMargins').fadeOut()
+        getUpgrade('hugeMargins')
+        subtractTotal('pages', 1000)
+        setAvailUpgrades('pages', '-')
+        setBonus('pages', 'multiplier', 1.25)
+        calcGenerating('pages')
+      } else if (p.total < 1000) {
+        upgradeError()
+      }
+    },
+
+    paragraphSpacing: () => {
+      setVar()
+      if (p.total >= 1200 && !u.paragraphSpacing) {
+        $('#ParagraphSpacing').fadeOut()
+        getUpgrade('paragraphSpacing')
+        subtractTotal('pages', 1200)
+        setAvailUpgrades('pages', '-')
+        setBonus('pages', 'timer', 0.70)
+        calcGenerating('pages')
+      } else if (p.total < 1200) {
+        upgradeError()
+      }
+    },
+
     //
     // Chapter Upgrades
     //
@@ -622,6 +708,36 @@ const upgrade = (() => {
         setBonus('letters', 'timer', 0.80)
         calcGenerating('all')
       } else if (c.total < 22) {
+        upgradeError()
+      }
+    },
+
+    chapterADay: () => {
+      setVar()
+      if (c.total >= 33 && !u.chapterADay) {
+        $('#ChapterADay').fadeOut()
+        getUpgrade('chapterADay')
+        subtractTotal('chapters', 33)
+        setAvailUpgrades('chapters', '-')
+        setBonus('pages', 'timer', 0.40)
+      } else if (c.total < 33) {
+        upgradeError()
+      }
+    },
+
+    //
+    // Book Upgrades
+    //
+
+    researcher: () => {
+      setVar()
+      if (c.total >= 3 && !u.researcher) {
+        $('#Researcher').fadeOut()
+        getUpgrade('researcher')
+        subtractTotal('books', 3)
+        setAvailUpgrades('books', '-')
+        $('#EncyclopediasMenu').fadeIn()
+      } else if (c.total < 300) {
         upgradeError()
       }
     },
