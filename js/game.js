@@ -13,7 +13,7 @@ export const units = ['letters', 'words', 'sentences',
 export let save
 const init = () => {
   save = {
-    ver: '0.6.1',
+    ver: '0.7.0',
     monkeys: { total: 0,
                 multiplier: 1.0,
                 cost: 1,
@@ -468,13 +468,11 @@ const loadGame = () => {
   if (localStorage.getItem('save') !== null) {
     const load = JSON.parse(localStorage.getItem('save'))
     // Version control system
-    /*
     if (load.ver <= '1.0.0' || load.ver === 'undefined') {
       localStorage.removeItem('save')
       init()
       return
     }
-    */
     save.ver = load.ver
     save.monkeys = load.monkeys
     save.letters = load.letters

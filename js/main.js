@@ -965,6 +965,8 @@ let ChangelogPanel = React.createClass({
             <ul>
               <li>You can now write books!</li>
               <li>There is an introductory tutorial that explains how to play the game.</li>
+              <li>Added 7 new upgrades.</li>
+              <li>Laid the groundwork for encyclopedias.</li>
             </ul>
             <h3>V0.6.1</h3>
             <ul>
