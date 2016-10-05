@@ -1,4 +1,4 @@
-import { save, calcGenerating, errorAlert, units } from './game.js'
+import { save, calcGenerating, errorAlert, units, researchRequirementsMet } from './game.js'
 
 const staff = { // Exp and Eff values for all levels of staff
   prestige1: { maxLevel: 4, maxExp: 150 },
@@ -130,8 +130,6 @@ const disengageStaff = (slot) => {
     $('#staff' + cv + slot)
       .removeClass('active btn-success')
       .addClass('btn-primary')
-    $('#staffprogress' + slot)
-      .removeClass('progress-bar-striped active')
   })
 
   // Set the unit to nothing
@@ -155,12 +153,14 @@ export const startStaffWriting = (unit, slot) => {
   $('#staff' + unit + slot)
     .removeClass('btn-primary')
     .addClass('active btn-success')
-
-  // Update the progress bar
-  $('#staffProgress' + slot)
-    .addClass('progress-bar-striped active')
 }
 
 export const startResearching = (slot) => {
-  console.log('research!')
+  if (researchRequirementsMet()) {
+    disengageStaff()
+    save.staff[slot].writing = 'research'
+    calcGenerating('all')
+  } else {
+    errorAlert('Insufficient Research Materials', 'Can you afford that?')
+  }
 }

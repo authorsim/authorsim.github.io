@@ -1,5 +1,5 @@
 import { save, calcGenerating, getUpgrade, setAvailUpgrades,
-  setBonus, subtractTotal, errorAlert } from './game.js'
+  setBonus, subtractTotal, errorAlert, setUniqueChance } from './game.js'
 
 const upgrade = (() => {
   // Create callback objects
@@ -14,6 +14,7 @@ const upgrade = (() => {
   let p
   let c
   let b
+  let e
   const setVar = () => {
     u = save.upgrades
     m = save.monkeys
@@ -23,6 +24,7 @@ const upgrade = (() => {
     p = save.pages
     c = save.chapters
     b = save.books
+    e = save.encyclopedias
   }
 
   const upgradeError = () => {
@@ -80,6 +82,7 @@ const upgrade = (() => {
       if (u.writePages) { $('#pagesManualSection').fadeIn() }
       if (u.writeChapters) { $('#chaptersManualSection').fadeIn() }
       if (u.writeBooks) { $('#booksManualSection').fadeIn() }
+      if (u.researcher) { $('#EncyclopediasMenu').fadeIn() }
     },
 
     //
@@ -235,6 +238,20 @@ const upgrade = (() => {
         setBonus('monkeys', 'multiplier', 1.33)
         calcGenerating('letters')
       } else if (l.total < 24000) {
+        upgradeError()
+      }
+    },
+
+    strangeLanguage: () => {
+      setVar()
+      if (l.total >= 50000 && !u.strangeLanguage) {
+        $('#StrangeLanguage').fadeOut()
+        getUpgrade('strangeLanguage')
+        subtractTotal('letters', 50000)
+        setAvailUpgrades('letters', '-')
+        setBonus('monkeys', 'multiplier', 1.50)
+        calcGenerating('letters')
+      } else if (l.total < 50000) {
         upgradeError()
       }
     },
@@ -725,19 +742,66 @@ const upgrade = (() => {
       }
     },
 
+    extraSpace: () => {
+      setVar()
+      if (c.total >= 66 && !u.extraSpace) {
+        $('#ExtraSpace').fadeOut()
+        getUpgrade('extraSpace')
+        subtractTotal('chapters', 66)
+        setAvailUpgrades('chapters', '-')
+        setBonus('chapters', 'multiplier', 1.30)
+      } else if (c.total < 66) {
+        upgradeError()
+      }
+    },
+
     //
     // Book Upgrades
     //
 
     researcher: () => {
       setVar()
-      if (c.total >= 3 && !u.researcher) {
+      if (e.total >= 3 && !u.researcher) {
         $('#Researcher').fadeOut()
         getUpgrade('researcher')
         subtractTotal('books', 3)
         setAvailUpgrades('books', '-')
         $('#EncyclopediasMenu').fadeIn()
-      } else if (c.total < 300) {
+        setResearchRequirements()
+      } else if (c.total < 3) {
+        upgradeError()
+      }
+    },
+
+    //
+    // Encyclopedia Learning Opportunities
+    //
+
+    monkeyMutation: () => {
+      setVar()
+      if (e.total >= 1 && !u.monkeyMutation) {
+        $('#MonkeyMutation').fadeOut()
+        getUpgrade('monkeyMutation')
+        subtractTotal('encyclopedias', 1)
+        setUniqueChance(0.004, 'set')
+      } else if (e.total < 1) {
+        upgradeError()
+      }
+    },
+
+    burdenOfKnowledge: () => {
+      setVar()
+      if (e.total >= 2 && !u.burdenOfKnowledge) {
+        $('#BurdenOfKnowledge').fadeOut()
+        getUpgrade('burdenOfKnowledge')
+        subtractTotal('encyclopedias', 2)
+        setBonus('books', 'cost', 1.50)
+        setBonus('chapters', 'cost', 1.50)
+        setBonus('pages', 'cost', 1.50)
+        setBonus('sentences', 'cost', 1.50)
+        setBonus('words', 'cost', 1.50)
+        setUniqueChance(3.00)
+      } else if (e.total < 2) {
         upgradeError()
       }
     },

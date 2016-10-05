@@ -155,6 +155,16 @@ const unlock = (function () {
     }
   }
 
+  const strangeLanguage = () => {
+    if (l['lifetime'] >= 140000 && m['total'] >= 128 && !u['strangeLanguage']) {
+      $('#StrangeLanguage').fadeIn()
+      setAvailUpgrades('letters', '+')
+      unlocks.remove(strangeLanguage)
+    } else if (u['strangeLanguage']) {
+      unlocks.remove(strangeLanguage)
+    }
+  }
+
   //
   // Word Unlocks
   //
@@ -510,12 +520,22 @@ const unlock = (function () {
   }
 
   const chapterADay = () => {
-    if (c['lifetime'] >= 43 && !u['chapterADay']) {
+    if (c['lifetime'] >= 33 && !u['chapterADay']) {
       $('#ChapterADay').fadeIn()
       setAvailUpgrades('chapters', '+')
       unlocks.remove(chapterADay)
     } else if (u['chapterADay']) {
       unlocks.remove(chapterADay)
+    }
+  }
+
+  const extraSpace = () => {
+    if (c['lifetime'] >= 78 && !u['extraSpace']) {
+      $('#ExtraSpace').fadeIn()
+      setAvailUpgrades('chapters', '+')
+      unlocks.remove(extraSpace)
+    } else if (u['extraSpace']) {
+      unlocks.remove(extraSpace)
     }
   }
 
@@ -530,6 +550,28 @@ const unlock = (function () {
       unlocks.remove(researcher)
     } else if (u['researcher']) {
       unlocks.remove(researcher)
+    }
+  }
+
+  //
+  // Encyclopedia Learning Opportunities
+  //
+
+  const monkeyMutation = () => {
+    if (u.researcher && !u.monkeyMutation) {
+      $('#MonkeyMutation').fadeIn()
+      unlocks.remove(monkeyMutation)
+    } else if (u.monkeyMutation) {
+      unlocks.remove(monkeyMutation)
+    }
+  }
+
+  const burdenOfKnowledge = () => {
+    if (u.monkeyMutation && !u.burdenOfKnowledge) {
+      $('#BurdenOfKnowledge').fadeIn()
+      unlocks.remove(burdenOfKnowledge)
+    } else if (u.burdenOfKnowledge) {
+      unlocks.remove(burdenOfKnowledge)
     }
   }
 
@@ -554,6 +596,7 @@ const unlock = (function () {
       unlocks.add(monkeyGlasses)
       unlocks.add(anotherFinger)
       unlocks.add(thirdArm)
+      unlocks.add(strangeLanguage)
 
       // Word Unlocks
       unlocks.add(seeSentences)
@@ -598,9 +641,14 @@ const unlock = (function () {
       unlocks.add(fasterChapters)
       unlocks.add(shareTheLove)
       unlocks.add(chapterADay)
+      unlocks.add(extraSpace)
 
       // Book Unlocks
       unlocks.add(researcher)
+
+      // Encyclopedia Unlocks
+      unlocks.add(monkeyMutation)
+      unlocks.add(burdenOfKnowledge)
 
       // Sets upgrade counting variables to 0
       l['availableUpgrades'] = 0

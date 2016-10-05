@@ -3,7 +3,7 @@ import {render} from 'react-dom'
 import Tooltip from 'react-tooltip'
 require('./bootstrap.min.js')
 import { save, startWriting, prettify, delSave } from './game.js'
-import { chooseSkill, startStaffWriting, staffGraduate, buyMonkey, hireStaff } from './staff.js'
+import { chooseSkill, startStaffWriting, staffGraduate, buyMonkey, hireStaff, startResearching } from './staff.js'
 import upgrade from './upgrades.js'
 import achieve from './achievements.js'
 import tutorial from './tutorials.js'
@@ -179,6 +179,9 @@ let UnitPanel = React.createClass({
             <EncyclopediaPanel
               unit={this.props.save.encyclopedias}
             />
+            <UniquePanel
+              save={this.props.save}
+            />
           </div>
         </div>
       </div>
@@ -283,9 +286,62 @@ let EncyclopediaPanel = React.createClass({
         <div className="row">
           <div className="col-sm-12">
             <h1>Learning Opportunities</h1>
+              <EncyclopediaPanelUpgradeItem
+                upgradeName="Monkey Mutation"
+                desc="Monkeys fully mutate. Have a chance of discovering unique letters when writing."
+                func={upgrade.monkeyMutation}
+                cost="1 Encyclopedias"
+              />
+              <EncyclopediaPanelUpgradeItem
+                upgradeName="Burden Of Knowledge"
+                desc="Every unit costs 50% more. Triples chance of discovering unique letters."
+                func={upgrade.burdenOfKnowledge}
+                cost="2 Encyclopedias"
+              />
           </div>
         </div>
       </div>
+    )
+  }
+})
+
+let UniquePanel = React.createClass({
+  render: function() {
+    return (
+      <div id="uniquePanel" role="tabpanel" className="tab-pane fade">
+        <div className="row">
+          <div className="col-sm-12">
+            <p>{this.props.save.letters.uniqueTotal}
+            {this.props.save.letters.unit}</p>
+            <p>{this.props.save.words.uniqueTotal}
+            {this.props.save.words.unit}</p>
+            <p>{this.props.save.sentences.uniqueTotal}
+            {this.props.save.sentences.unit}</p>
+            <p>{this.props.save.pages.uniqueTotal}
+            {this.props.save.pages.unit}</p>
+            <p>{this.props.save.chapters.uniqueTotal}
+            {this.props.save.chapters.unit}</p>
+            <p>{this.props.save.books.uniqueTotal}
+            {this.props.save.books.unit}</p>
+          </div>
+        </div>
+      </div>
+    )
+  }
+})
+
+let EncyclopediaPanelUpgradeItem = React.createClass({
+  render: function() {
+    return (
+      <button
+        id={this.props.upgradeName.replace(/\s+/g, '')}
+        className="btn btn-success btn-lg upgrade"
+        onClick={this.props.func}
+        data-tip={this.props.desc}
+      >
+        <p>{this.props.upgradeName}</p>
+        <small>Cost: {this.props.cost}</small>
+      </button>
     )
   }
 })
@@ -381,6 +437,12 @@ let UnitPanelLettersUpgrade = React.createClass({
           desc="Disturbing and efficient. Monkeys write 33% more letters."
           func={upgrade.thirdArm}
           cost="24,000 Letters"
+        />
+        <UnitPanelUpgradeItem
+          upgradeName="Strange Language"
+          desc="Sounds like a kind of moaning. No matter, monkeys write 50% more letters."
+          func={upgrade.strangeLanguage}
+          cost="50,000 Letters"
         />
       </div>
     )
@@ -609,6 +671,12 @@ let UnitPanelChaptersUpgrade = React.createClass({
           desc="Keeps the monkeys at bay. Write pages 60% faster."
           func={upgrade.chapterADay}
           cost="33 Chapters"
+        />
+        <UnitPanelUpgradeItem
+          upgradeName="Extra Space"
+          desc="End a chapter with a couple sentences and a TON of blank space! Write 30% more chapters."
+          func={upgrade.extraSpace}
+          cost="66 Chapters"
         />
       </div>
     )
@@ -845,7 +913,7 @@ let StaffSlot = React.createClass({
                 null
               }
               {this.props.staff.prestige >= 5 ?
-                <button onClick={this.startResearching.bind(null)} id={'staffseries' + this.props.slot} type="button" className="btn btn-info btn-sm" data-tip="Research">R</button> :
+                <button onClick={this.startResearching.bind(null)} id={'staffresearch' + this.props.slot} type="button" className="btn btn-info btn-sm" data-tip="Research">R</button> :
                 null
               }
             </div>

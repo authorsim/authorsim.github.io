@@ -29,6 +29,9 @@ const init = () => {
                 timer: 0.6,
                 progress: 0,
                 availableUpgrades: 0,
+                uniqueTotal: 0,
+                uniqueLifetime: 0,
+                uniqueChance: 0,
     },
     words: { unit: 'words',
                 total: 1000000,
@@ -41,6 +44,8 @@ const init = () => {
                 progress: 0,
                 availableUpgrades: 0,
                 cost: 6,
+                uniqueTotal: 0,
+                uniqueLifetime: 0,
     },
     sentences: { unit: 'sentences',
                 total: 1000000,
@@ -53,6 +58,8 @@ const init = () => {
                 progress: 0,
                 availableUpgrades: 0,
                 cost: 15,
+                uniqueTotal: 0,
+                uniqueLifetime: 0,
     },
     pages: { unit: 'pages',
                 total: 1000000,
@@ -65,18 +72,22 @@ const init = () => {
                 progress: 0,
                 availableUpgrades: 0,
                 cost: 17,
+                uniqueTotal: 0,
+                uniqueLifetime: 0,
     },
     chapters: { unit: 'chapters',
-                total: 0,
+                total: 1000000,
                 manual: false,
                 generating: 0,
                 using: 0,
                 multiplier: 1,
-                lifetime: 0,
+                lifetime: 1000000,
                 timer: 240,
                 progress: 0,
                 availableUpgrades: 0,
                 cost: 20,
+                uniqueTotal: 0,
+                uniqueLifetime: 0,
     },
     books: { unit: 'books',
                 total: 0,
@@ -89,6 +100,8 @@ const init = () => {
                 progress: 0,
                 availableUpgrades: 0,
                 cost: 25,
+                uniqueTotal: 0,
+                uniqueLifetime: 0,
     },
     encyclopedias: { unit: 'encyclopedias',
                 total: 0,
@@ -164,6 +177,10 @@ const init = () => {
                 letterSpacing: false,
                 spinningSentences: false,
                 paragraphSpacing: false,
+                extraSpace: false,
+                monkeyMutation: false,
+                burdenOfKnowledge: false,
+                strangeLanguage: false,
     },
     achievements: { findPongo: false,
     },
@@ -190,6 +207,14 @@ const setGenerating = (unit, value) => {
 
 const setUsing = (unit, value) => {
   save[unit].using = value
+}
+
+export const setUniqueChance = (chance, set) => {
+  if (typeof set === 'undefined') {
+    save.letters.uniqueChance *= chance
+  } else if (set === 'set') {
+    save.letters.uniqueChance = chance
+  }
 }
 
 export const setAvailUpgrades = (unit, operator) => {
@@ -339,6 +364,32 @@ export const prettify = (n, d) => {
 }
 
 //
+// Research Functions
+//
+
+export const researchRequirementsMet = () => {
+  const req = save.encyclopedias.requirements
+  if (save[req.first.unit].total >= req.first.cost &&
+      save[req.second.unit].total >= req.second.cost &&
+      save[req.third.unit].total >= req.third.cost) {
+    return true
+  }
+  return false
+}
+
+export const setResearchRequirements = () => {
+  const req = save.encyclopedias.requirements
+  // Set requirements in three tiers to be one of two options
+  req.first.unit = Math.random() < 0.5 ? 'letters' : 'words'
+  req.second.unit = Math.random() < 0.5 ? 'sentences' : 'pages'
+  req.third.unit = Math.random() < 0.5 ? 'chapters' : 'books'
+  // For each tier, set a random number of units you need
+  req.first.cost = Math.floor(Math.random() * (400000 - 200000 + 1)) + 200000
+  req.second.cost = Math.floor(Math.random() * (400 - 200 + 1)) + 200
+  req.third.cost = Math.floor(Math.random() * (4 - 2 + 1)) + 2
+}
+
+//
 // Loop Functions
 //
 
@@ -365,6 +416,10 @@ const writing = (num) => { // Manual writing
         // Increment unit and reset progress
         curr['total'] += 1 * curr['multiplier']
         curr['lifetime'] += 1
+        if (Math.random() < curr.uniqueChance) {
+          curr.uniqueTotal += 1
+          curr.uniqueLifetime += 1
+        }
         curr['progress'] -= 100
       }
     } else if (curr['cost'] <= save[pv]['total'] && save[cv] === curr) {
@@ -386,6 +441,19 @@ const staffWriting = (num) => {
   for (let i = 1; i < 10; i++) { // Loops through all the staff slots
     const s = save['staff']['s' + i]
     if (s && s['writing'] !== 'none') { // Checks if staff member exists and is writing
+      if (s['writing'] === 'research' && researchRequirementsMet()) {
+        s['progress'] += 100 / (1800 / s['speed'] * 2) / (1000 / interval) * num
+        while (s['progress'] >= 100) {
+          const req = save.encyclopedias.requirements
+          save.encyclopedias.total += 1
+          save.encyclopedias.lifetime += 1
+          save[req.first.unit].total -= req.first.cost
+          save[req.second.unit].total -= req.second.cost
+          save[req.third.unit].total -= req.third.cost
+          s.progress -= 100
+          setResearchRequirements()
+        }
+      }
       for (let j = 0; j < units.length; j++) { // Loops all the units in the specified slot
         if (units[j] === s['writing']) {
           const unit = save[units[j]]
@@ -468,11 +536,13 @@ const loadGame = () => {
   if (localStorage.getItem('save') !== null) {
     const load = JSON.parse(localStorage.getItem('save'))
     // Version control system
+    /*
     if (load.ver <= '1.0.0' || load.ver === 'undefined') {
       localStorage.removeItem('save')
       init()
       return
     }
+    */
     save.ver = load.ver
     save.monkeys = load.monkeys
     save.letters = load.letters
