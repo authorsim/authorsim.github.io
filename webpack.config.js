@@ -2,7 +2,7 @@ const webpack = require('webpack')
 
 module.exports = {
   entry: {
-    main: ['./js/main.js'],
+    main: ['./assets/js/main.js'],
   },
   output: {
     path: './build/js',

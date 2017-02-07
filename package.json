@@ -4,7 +4,7 @@
   "description": "An incremental game.",
   "main": "index.html",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "webpack-dev-server --inline --hot"
   },
   "repository": {
     "type": "git",
@@ -27,9 +27,12 @@
     "jquery": "^2.2.4",
     "react": "^15.3.0",
     "react-dragula": "^1.1.16",
-    "react-tooltip": "^3.1.5"
+    "react-tooltip": "^3.1.5",
+    "webpack": "^1.14.0"
   },
   "dependencies": {
-    "dragula": "^3.7.1"
+    "dragula": "^3.7.1",
+    "webpack": "^1.14.0",
+    "webpack-dev-server": "^1.16.2"
   }
 }
